@@ -1,0 +1,310 @@
+/*
+ * Author:      Daan Keuper
+ * Date:        15 June 2006
+ * Version:     1.0
+ * Description: stylesheet for bugsbuddy
+ */
+
+body {
+	margin: 0px;
+	padding: 0px;
+	font: 10px verdana, tahoma, arial, serif;
+	color: #000000;
+	background: url('../images/background.gif') repeat-y;
+	background-position: center;
+	background-color: #dfdfdf;
+	text-align: center;
+}
+
+a, img {
+	border: 0px;
+}
+
+form {
+	margin: 5px 0px;
+}
+
+input {
+	border: 1px solid;
+	border-color: #c4c4c4;
+	font: 10px verdana, tahoma, arial, serif;
+}
+
+textarea {
+	border: 1px solid;
+	border-color: #c4c4c4;
+	font: 10px verdana, tahoma, arial, serif;
+}
+
+select {
+	border: 1px solid;
+	border-color: #c4c4c4;
+	font: 10px verdana, tahoma, arial, serif;
+}
+
+h1 {
+	font: 16px arial, verdana, tahoma, serif;
+	color: #5d5d5d;
+	background-color: #ffffff;
+	font-weight: 900;
+}
+
+h2 {
+	font: 14px arial, verdana, tahoma, serif;
+	color: #5d5d5d;
+	font-weight: 900;
+	background-color: #ffffff;
+}
+
+h3 {
+	font: 12px arial, verdana, tahoma, serif;
+	color: #5d5d5d;
+	font-weight: 900;
+	background-color: #ffffff;
+}
+
+table {
+	margin: 5px 10px 0px 10px;
+	border: 0px;
+	font: 10px verdana, tahoma, arial, serif;
+}
+
+th {
+	padding: 3px;
+	color: #000000;
+	background-color: #cfcfcf;
+}
+
+td {
+	padding: 3px;
+}
+
+a:link {
+	color: #0000ff;
+	font-weight: normal;
+	text-decoration: underline;
+	background-color: inherit;
+}
+
+a:active {
+	color: #0000ff;
+	font-weight: normal;
+	text-decoration: underline;
+	background-color: inherit;
+}
+
+a:visited {
+	color: #0000ff;
+	font-weight: normal;
+	text-decoration: underline;
+	background-color: inherit;
+}
+
+a:hover {
+	color: #0000ff;
+	font-weight: normal;
+	text-decoration: none;
+	background-color: inherit;
+}
+
+#container {
+	width: 750px;
+	margin: 0px auto 0px auto;
+	padding: 0px;
+	text-align: left;
+}
+
+#header {
+	float: left;
+	width: 730px;
+	height: 40px;
+	padding: 5px 10px;
+}
+
+#balk {
+	clear: both;
+	float: left;
+	width: 750px;
+	padding: 2px 0px;
+	text-align: center;
+	color: #ffffff;
+	background-color: #377dec;
+	
+}
+
+#login {
+	float: right;
+	width: 300px;
+	padding: 5px 10px;
+	text-align: right;
+}
+
+#goback {
+	float: left;
+	width: 300px;
+	height: 20px;
+	padding: 5px 10px;
+}
+
+#content {
+	clear: both;
+	float: left;
+	width: 730px;
+	padding: 10px;
+}
+
+#footer {
+	clear: both;
+	float: left;
+	width: 730px;
+	padding: 5px 10px;
+	text-align: right;
+	background: url('../images/footer.gif') repeat-x;
+}
+
+.nomargin {
+	margin: 0px;
+	padding: 0px;
+}
+
+.gray {
+	color: #000000;
+	background-color: #dfdfdf;
+}
+
+.lightgray {
+	color: #000000;
+	background-color: #f0f0f0;
+}
+
+.m:link {
+	color: #ffffff;
+	font-weight: bold;
+	text-decoration: none;
+	background-color: inherit;
+}
+
+.right {
+	text-align: right;
+}
+
+.center {
+	text-align: center;
+}
+
+.m:active {
+	color: #ffffff;
+	font-weight: bold;
+	text-decoration: none;
+	background-color: inherit;
+}
+
+.m:visited {
+	color: #ffffff;
+	font-weight: bold;
+	text-decoration: none;
+	background-color: inherit;
+}
+
+.m:hover {
+	color: #ffffff;
+	font-weight: bold;
+	text-decoration: none;
+	background-color: inherit;
+}
+
+.inactive:link {
+	color: #CC0000;
+	text-decoration: underline;
+	background-color: inherit;
+}
+
+.inactive:active {
+	color: #CC0000;
+	text-decoration: underline;
+	background-color: inherit;
+}
+
+.inactive:visited {
+	color: #CC0000;
+	text-decoration: underline;
+	background-color: inherit;
+}
+
+.inactive:hover {
+	color: #CC0000;
+	text-decoration: none;
+	background-color: inherit;
+}
+
+.registerlabel{
+	position:relative;
+	padding: 3px;
+	width: 100px;
+	color: #000000;
+	float: left;
+	background-color: inherit;
+}
+	
+.registerinput{
+	position:relative;
+	padding: 2px;
+}
+
+.pwdText {
+	position:relative;
+	padding: 3px;
+	color: #000000;
+	background-color: inherit;
+	float: left;
+}
+
+.pwdStrength {
+	padding: 0px;
+	width: 100px; 
+	height: 10px;
+	border: 1px solid;
+	color: #000000;
+	border-color: #000000;
+    background-color: red;
+}
+
+.pwdBeamGreen {
+	width: 0px; 
+	height: 10px;
+	color: #000000;
+	background-color: green;
+}
+
+.forgotpasswordlabel{
+	position:relative;
+	padding: 3px;
+	width: 100px;
+	color: #000000;
+	background-color: inherit;
+	float: left;
+}
+	
+.forgotpasswordinput{
+	position:relative;
+	padding: 2px;
+}
+
+.noborder {
+	border: 0px;
+}
+
+.red {
+	color: #ff0000 ! important;
+	background-color: #ffffff;
+}
+
+.error {
+	color: #ff0000;
+	background-color: #ffffff;
+}
+
+.graytext {
+	color: #999999;
+	background-color: #ffffff;
+}
