@@ -7,7 +7,7 @@
  */
 
 function getpagenotfound() {
-	$content = '<p>Sorry deze pagina bestaat niet!</p>';
-	return $content;
+  $content = '<p>Sorry deze pagina bestaat niet!</p>';
+  return $content;
 }
 ?>
