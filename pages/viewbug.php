@@ -4,9 +4,7 @@
   If somebody wants to view a bug
 */
 
-require_once('includes/htmlsafe.php');
-require_once('includes/Database.php');
-require_once('includes/helperfunctions.php');
+//require_once('includes/helperfunctions.php');
 
 function getviewbug() {
   $returnValue = "<h1>Bug informatie</h1>";

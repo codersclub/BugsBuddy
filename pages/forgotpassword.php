@@ -4,9 +4,7 @@
   If a user forgot his password (mail him a new one)
 */
 
-require_once('includes/Database.php');
-require_once('includes/htmlsafe.php');
-require_once('includes/Mail.php');
+require_once(ROOT_DIR.'/includes/Mail.php');
 
 function getforgotpassword() {
   if (isset($_GET) && isset($_GET['mail'])) {

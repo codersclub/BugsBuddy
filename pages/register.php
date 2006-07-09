@@ -4,10 +4,7 @@
   Register Page...
 */
 
-require_once('includes/htmlsafe.php');
-require_once('includes/Mail.php');
-require_once('includes/Database.php');
-require_once('includes/helperfunctions.php');
+//require_once('includes/Mail.php');
 
 function getregister() {
   if (isset($_POST) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['mail'])) {

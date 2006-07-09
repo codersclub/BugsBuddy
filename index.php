@@ -1,14 +1,11 @@
 <?php
 if (file_exists('./install/')) {
-  die('Verwijder eerst de installatie map.</p>');
+  die( lang('install_remove') );
 }
 
 session_start();
 
-require_once('config.php');
 require_once('includes/helperfunctions.php');
-require_once('includes/Database.php');
-include('includes/htmlsafe.php');
 
 /*
  * Get the allowed pages and config
@@ -131,6 +128,7 @@ if ($_GET['js'] == "no" && isset($_POST) && isset($_POST['email']) && isset($_PO
     setcookie('AUTOLOGIN', '', time()+60*60*24); // expire in 30 days
   }
 }
+
 /*
  * Handle logout before any other output is generated on non-AJAX pages
  */
@@ -146,7 +144,9 @@ if (isset($_GET['js']) && $_GET['js'] == "no" && isset($_GET['page']) && $_GET['
 if (isLoggedIn() && isset($_POST['changepassword']) && isValidPassword(htmlUnsafe($_POST['changepassword']))) {
   require_once('pages/logout.php');
   Database::updateUserPassword(getCurrentUserId(), htmlUnsafe($_POST['changepassword']));
+
   define('PASSWORD_CHANGED', true);
+
   $_GET['page'] = 'changepassword';
   $_POST['page'] = 'changepassword';
   logout();
@@ -162,7 +162,6 @@ if (isLoggedIn() && isset($_POST['changepassword']) && isValidPassword(htmlUnsaf
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
 <html>
   <head>
     <title>BugsBuddy</title>
@@ -378,7 +377,9 @@ if ($_GET["js"] == "yes") {
       </div>
       <div id="login">
 <?php
+
 require_once('pages/login.php');
+
 if (defined('LOGIN_FAILED') && LOGIN_FAILED) {
   echo getWrongLoginHtml();
 } else {

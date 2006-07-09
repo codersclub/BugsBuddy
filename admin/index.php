@@ -1,20 +1,18 @@
 <?php
 
-  session_start();
+session_start();
 
-  chdir('../');
-  include('./includes/htmlsafe.php');
-  require_once('./includes/helperfunctions.php');
-  require_once('./includes/Database.php');
-  
-  
-  $userGroup = getCurrentGroupId();
-  $permissionsResults = Database::getPermissions(intval($userGroup));
-  $permissions = Array();
-  foreach($permissionsResults as $permissionsResult) {
-    $permissions[$permissionsResult['setting']] = $permissionsResult['value'];
-  }
-  if (!isset($permissions['mayview_admin']) || $permissions['mayview_admin'] != 'true') {
+chdir('../');
+
+require_once('includes/helperfunctions.php');
+
+$userGroup = getCurrentGroupId();
+$permissionsResults = Database::getPermissions(intval($userGroup));
+$permissions = Array();
+foreach($permissionsResults as $permissionsResult) {
+  $permissions[$permissionsResult['setting']] = $permissionsResult['value'];
+}
+if (!isset($permissions['mayview_admin']) || $permissions['mayview_admin'] != 'true') {
 
 ?>
 

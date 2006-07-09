@@ -1,6 +1,6 @@
 <?php
 
-require_once('includes/helperfunctions.php');
+//require_once('includes/helperfunctions.php');
 
 class Mail {
 

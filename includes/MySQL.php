@@ -6,7 +6,7 @@
   No file but 'Database.php' should have an 'require' to this file
 */
 
-require_once('config.php');
+//require_once('config.php');
 
 $MySQLInstance = null;
 

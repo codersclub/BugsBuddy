@@ -6,8 +6,7 @@
  * Description: the home page
  */
 
-require_once('./includes/Database.php');
-require_once('./includes/helperfunctions.php');
+//require_once('./includes/helperfunctions.php');
 
 function gethome() {
   $returnValue = '<h1>Laatste 10 bugs</h1>';

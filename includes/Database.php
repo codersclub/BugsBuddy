@@ -6,8 +6,8 @@
  * Description: the database class with all the query's for BugsBuddy
  */
 
-require_once('./includes/MySQL.php');
-require_once('./includes/helperfunctions.php');
+//require_once('./includes/helperfunctions.php');
+require_once(ROOT_DIR.'/includes/MySQL.php');
 
 class Database {
   function install($name, $email, $password) {

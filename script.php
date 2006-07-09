@@ -2,10 +2,7 @@
 
 session_start();
 
-require_once('config.php');
 require_once('includes/helperfunctions.php');
-require_once('includes/Database.php');
-require_once('includes/htmlsafe.php');
 
 if (!isset($_GET["page"])) {
   $_GET["page"] = "home";

@@ -1,8 +1,6 @@
 <?php
 
-require_once('includes/Database.php');
-require_once('includes/htmlsafe.php');
-require_once('includes/helperfunctions.php');
+//require_once('includes/helperfunctions.php');
 
 function getlogin() {
   if (isset($_POST) && isset($_POST['email']) && isset($_POST['pass'])) {

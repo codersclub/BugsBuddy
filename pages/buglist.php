@@ -1,7 +1,6 @@
 <?php
 
-require_once('./includes/Database.php');
-require_once('./includes/helperfunctions.php');
+//require_once('./includes/helperfunctions.php');
 
 function getbuglist() {
   $maximum = 16;

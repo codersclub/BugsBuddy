@@ -4,7 +4,7 @@
   Let a user change his password
 */
 
-require_once('includes/helperfunctions.php');
+//require_once('includes/helperfunctions.php');
 
 function getchangepassword() {
   if (defined('PASSWORD_CHANGED')) {
