@@ -1,16 +1,6 @@
-<?
-//----------------------------------------
-function lang($key='',$values=array()) {
-  global $lang;
+<?php
 
-  if(count($values)) {
-    return (isset($lang[$key])) ? sprintf($lang[$key],$values) : '{'.$key.'}';
-  } else {
-    return (isset($lang[$key])) ? $lang[$key] : '{'.$key.'}';
-  }
-
-}
-
+global $lang;
 
 $lang = array(
 

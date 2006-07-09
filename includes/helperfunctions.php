@@ -40,6 +40,18 @@ function u($file = '') {
   return $dir;
 }
 
+//----------------------------------------
+function lang($key='',$values=array()) {
+  global $lang;
+
+  if(count($values)) {
+    return (isset($lang[$key])) ? sprintf($lang[$key],$values) : '{'.$key.'}';
+  } else {
+    return (isset($lang[$key])) ? $lang[$key] : '{'.$key.'}';
+  }
+}
+
+//------------------------------------
 function getLinksHtml() {
   global $pages;
   $returnValue = '        ';
@@ -56,6 +68,7 @@ function getLinksHtml() {
 //      pageLink('download', 'DOWNLOAD', 'm') . ''.
         '';
     $userGroup = getCurrentGroupId();
+
     $permissionsResults = Database::getPermissions(intval($userGroup));
     $permissions = Array();
     foreach($permissionsResults as $permissionsResult) {
@@ -67,13 +80,16 @@ function getLinksHtml() {
     }
 
   } else {
+
     $returnValue .= ''.
       pageLink('home', 'HOME', 'm') . '&nbsp;&nbsp;&nbsp;&nbsp;'.
       pageLink('buglist', 'BUGLIJST', 'm') . ''.
 //      pageLink('download', 'DOWNLOAD', 'm') . ''.
       '';
   }
+
   $returnValue .= "\n";
+
   return $returnValue;
 }
 
@@ -97,18 +113,18 @@ function isAllowedPage($pageName) {
   }
   return false;
 }
-  
+
 function convertHtmlCodeToJavaScriptString($htmlCode) {
   $htmlCode = str_replace("\n", '\n', $htmlCode);
   return addslashes($htmlCode);
 }
-  
+
 function getCurrentRequestUrl() {
   $currentUrl = $_SERVER['PHP_SELF'];
   if (isset($_SERVER["QUERY_STRING"]) && $_SERVER["QUERY_STRING"] !="") $currentUrl .= "?" . $_SERVER["QUERY_STRING"];
   return htmlspecialchars($currentUrl, ENT_QUOTES);
 }
-  
+
 function isLoggedIn() {
   if (isset($_SESSION) && isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]==true) {
     return true;
