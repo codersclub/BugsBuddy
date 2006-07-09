@@ -1,11 +1,11 @@
 <?php
-if (file_exists('./install/')) {
-  die( lang('install_remove') );
-}
-
 session_start();
 
 require_once('includes/helperfunctions.php');
+
+if (file_exists('./install/')) {
+  die( lang('install_remove') );
+}
 
 /*
  * Get the allowed pages and config
