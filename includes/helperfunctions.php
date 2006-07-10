@@ -15,19 +15,18 @@ $url = u($_SERVER['PHP_SELF']).'/';
 define('ROOT_URL', $url);
 
 //DEBUG
-//echo $_SERVER['PHP_SELF']."<br>\n";
-//echo $_SERVER['SCRIPT_NAME']."<br>\n";;
-
-echo "<pre>";
-echo '__FILE__=', __FILE__, "<br>\n";
-echo "dir=".$dir."<br>\n";
+//echo "<pre>";
+//echo '__FILE__=', __FILE__, "<br>\n";
+//echo "dir=".$dir."<br>\n";
 //echo "url=".$url."<br>\n";
 //print_r($conf);
 //print_r($_SERVER);
-echo "</pre>\n";
+//echo $_SERVER['PHP_SELF']."<br>\n";
+//echo $_SERVER['SCRIPT_NAME']."<br>\n";;
+//echo "</pre>\n";
 
 require_once(ROOT_DIR."/includes/config.php");
-  
+
 require_once(ROOT_DIR.'/lang/'.LANG.'.php');
 require_once(ROOT_DIR.'/includes/Database.php');
 include(ROOT_DIR.'/includes/htmlsafe.php');
