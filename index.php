@@ -10,8 +10,11 @@ if (file_exists('./install/')) {
 /*
  * Get the allowed pages and config
  */
+
 $pages = Database::getPages();
+
 $config = Database::getConfig();
+
 if ($pages == null || $config == null) {
   // We where unable to get the pages from the database, something is seriously wrong with the database
   $_GET['page'] = 'errorpage';
@@ -119,10 +122,12 @@ if (isset($_COOKIE['AUTOLOGIN'])) {
 }
 
 /*
- * If the user tries to login on the non-AJAX, set the session before initial page output
+ * If the user tries to login on the non-AJAX,
+ * set the session before initial page output
  */
 if ($_GET['js'] == "no" && isset($_POST) && isset($_POST['email']) && isset($_POST['pass'])) {
   require_once('pages/login.php');
+
   if (!setLoginSession(htmlUnsafe($_POST['email']), htmlUnsafe($_POST['pass']), ((isset($_POST['stay'])&&$_POST['stay']=='on')?true:false), ((isset($_POST['ip'])&&$_POST['ip']=='on')?true:false))) {
     define('LOGIN_FAILED', true);
     setcookie('AUTOLOGIN', '', time()+60*60*24); // expire in 30 days
@@ -165,7 +170,7 @@ if (isLoggedIn() && isset($_POST['changepassword']) && isValidPassword(htmlUnsaf
 <html>
   <head>
     <title>BugsBuddy</title>
-    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=<?=CHARSET;?>" />
     <link href="style/default.css" rel="stylesheet" type="text/css"/>
 <?php
 if ($_GET["js"] == "yes") {
