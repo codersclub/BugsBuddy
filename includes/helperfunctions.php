@@ -6,7 +6,7 @@
 
 //--------------------------------------------------------
 // Absolute path from DISK ROOT (With ending slash !)
-$dir = u(dirname(dirname(__FILE__));
+$dir = u(dirname(dirname(__FILE__)));
 define('ROOT_DIR', $dir);
 
 //--------------------------------------------------------
@@ -18,12 +18,13 @@ define('ROOT_URL', $url);
 //echo $_SERVER['PHP_SELF']."<br>\n";
 //echo $_SERVER['SCRIPT_NAME']."<br>\n";;
 
-//echo "<pre>";
-//echo "dir=".$dir."<br>\n";
+echo "<pre>";
+echo '__FILE__=', __FILE__, "<br>\n";
+echo "dir=".$dir."<br>\n";
 //echo "url=".$url."<br>\n";
 //print_r($conf);
 //print_r($_SERVER);
-//echo "</pre>\n";
+echo "</pre>\n";
 
 require_once(ROOT_DIR."/includes/config.php");
   
@@ -34,10 +35,9 @@ include(ROOT_DIR.'/includes/htmlsafe.php');
 //----------------------------------------------
 //vot: Unix Style Dir Name
 function u($file = '') {
-  $dir = dirname($file);
-  $dir = preg_replace("/^\w:/",'',$dir);
-  $dir = str_replace('\\','/',$dir);
-  return $dir;
+  $file = preg_replace("/^\w:/",'',$file);
+  $file = str_replace('\\','/',$file);
+  return $file;
 }
 
 //----------------------------------------
