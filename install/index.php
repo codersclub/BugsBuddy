@@ -9,7 +9,7 @@
 chdir('../');
 
 function isValidPassword2($password) {
-  if(strlen($password) >= 6) {
+  if(strlen($password) >= 5) {
     return true;
   } else {
     return false;
@@ -27,47 +27,47 @@ $install_complete = false;
 if (!empty($_POST)) {
   if (!empty($_POST['dserver']) && !empty($_POST['dhost']) && !empty($_POST['ddatabase']) && !empty($_POST['dusername']) && !empty($_POST['dpassword'])) {
     if (!empty($_POST['aname']) && !empty($_POST['aemail']) && !empty($_POST['apassword']) && !empty($_POST['apassword2'])) {
-        if ($_POST['apassword'] == $_POST['apassword2']) {
-          if (eregi('^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})$', $_POST['aemail'])) {
-            if (isValidPassword2($_POST['apassword'])) {
-              if (!file_exists('./config.php')) {
-                $data = "<?php\n
+      if ($_POST['apassword'] == $_POST['apassword2']) {
+        if (eregi('^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})$', $_POST['aemail'])) {
+          if (isValidPassword2($_POST['apassword'])) {
+            if (!file_exists('./config.php')) {
+              $data = "<?php\n
                     // Automatic generated configuration file\n
-                     define('DATABASE_TYPE',          '$_POST[dserver]');\n
+                    define('DATABASE_TYPE',          '$_POST[dserver]');\n
                     define('DATABASE_SERVER',        '$_POST[dhost]');\n
                     define('DATABASE_USER_NAME',     '$_POST[dusername]');\n
                     define('DATABASE_USER_PASSWORD', '$_POST[dpassword]');\n
                     define('DATABASE_DATABASENAME' , '$_POST[ddatabase]');\n
                     ?>\n";  
-                $file = './config.php'; 
+              $file = './config.php'; 
 
-                if ($file_handle = fopen($file, 'a')) {
-                  if (fwrite($file_handle, $data)) {
-                    require_once('./includes/Database.php');
+              if ($file_handle = fopen($file, 'a')) {
+                if (fwrite($file_handle, $data)) {
+//                require_once(ROOT_DIR.'/includes/Database.php');
                     
-                    if (Database::install($_POST['aname'], $_POST['aemail'], passwordHash2($_POST['apassword']))) {
-                      $install_complete = true;
-                    }
-                  } else {
-                    $msg = 'Kan niet naar het configuratie bestand worden geschreven.';
+                  if (Database::install($_POST['aname'], $_POST['aemail'], passwordHash2($_POST['apassword']))) {
+                    $install_complete = true;
                   }
                 } else {
-                  $msg = 'Configuratie bestand kan niet gemaakt worden.';
+                  $msg = 'Kan niet naar het configuratie bestand worden geschreven.';
                 }
-                
-                fclose($file_handle);
               } else {
-                $msg = 'Configuratie bestand bestaat al, gooi config.php weg in de root van BugsBuddy.';
+                $msg = 'Configuratie bestand kan niet gemaakt worden.';
               }
+              
+              fclose($file_handle);
             } else {
-              $msg2 = 'Wachtwoord dient uit minimaal 6 tekens te bestaan.';
+              $msg = 'Configuratie bestand bestaat al, gooi config.php weg in de root van BugsBuddy.';
             }
           } else {
-            $msg2 = 'Email adres is niet correct.';
+            $msg2 = 'Wachtwoord dient uit minimaal 5 tekens te bestaan.';
           }
         } else {
-          $msg2 = 'Wachtwoorden komen niet overeen.';
+          $msg2 = 'Email adres is niet correct.';
         }
+      } else {
+        $msg2 = 'Wachtwoorden komen niet overeen.';
+      }
     } else {
       $msg2 = 'U heeft niet alles ingevuld';
     }
@@ -76,9 +76,7 @@ if (!empty($_POST)) {
   }
 }
 ?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
 <html>
 <head>
   <title>BugsBuddy installatie</title>
@@ -96,7 +94,7 @@ if (!empty($_POST)) {
     <div id="content">
       <h1>BugsBuddy installatie</h1>
       
-      <?php
+<?php
       if (!empty($msg)) {
         echo '<p><span class="error">' . $msg . '</span></p>';
       }
@@ -104,7 +102,7 @@ if (!empty($_POST)) {
       if ($install_complete) {
         echo '<p>Installatie voltooid! Klik <a href="../index.php">hier</a> om naar de begin pagina te gaan.</p>';
       } else {
-      ?>
+?>
 
       <form action="./index.php" method="post">
         <p>
@@ -149,11 +147,11 @@ if (!empty($_POST)) {
           
           <h3>Administrator instellingen</h3>
           
-          <?php
+<?php
           if (!empty($msg2)) {
             echo '<p><span class="error">' . $msg2 . '</span></p>';
           }
-          ?>
+?>
 
           <div class="registerlabel">
             <label for="aname">Naam:</label>
@@ -191,9 +189,9 @@ if (!empty($_POST)) {
           </div>
         </p>
       </form>
-      <?php
+<?php
       }
-      ?>
+?>
     </div>
 
     <div id="footer">
