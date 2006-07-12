@@ -6,6 +6,9 @@
  * Description: installation page of bugsbuddy
  */
 
+error_reporting(E_ALL);
+require_once('../includes/helperfunctions.php');
+
 chdir('../');
 
 function isValidPassword2($password) {
@@ -25,7 +28,7 @@ $msg2 = '';
 $install_complete = false;
 
 if (!empty($_POST)) {
-  if (!empty($_POST['dserver']) && !empty($_POST['dhost']) && !empty($_POST['ddatabase']) && !empty($_POST['dusername']) && !empty($_POST['dpassword'])) {
+  if (!empty($_POST['dserver']) && !empty($_POST['dhost']) && !empty($_POST['ddatabase']) && !empty($_POST['dusername']) /*&& !empty($_POST['dpassword'])*/) {
     if (!empty($_POST['aname']) && !empty($_POST['aemail']) && !empty($_POST['apassword']) && !empty($_POST['apassword2'])) {
       if ($_POST['apassword'] == $_POST['apassword2']) {
         if (eregi('^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})$', $_POST['aemail'])) {
@@ -43,7 +46,6 @@ if (!empty($_POST)) {
 
               if ($file_handle = fopen($file, 'a')) {
                 if (fwrite($file_handle, $data)) {
-//                require_once(ROOT_DIR.'/includes/Database.php');
                     
                   if (Database::install($_POST['aname'], $_POST['aemail'], passwordHash2($_POST['apassword']))) {
                     $install_complete = true;
@@ -79,7 +81,7 @@ if (!empty($_POST)) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
-  <title>BugsBuddy installatie</title>
+  <title><?=lang('bugsbuddy_install')?></title>
   <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
   <link href="./style.css" rel="stylesheet" type="text/css">
 </head>
@@ -92,7 +94,7 @@ if (!empty($_POST)) {
     <div id="balk"></div>
 
     <div id="content">
-      <h1>BugsBuddy installatie</h1>
+      <h1><?=lang('bugsbuddy_install')?></h1>
       
 <?php
       if (!empty($msg)) {

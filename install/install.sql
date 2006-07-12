@@ -61,7 +61,7 @@ CREATE TABLE `bugpriority` (
 -- Dumping data for table `bugpriority`
 -- 
 
-INSERT INTO `bugpriority` (`id`, `name`) VALUES (1, 'Onbeoordeeld');
+INSERT INTO `bugpriority` (`id`, `name`) VALUES (1, 'default');
 
 -- --------------------------------------------------------
 
@@ -105,7 +105,7 @@ CREATE TABLE `bugstatus` (
 -- Dumping data for table `bugstatus`
 -- 
 
-INSERT INTO `bugstatus` (`id`, `name`) VALUES (1, 'Onbeoordeeld');
+INSERT INTO `bugstatus` (`id`, `name`) VALUES (1, 'default');
 
 -- --------------------------------------------------------
 
@@ -195,7 +195,8 @@ CREATE TABLE `permissions` (
 -- Dumping data for table `permissions`
 -- 
 
-INSERT INTO `permissions` (`id`, `level_id`, `setting`, `value`, `description`) VALUES (1, 3, 'mayview_admin', 'true', 'Deze gebruikersgroep mag de admin pagina''s bekijken'),
+INSERT INTO `permissions` (`id`, `level_id`, `setting`, `value`, `description`) VALUES
+(1, 3, 'mayview_admin', 'true', 'Deze gebruikersgroep mag de admin pagina''s bekijken'),
 (2, 3, 'mayview_admin_bbtags', 'true', 'Deze gebruikersgroep mag de admin-pagina "BBTags" bekijken'),
 (3, 3, 'mayview_admin_bugpriority', 'true', 'Deze gebruikersgroep mag de admin-pagina "BugPriority" bekijken'),
 (4, 3, 'mayview_admin_bugstatus', 'true', 'Deze gebruikersgroep mag de admin-pagina "BugStatus" bekijken'),
@@ -243,8 +244,9 @@ CREATE TABLE `projectstatus` (
 -- Dumping data for table `projectstatus`
 -- 
 
-INSERT INTO `projectstatus` (`id`, `name`) VALUES (1, 'Publiek'),
-(2, 'Ontzichtbaar');
+INSERT INTO `projectstatus` (`id`, `name`) VALUES
+(1, 'public'),
+(2, 'private');
 
 -- --------------------------------------------------------
 
