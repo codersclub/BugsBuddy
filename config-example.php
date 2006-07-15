@@ -12,7 +12,7 @@ define('DATABASE_USER_PASSWORD', 'password');
 
 define('DATABASE_DATABASENAME' , 'bugsbuddy');
 
-define('LANG',          'nl');
+define('LANG',          'en');
 
 define('CHARSET',          'UTF-8');
 
