@@ -33,6 +33,7 @@ $lang = array(
 
 
 'bugsbuddy_install'	=> 'BugsBuddy installatie',
+'install_completed'	=> '<p>Installatie voltooid! Klik <a href="../index.php">hier</a> om naar de begin pagina te gaan.</p>',
 'database_settings'	=> 'Database instellingen',
 'database_type'		=> 'Database type',
 'database_host'		=> 'Host',
