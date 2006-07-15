@@ -9,7 +9,7 @@
 error_reporting(E_ALL);
 require_once('../includes/helperfunctions.php');
 
-chdir('../');
+//chdir('../');
 
 function isValidPassword2($password) {
   if(strlen($password) >= 5) {
@@ -102,16 +102,16 @@ if (!empty($_POST)) {
       }
 
       if ($install_complete) {
-        echo '<p>Installatie voltooid! Klik <a href="../index.php">hier</a> om naar de begin pagina te gaan.</p>';
+        echo lang('install_completed');
       } else {
 ?>
 
       <form action="./index.php" method="post">
         <p>
-          <h3>Database instellingen</h3>
+          <h3><?=lang('database_settings')?></h3>
 
           <div class="registerlabel">
-            <label for="dserver">Database type:</label>
+            <label for="dserver"><?=lang('database_type')?>:</label>
           </div>
           <div class="registerinput">
             <select name="dserver" id="dserver">
@@ -120,34 +120,34 @@ if (!empty($_POST)) {
           </div>
           
           <div class="registerlabel">
-            <label for="dhost">Host:</label>
+            <label for="dhost"><?=lang('database_host')?>:</label>
           </div>
           <div class="registerinput">
             <input  type="text" id="dhost" name="dhost" value="localhost" />
           </div>
 
           <div class="registerlabel">
-            <label for="ddatabase">Database:</label>
+            <label for="ddatabase"><?=lang('database_name')?>:</label>
           </div>
           <div class="registerinput">
             <input  type="text" id="ddatabase" name="ddatabase" />
           </div>
 
           <div class="registerlabel">
-            <label for="uusername">Gebruikersnaam:</label>
+            <label for="uusername"><?=lang('user_name')?>:</label>
           </div>
           <div class="registerinput">
             <input  type="text" id="uusername" name="dusername" />
           </div>
 
           <div class="registerlabel">
-            <label for="ppassword">Wachtwoord:</label>
+            <label for="ppassword"><?=lang('password')?>:</label>
           </div>
           <div class="registerinput">
             <input  type="password" id="ppassword" name="dpassword" />
           </div>
           
-          <h3>Administrator instellingen</h3>
+          <h3><?=lang('admin_settings')?></h3>
           
 <?php
           if (!empty($msg2)) {
@@ -156,38 +156,38 @@ if (!empty($_POST)) {
 ?>
 
           <div class="registerlabel">
-            <label for="aname">Naam:</label>
+            <label for="aname"><?=lang('name')?>:</label>
           </div>
           <div class="registerinput">
             <input  type="text" id="aname" name="aname" />
           </div>
 
           <div class="registerlabel">
-            <label for="aemail">Email adres:</label>
+            <label for="aemail"><?=lang('email')?>:</label>
           </div>
           <div class="registerinput">
             <input  type="text" id="aemail" name="aemail" />
           </div>
 
           <div class="registerlabel">
-            <label for="apassword">Wachtwoord:</label>
+            <label for="apassword"><?=lang('password')?>:</label>
           </div>
           <div class="registerinput">
             <input  type="password" id="apassword" name="apassword" />
           </div>
 
           <div class="registerlabel">
-            <label for="apassword2">Wachtwoord (2x):</label>
+            <label for="apassword2"><?=lang('password_again')?>:</label>
           </div>
           <div class="registerinput">
             <input  type="password" id="apassword2" name="apassword2" />
           </div>
 
           <div class="registerlabel">
-            <label for="versturen">Versturen:</label>
+            <label for="versturen"><?=lang('submit')?>:</label>
           </div>
           <div class="registerinput">
-            <input  type="submit" id="versturen" name="versturen" value="Installeren" />
+            <input  type="submit" id="versturen" name="versturen" value="<?=lang('install')?>" />
           </div>
         </p>
       </form>
@@ -197,7 +197,7 @@ if (!empty($_POST)) {
     </div>
 
     <div id="footer">
-      XHTML 1.0 Strict & CSS2 valid.
+      <?=lang('xhtml1_css2_valid')?>
     </div>
   </div>
 </body>
