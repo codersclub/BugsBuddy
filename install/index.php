@@ -31,9 +31,10 @@ if (!empty($_POST)) {
   if (!empty($_POST['dserver']) && !empty($_POST['dhost']) && !empty($_POST['ddatabase']) && !empty($_POST['dusername']) /*&& !empty($_POST['dpassword'])*/) {
     if (!empty($_POST['aname']) && !empty($_POST['aemail']) && !empty($_POST['apassword']) && !empty($_POST['apassword2'])) {
       if ($_POST['apassword'] == $_POST['apassword2']) {
-        if (eregi('^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})$', $_POST['aemail'])) {
+        if (preg_match('/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,10})$/', $_POST['aemail'])) {
+          $file = ROOT_DIR.'/config/config.php'; 
           if (isValidPassword2($_POST['apassword'])) {
-            if (!file_exists('./config.php')) {
+            if (!file_exists($file)) {
               $data = "<?php\n
                     // Automatic generated configuration file\n
                     define('DATABASE_TYPE',          '$_POST[dserver]');\n
@@ -42,7 +43,6 @@ if (!empty($_POST)) {
                     define('DATABASE_USER_PASSWORD', '$_POST[dpassword]');\n
                     define('DATABASE_DATABASENAME' , '$_POST[ddatabase]');\n
                     ?>\n";  
-              $file = './config.php'; 
 
               if ($file_handle = fopen($file, 'a')) {
                 if (fwrite($file_handle, $data)) {
@@ -51,10 +51,10 @@ if (!empty($_POST)) {
                     $install_complete = true;
                   }
                 } else {
-                  $msg = 'Kan niet naar het configuratie bestand worden geschreven.';
+                  $msg = lang('config_write_error');
                 }
               } else {
-                $msg = 'Configuratie bestand kan niet gemaakt worden.';
+                $msg = lang('config_open_error');
               }
               
               fclose($file_handle);
@@ -62,19 +62,19 @@ if (!empty($_POST)) {
               $msg = 'Configuratie bestand bestaat al, gooi config.php weg in de root van BugsBuddy.';
             }
           } else {
-            $msg2 = 'Wachtwoord dient uit minimaal 5 tekens te bestaan.';
+            $msg2 = lang('password_less_5');
           }
         } else {
-          $msg2 = 'Email adres is niet correct.';
+          $msg2 = lang('email_invalid');
         }
       } else {
-        $msg2 = 'Wachtwoorden komen niet overeen.';
+        $msg2 = lang('passwords_not_equal');
       }
     } else {
-      $msg2 = 'U heeft niet alles ingevuld';
+      $msg2 = lang('fill_all_fields');
     }
   } else {
-    $msg = 'U heeft niet alles ingevuld.';
+    $msg = lang('fill_all_fields');
   }
 }
 ?>

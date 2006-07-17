@@ -174,7 +174,7 @@ function isValidPassword($password) {
 }
 
 function isValidEmailAddress($email) {
-  if (eregi('^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})$', $email)) {
+  if (preg_match('/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,10})$/', $email)) {
     return true;
   } else {
     return false;
