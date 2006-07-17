@@ -272,6 +272,14 @@ $lang = array(
 'version_delete'	=> 'Versie verwijderen',
 'version_unknown'	=> 'Versie is onbekend.',
 
+'config_write_error'	=> 'Kan niet naar het configuratie bestand worden geschreven.',
+'config_open_error'	=> 'Configuratie bestand kan niet gemaakt worden.',
+'config_exists'		=> 'Configuratie bestand bestaat al, gooi config.php weg in de root van BugsBuddy.',
+'password_less_5'	=> 'Wachtwoord dient uit minimaal 5 tekens te bestaan.',
+'email_invalid'		=> 'Email adres is niet correct.',
+'passwords_not_equal'	=> 'Wachtwoorden komen niet overeen.',
+'fill_all_fields'	=> ''U heeft niet alles ingevuld',
+
 ''	=> '',//'',
 
 );
