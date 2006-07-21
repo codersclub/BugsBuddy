@@ -11,13 +11,13 @@ require_once(ROOT_DIR.'/includes/MySQL.php');
 
 class Database {
   function install($name, $email, $password) {
-    $filename = './install/install.sql';
+    $filename = ROOT_DIR.'/install/install.sql';
     $handle = fopen ($filename, 'rb');
     $sql = fread ($handle, filesize ($filename));
     fclose ($handle);
     
-    $splittedSQLNix = split(";\r\n", $sql);
-    $splittedSQLWindows = split(";\n", $sql);
+    $splittedSQLNix = preg_split("/;\r\n/", $sql);
+    $splittedSQLWindows = preg_split("/;\n/", $sql);
 
     $splittedSQL = Array();
     

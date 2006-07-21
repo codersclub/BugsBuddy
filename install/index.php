@@ -28,21 +28,34 @@ $msg2 = '';
 $install_complete = false;
 
 if (!empty($_POST)) {
+  $file = ROOT_DIR.'/config.php'; 
+  $_POST['aemail']=html_entity_decode($_POST['aemail']);
+
+//DEBUG
+//echo '<pre>';
+//echo '{1}';
+//echo 'file=', $file, "\n";
+//print_r($_POST);
+//echo '</pre>';
+
   if (!empty($_POST['dserver']) && !empty($_POST['dhost']) && !empty($_POST['ddatabase']) && !empty($_POST['dusername']) /*&& !empty($_POST['dpassword'])*/) {
     if (!empty($_POST['aname']) && !empty($_POST['aemail']) && !empty($_POST['apassword']) && !empty($_POST['apassword2'])) {
       if ($_POST['apassword'] == $_POST['apassword2']) {
-        if (preg_match('/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,10})$/', $_POST['aemail'])) {
-          $file = ROOT_DIR.'/config/config.php'; 
+        if (preg_match('/^[a-z0-9\._-]+@[a-z0-9\.-]+\.([a-z]{2,})$/i', $_POST['aemail'])) {
           if (isValidPassword2($_POST['apassword'])) {
             if (!file_exists($file)) {
               $data = "<?php\n
-                    // Automatic generated configuration file\n
+                    // Auto generated configuration file\n
                     define('DATABASE_TYPE',          '$_POST[dserver]');\n
                     define('DATABASE_SERVER',        '$_POST[dhost]');\n
                     define('DATABASE_USER_NAME',     '$_POST[dusername]');\n
                     define('DATABASE_USER_PASSWORD', '$_POST[dpassword]');\n
                     define('DATABASE_DATABASENAME' , '$_POST[ddatabase]');\n
-                    ?>\n";  
+                    define('LANG',                   'en');\n
+                    define('CHARSET',                'UTF-8');\n
+                    define('MAIL_CHARSET',           'UTF-8');\n
+                    define('DATABASE_CHARSET',       'utf8');\n
+                    \n";  
 
               if ($file_handle = fopen($file, 'a')) {
                 if (fwrite($file_handle, $data)) {
@@ -59,7 +72,7 @@ if (!empty($_POST)) {
               
               fclose($file_handle);
             } else {
-              $msg = 'Configuratie bestand bestaat al, gooi config.php weg in de root van BugsBuddy.';
+              $msg = lang('config_exists');
             }
           } else {
             $msg2 = lang('password_less_5');
