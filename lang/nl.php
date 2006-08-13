@@ -191,8 +191,8 @@ $lang = array(
 'mayview_admin_project'		=> 'Deze gebruikersgroep mag de admin-pagina "Project" bekijken',
 'mayview_admin_users'		=> 'Deze gebruikersgroep mag de admin-pagina "Users" bekijken',
 'mayview_admin_projectstatus'	=> 'Deze gebruikersgroep mag de admin-pagina "ProjectStatus" bekijken',
-'mayview_admin_categories'	=> 'Deze gebruikersgroep mag de admin_page "BugCategory" bekijken',
 'mayadd_viewbug_comment'	=> 'Deze gebruikersgroep mag een bericht toevoegen aan een bug',
+'mayview_admin_categories'	=> 'Deze gebruikersgroep mag de admin_page "BugCategory" bekijken',
 //'mayview_project'		=> 'Deze gebruikersgroep mag de pagina "Project" bekijken',
 
 //'created'		=> 'is aangemaakt.',

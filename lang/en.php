@@ -191,8 +191,8 @@ $lang = array(
 'mayview_admin_project'		=> 'This user group can view the admin page &quot;Projects&quot;',//'Deze gebruikersgroep mag de admin-pagina "Project" bekijken',
 'mayview_admin_users'		=> 'This user group can view the admin page &quot;Users&quot;',//'Deze gebruikersgroep mag de admin-pagina "Users" bekijken',
 'mayview_admin_projectstatus'	=> 'This user group can view the admin page &quot;Project Statuses&quot;',//'Deze gebruikersgroep mag de admin-pagina "ProjectStatus" bekijken',
-'mayview_admin_categories'	=> 'This user group can view the admin page &quot;Bug Categories&quot;',//'Deze gebruikersgroep mag de admin_page "BugCategory" bekijken',
 'mayadd_viewbug_comment'	=> 'This user group can add a bug comment',//'Deze gebruikersgroep mag een bericht toevoegen aan een bug',
+'mayview_admin_categories'	=> 'This user group can view the admin page &quot;Bug Categories&quot;',//'Deze gebruikersgroep mag de admin_page "BugCategory" bekijken',
 //'mayview_project'			=> 'This user group can view the page &quot;Projects&quot;',//'Deze gebruikersgroep mag de pagina "Project" bekijken',
 
 //'created'			=> 'created.',//'is aangemaakt.',
