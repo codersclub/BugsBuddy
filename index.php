@@ -7,6 +7,11 @@ if (file_exists('./install/')) {
   die( lang('install_remove') );
 }
 
+//DEBUG
+//echo "<pre>";
+//print_r($lang);
+//echo "<pre>";
+
 /*
  * Get the allowed pages and config
  */
@@ -130,7 +135,7 @@ if ($_GET['js'] == "no" && isset($_POST) && isset($_POST['email']) && isset($_PO
 
   if (!setLoginSession(htmlUnsafe($_POST['email']), htmlUnsafe($_POST['pass']), ((isset($_POST['stay'])&&$_POST['stay']=='on')?true:false), ((isset($_POST['ip'])&&$_POST['ip']=='on')?true:false))) {
     define('LOGIN_FAILED', true);
-    setcookie('AUTOLOGIN', '', time()+60*60*24); // expire in 30 days
+    setcookie('AUTOLOGIN', '', time()+60*60*24); // expire in 1 day
   }
 }
 
@@ -199,9 +204,9 @@ if ($_GET["js"] == "yes") {
       oldpage = 'home';
     }
     if (currentId != null && currentId != 'null') {
-      document.getElementById('goback').innerHTML = '<a href="javascript:getNewContent(oldpage+\'&id=\'+oldid)">&lt;&lt; Ga een pagina terug</a>'
+      document.getElementById('goback').innerHTML = '<a href="javascript:getNewContent(oldpage+\'&id=\'+oldid)"><?=$lang['go_back']?></a>'
     } else {
-      document.getElementById('goback').innerHTML = '<a href="javascript:getNewContent(oldpage)">&lt;&lt; Ga een pagina terug</a>'
+      document.getElementById('goback').innerHTML = '<a href="javascript:getNewContent(oldpage)"><?=$lang['go_back']?></a>'
     }
     currentPage = page;
     currentId= id;
@@ -313,25 +318,25 @@ if ($_GET["js"] == "yes") {
     
     switch(sPoints) {
       case 0:
-        strength = 'zeer slecht';
+        strength = '<?=lang('password_very_bad')?>';
         break;
       case 1:
-        strength = 'zeer slecht';
+        strength = '<?=lang('password_very_bad')?>';
         break;
       case 2:
-        strength = 'slecht';
+        strength = '<?=lang('password_bad')?>';
         break;
       case 3:
-        strength = 'afgeraden';
+        strength = '<?=lang('password_discouraged')?>';
         break;
       case 4:
-        strength = 'goed genoeg';
+        strength = '<?=lang('password_good_enough')?>';
         break;
       case 5:
-        strength = 'goed';
+        strength = '<?=lang('password_good')?>';
         break;
       case 6:
-        strength = 'sterk';
+        strength = '<?=lang('password_strong')?>';
         break;
     }
     
@@ -375,7 +380,7 @@ if ($_GET["js"] == "yes") {
               if (isset($arguments['id'])) $id = 'id='.$arguments['id'].'&';
               
             }
-            echo '<a href="index.php?js=no&'.$page.$id.'">&lt;&lt; Ga een pagina terug</a>';
+            echo '<a href="index.php?js=no&'.$page.$id.'">'.$lang['go_back'].'</a>';
           }
           
         ?>
