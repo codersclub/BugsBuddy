@@ -53,7 +53,7 @@ if ($_GET['page'] == 'login') {
   require_once('pages/login.php');
   if (isset($_POST) && isset($_POST['email']) && isset($_POST['pass'])) {
     if (!setLoginSession(htmlUnsafe($_POST['email']), htmlUnsafe($_POST['pass']), ((isset($_POST['stay'])&&$_POST['stay']=='on')?true:false), ((isset($_POST['ip'])&&$_POST['ip']=='on')?true:false))) {
-      setcookie('AUTOLOGIN', '', time()+60*60*24); // expire in 30 days
+      setcookie('AUTOLOGIN', '', time()+60*60*24); // expire in 1 day
     }
   }
   echo getlogin();
@@ -100,7 +100,7 @@ if (isset($_SERVER['HTTP_REFERER'])) {
     if (isset($arguments['page'])) $page = 'page='.$arguments['page'].'&';
     if (isset($arguments['id'])) $id = 'id='.$arguments['id'].'&';
   }
-  echo '<a href="index.php'.$js.$page.$id.'">&lt;&lt; Ga een pagina terug</a>';
+  echo '<a href="index.php'.$js.$page.$id.'">'. lang('go_back') .'</a>';
 */
 }
 
@@ -114,4 +114,3 @@ if (!isAllowedPage($_GET["page"])) {
 // Every variabele is checked before it is parsed into php code!
 $phpCode = "require_once('pages/".$_GET["page"].".php'); echo \"updateContent(\\\"\".convertHtmlCodeToJavaScriptString(get".$_GET["page"]."()).\"\\\"); updateGoBackLink(\\\"$newPage\\\", \\\"$newId\\\"); \";";
 eval($phpCode);
-?>
