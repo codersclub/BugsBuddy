@@ -1,12 +1,10 @@
 <?php
 
 /*
-  This class is able to connect to a MySQL database and query it. All results
-  must be parsed to return an Array! This class is a singleton!
+  This class is able to connect to a MySQL database and query it.
+  All results must be parsed to return an Array! This class is a singleton!
   No file but 'Database.php' should have an 'require' to this file
 */
-
-//require_once('config.php');
 
 $MySQLInstance = null;
 
@@ -90,4 +88,4 @@ class MySQL {
 
 }
 
-?>
+

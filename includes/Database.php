@@ -6,7 +6,6 @@
  * Description: the database class with all the query's for BugsBuddy
  */
 
-//require_once('./includes/helperfunctions.php');
 require_once(ROOT_DIR.'/includes/MySQL.php');
 
 class Database {
@@ -624,4 +623,4 @@ class Database {
   }
   
 }
-?>
+
