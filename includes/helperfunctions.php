@@ -53,18 +53,18 @@ function lang($key='',$values=array()) {
 //------------------------------------
 function getLinksHtml() {
   global $pages;
-  $returnValue = '        ';
+  $returnValue = '';
   if ($pages == null) {
-    $returnValue .= pageLink('home', 'No pages available, unable to connect to database', 'm');
-    return;
+    $returnValue .= pageLink('home', lang('database_connect_error'), 'm');
+    return $returnValue;
   }
   if (isLoggedIn()) {
     // For debug reasons: show every link to every page:
     $returnValue .= ''.
-      pageLink('home', 'HOME', 'm') . '&nbsp;&nbsp;&nbsp;&nbsp;'.
-      pageLink('buglist', 'BUGLIJST', 'm') . '&nbsp;&nbsp;&nbsp;&nbsp;'.
-      pageLink('submitbug', 'BUG RAPPORTEREN', 'm') . ''.
-//      pageLink('download', 'DOWNLOAD', 'm') . ''.
+      pageLink('home', lang('menu_home'), 'm') . '&nbsp;&nbsp;&nbsp;&nbsp;'.
+      pageLink('buglist', lang('menu_buglist'), 'm') . '&nbsp;&nbsp;&nbsp;&nbsp;'.
+      pageLink('submitbug', lang('menu_bugreport'), 'm') . ''.
+//      pageLink('download', lang('menu_download'), 'm') . ''.
         '';
     $userGroup = getCurrentGroupId();
 
@@ -75,15 +75,15 @@ function getLinksHtml() {
     }
 
     if (isset($permissions['mayview_admin']) && $permissions['mayview_admin'] == 'true') {
-      $returnValue .= '&nbsp;&nbsp;&nbsp;&nbsp;<a class="m" href="./admin/?js='.((isset($_GET['js'])&&$_GET['js']=='yes')?'yes':'no').'">ADMIN</a>';
+      $returnValue .= '&nbsp;&nbsp;&nbsp;&nbsp;<a class="m" href="./admin/?js='.((isset($_GET['js'])&&$_GET['js']=='yes')?'yes':'no').'">'.lang('menu_admin').'</a>';
     }
 
   } else {
 
     $returnValue .= ''.
-      pageLink('home', 'HOME', 'm') . '&nbsp;&nbsp;&nbsp;&nbsp;'.
-      pageLink('buglist', 'BUGLIJST', 'm') . ''.
-//      pageLink('download', 'DOWNLOAD', 'm') . ''.
+      pageLink('home', lang('menu_home'), 'm') . '&nbsp;&nbsp;&nbsp;&nbsp;'.
+      pageLink('buglist', lang('menu_buglist'), 'm') . ''.
+//      pageLink('download', lang('menu_download'), 'm') . ''.
       '';
   }
 
@@ -166,7 +166,7 @@ function isValidUsername($username) {
 }
 
 function isValidPassword($password) {
-  if(strlen($password) >= 6) {
+  if(strlen($password) >= 5) {
     return true;
   } else {
     return false;
@@ -174,13 +174,13 @@ function isValidPassword($password) {
 }
 
 function isValidEmailAddress($email) {
-  if (preg_match('/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,10})$/', $email)) {
+  if (preg_match('/^[a-z0-9._-]+@[a-z0-9._-]+\.([a-z]{2,10})$/i', $email)) {
     return true;
   } else {
     return false;
   }
 }
-  
+
 /*
  * Create HTML code for an text-link that works for both AJAX as non-AJAX
  */
@@ -207,7 +207,7 @@ function timestamp2date($timestamp) {
   }
   $day = date('d', $timestamp);
   $year = date('Y', $timestamp);
-  $months = array(1 => 'januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december');
+  $months = lang('months');
   $monthNumber = date('n', $timestamp);
   $month = $months[$monthNumber];
   return $day . ' ' . $month . ' ' . $year;
@@ -220,12 +220,16 @@ function getUserIp() {
 function parseWithBBTags($htmlSafeMessage, $bbTags) {
   $arrayFind = Array();
   $arrayReplace = Array();
-/*
-echo "<pre>";
-print_r($bbTags);
-echo "</pre>";
-exit;
-*/
+
+//DEBUG
+//echo "<pre>";
+//$htmlSafeMessage = 'Very [b]Strange[/b] Bug';
+//echo "msg=".$htmlSafeMessage."<br>";
+//echo "bbtags=";
+//print_r($bbTags);
+//echo "</pre>";
+//exit;
+
   foreach($bbTags as $bbTag) {
     //$bbTag = htmlUnsafe($bbTag);
     $bbCode = explode(htmlSafe('*'), $bbTag['bbcode']);
