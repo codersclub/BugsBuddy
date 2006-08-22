@@ -1,7 +1,7 @@
 <?php
 
 /*
-	To avoid a directory listing
-*/
+ * To avoid a directory listing
+ */
 
-?>
+
