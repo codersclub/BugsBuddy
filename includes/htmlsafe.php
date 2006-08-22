@@ -54,14 +54,14 @@ function htmlUnsafe($string) {
     $result = strpos($string, '&', $result);
     while($result !== false) {
       if ($string{$result+1} != '#') {
-        showErrorPage("An error occured while making an htmlsafe string back unsafe.", __FILE__, __LINE__, "The '&amp;' is not followed by the '#' character at position " . $result . " in string: '".htmlSafe($string)."'");
+        showErrorPage(lang('htmlsafe_error1'), __FILE__, __LINE__, lang('htmlsafe_error2') . lang('htmlsafe_error_at_position') . $result . lang('in_string') . "&quot;" . htmlSafe($string) . "&quot;");
       }
       $nextSemicolonPosition = strpos($string, ';', $result+2);
       if ($nextSemicolonPosition === false) {
-        showErrorPage("An error occured while making an htmlsafe string back unsafe.", __FILE__, __LINE__, "After the '&amp;#' characters there was never found an ';' in string: '".htmlSafe($string)."' at position: " . $result);
+        showErrorPage(lang('htmlsafe_error3'), __FILE__, __LINE__, lang('htmlsafe_error4') . lang('in_string') . "&quot;" . htmlSafe($string) . "&quot;" . lang('at_position') . $result);
       }
       if (!is_numeric(substr($string, $result+2, $nextSemicolonPosition-($result+2)))) {
-        showErrorPage("An error occured while making an htmlsafe string back unsafe.", __FILE__, __LINE__, "The text between '&amp;#' and ';' is not numeric. It occures in string '".htmlSafe($string)."' at position: " . $result);
+        showErrorPage(lang('htmlsafe_error5'), __FILE__, __LINE__, lang('htmlsafe_error6') . lang('in_string') . "&quot;".htmlSafe($string)."&quot;" . lang('at_position') . $result);
       }
       $representingCharacter = chr(intval(substr($string, $result+2, $nextSemicolonPosition-($result+2))));
       $string = str_replace(substr($string, $result, ($nextSemicolonPosition-$result)+1), $representingCharacter, $string);
