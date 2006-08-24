@@ -22,18 +22,20 @@ function getdownload() {
       }
     }
     @closedir($hdir);
+
     sort($files);
+
     for ($i=0; $i<count($files); $i++) {
       if ($i == count($files)-1) {
         if (is_file('CHANGELOG')) {
-          $changelog = '<a href="CHANGELOG">CHANGELOG</a>';
+          $changelog = '<a href="CHANGELOG">' . lang('changelog') . '</a>';
         } else {
-          $changelog = '<a class="inactive" href="#">CHANGELOG</a>';
+          $changelog = '<a class="inactive" href="#">' . lang('changelog') . '</a>';
         }
         if (is_file('TODO')) {
-          $todo = '<a href="TODO">TODO</a>';
+          $todo = '<a href="TODO">' . lang('to_do') .'</a>';
         } else {
-          $todo = '<a class="inactive" href="#" style="">TODO</a>';
+          $todo = '<a class="inactive" href="#" style="">' . lang('to_do') . '</a>';
         }
         $returnValue .= '<a href="downloads/'.$files[$i].'">'.$files[$i].'</a>&nbsp;'.$changelog.'&nbsp;'.$todo.'<br />';
 
@@ -43,7 +45,7 @@ function getdownload() {
       }
     }
   } else {
-    $returnValue .= 'Er zijn geen bestanden beschikbaar om te downloaden<br />';
+    $returnValue .= lang('downloads_no') . '<br />';
   }
 
   return $returnValue;
@@ -57,4 +59,3 @@ function getdownload() {
 */
 }
 
-?>
