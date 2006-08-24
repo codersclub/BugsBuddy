@@ -8,26 +8,43 @@
 
 function getchangepassword() {
   if (defined('PASSWORD_CHANGED')) {
-    return 'Je wachtwoord is verandert.';
+    return lang('password_changed');
   } else if (defined('PASSWORD_NOT_CHANGED')) {
-    return 'Je wachtwoord is niet verandert, omdat het wachtwoord minstens uit 6 tekens moet bestaan.';
+    return lang('password_not_changed_short');
   } else {
+
     if (isLoggedIn()) {
       $returnValue = '';
-      $returnValue .=  '<form action="index.php?js='.(isset($_GET['js'])&&$_GET['js']=='no'?'no':'yes').'" method="post">';
-      $returnValue .=    '<div class="changepasswordlabel"><label for="password">wachtwoord:</label></div><div class="forgotpasswordinput"><input class="forgotpasswordcontent" type="password" name="changepassword" id="password" value="" /></div>';
-      $returnValue .=    '<div class="changepasswordlabel"><label for="submit">verander wachtwoord:</label></div><div class="registerinput"><input class="registerinputcontent" id="submit" type="submit" value="verander!" /></div>';
-      $returnValue .=  '</form>';
-      $returnValue .=  '<br />';
-      $returnValue .=  '<div id="forgotPassword">';
-      $returnValue .=  '</div>';
+
+      $js = !isset($_GET['js'])||$_GET['js']=='no'?'':'js=yes';
+
+      $returnValue .=  '<h1>' . lang('password_modify') . '</h1>
+<form action="index.php?' . $js . '" method="post">
+  <div class="changepasswordlabel">
+    <label for="password">' . lang('password') . ':</label>
+  </div>
+  <div class="forgotpasswordinput">
+    <input class="forgotpasswordcontent" type="password" name="changepassword" id="password" value="" />
+  </div>
+  <div class="changepasswordlabel">
+    <label for="submit">' . lang('password_change') . ':</label>
+  </div>
+  <div class="registerinput">
+    <input class="registerinputcontent" id="submit" type="submit" value="' . lang('change') . '" />
+  </div>
+</form>
+<br />
+<div id="forgotPassword"></div>
+';
+
       return $returnValue;
+
     } else {
       $returnValue = '';
-      $returnValue .=  'Je moet ingelogt zijn om deze pagina te kunnen bekijken.';
+      $returnValue .= lang('login_required');
       return $returnValue;
     }
   }
 }
 
-?>
+
