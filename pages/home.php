@@ -9,19 +9,22 @@
 //require_once('./includes/helperfunctions.php');
 
 function gethome() {
-  $returnValue = '<h1>Laatste 10 bugs</h1>';
+//DEBUG
+//echo "pages/home::gethome started.<br>";
+
+  $returnValue = '<h1>'.lang('last_10_bugs').'</h1>';
   $result = Database::getBugList(10);
   
   if (empty($result)) {
-    $returnValue .= '<p><i>Geen bugs gevonden</i></p>';
+    $returnValue .= '<p><i>'.lang('bugs_no').'</i></p>';
   } else {
-    $returnValue .= '<table>' .
+    $returnValue .= '<table width="100%">' .
               '<tr>' .
-                '<th style="width: 200px;">Omschrijving</th>' .
-                '<th style="width: 100px;">Poster</th>' .
-                '<th style="width: 120px;">Datum</th>' .
-                '<th style="width: 140px;">Status</th>' .
-                '<th style="width: 140px;">Projectversie</th>' .
+                '<th>'.lang('description').'</th>' .
+                '<th style="width: 100px;">'.lang('poster').'</th>' .
+                '<th style="width: 100px;">'.lang('date').'</th>' .
+                '<th style="width: 100px;">'.lang('status').'</th>' .
+                '<th>'.lang('project_version').'</th>' .
               '</tr>';
     $i = 1;
     
@@ -46,4 +49,4 @@ function gethome() {
   
   return $returnValue;
 }
-?>
+
