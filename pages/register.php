@@ -4,12 +4,12 @@
   Register Page...
 */
 
-//require_once('includes/Mail.php');
+require_once(ROOT_DIR.'/includes/Mail.php');
 
 function getregister() {
   if (isset($_POST) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['mail'])) {
     $name     = htmlUnsafe($_POST['name']);
-    $password   = htmlUnsafe($_POST['password']);
+    $password = htmlUnsafe($_POST['password']);
     $mail     = strtolower(htmlUnsafe($_POST['mail']));
     
     return handleRegistry($name, $password, $mail);
@@ -19,7 +19,9 @@ function getregister() {
 }
 
 function getRegistryForm() {
-  if (isset($_GET) && isset($_GET['js']) && $_GET['js'] == "no") {
+
+  if (!isset($_GET['js']) || $_GET['js'] == 'no') {
+
     if (isset($_POST) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['mail'])) {
       $name = $_POST['name'];
       $mail = strtolower($_POST['mail']);
@@ -27,21 +29,22 @@ function getRegistryForm() {
       $name = '';
       $mail = '';
     }
-    return ''.
-      '<form action="'.getCurrentRequestUrl().'" method="post">'.
-        '<div class="registerlabel"><label for="name">Naam:</label></div><div class="registerinput"><input class="registerinputcontent" type="text" id="name" name="name" value="'.$name.'" /></div>'.
-        '<div class="registerlabel"><label for="password">Wachtwoord:</label></div><div class="registerinput"><input class="registerinputcontent" type="password" id="password" name="password" value="" /></div>'.
-        '<div class="registerlabel"><label for="mail">E-Mail:</label></div><div class="registerinput"><input class="registerinputcontent" type="text" id="mail" name="mail" value="'.$mail.'" /></div>'.
-        '<div class="registerlabel"><label for="submit">Registreer:</label></div><div class="registerinput"><input class="registerinputcontent" id="submit" name="submit" type="submit" value="Registreer" /></div>'.
-      '</form>';
+    return '
+      <h1>'.lang('register').'</h1>
+      <form action="'.getCurrentRequestUrl().'" method="post">
+        <div class="registerlabel"><label for="name">'.lang('name').':</label></div><div class="registerinput"><input class="registerinputcontent" type="text" id="name" name="name" value="'.$name.'" /></div>
+        <div class="registerlabel"><label for="password">'.lang('password').':</label></div><div class="registerinput"><input class="registerinputcontent" type="password" id="password" name="password" value="" /></div>
+        <div class="registerlabel"><label for="mail">'.lang('email').':</label></div><div class="registerinput"><input class="registerinputcontent" type="text" id="mail" name="mail" value="'.$mail.'" /></div>
+        <div class="registerlabel"><label for="submit">'.lang('register').':</label></div><div class="registerinput"><input class="registerinputcontent" id="submit" name="submit" type="submit" value="'.lang('register').'" /></div>
+      </form>';
   } else {
     return ''.
         '<form action="script.php?page=register" method="post" target="submitFrame">'.
-        '<div class="registerlabel"><label for="registrationName">Naam:</label></div><div class="registerinput"><input class="registerinputcontent" type="text" name="name" id="registrationName" value="" /></div>'.    
-        '<div class="registerlabel"><label for="registrationPassword">Wachtwoord:</label></div><div class="registerinput"><input class="registerinputcontent" type="password" name="password" id="registrationPassword" value="" onkeyup="checkPassWordStrength(\'registrationPassword\');"/>'.
+        '<div class="registerlabel"><label for="registrationName">'.lang('name').':</label></div><div class="registerinput"><input class="registerinputcontent" type="text" name="name" id="registrationName" value="" /></div>'.    
+        '<div class="registerlabel"><label for="registrationPassword">'.lang('password').':</label></div><div class="registerinput"><input class="registerinputcontent" type="password" name="password" id="registrationPassword" value="" onkeyup="checkPassWordStrength(\'registrationPassword\');"/>'.
         '<br /><br /><div class="pwdStrength" id="pwdStrength"><div class="pwdBeamGreen" id="pwdBeamGreen"></div></div><div class="pwdText" id="pwdText"></div></div><br /><br />' .
-        '<div class="registerlabel"><label for="mail">E-Mail:</label></div><div class="registerinput"><input class="registerinputcontent" type="text" id="mail" name="mail" value="" /></div>'.
-        '<div class="registerlabel"><label for="submit">Registreer:</label></div><div class="registerinput"><input class="registerinputcontent" id="submit" name="submit" type="submit" value="Registreer" /></div>'.
+        '<div class="registerlabel"><label for="mail">'.lang('email').':</label></div><div class="registerinput"><input class="registerinputcontent" type="text" id="mail" name="mail" value="" /></div>'.
+        '<div class="registerlabel"><label for="submit">'.lang('register').':</label></div><div class="registerinput"><input class="registerinputcontent" id="submit" name="submit" type="submit" value="'.lang('register').'" /></div>'.
       '</form>'.
       '<br />'.
       '<div id="registerError">'.
@@ -54,23 +57,23 @@ function handleRegistry($name, $password, $mail) {
   $errorMessage = '';
   $error = false;
   if (!isValidUsername($name)) {
-    $errorMessage .= "\nDe gebruikersnaam is niet geldig. De naam mag bestaan uit alphanumerieke tekens met tussenliggende spaties.";
+    $errorMessage .= lang('name_error');
     $error = true;
   }
   if (!isValidPassword($password)) {
-    $errorMessage .= "\nHet wachtwoord is niet geldig. Het wachtwoord moet minstens uit 6 tekens bestaan.";
+    $errorMessage .= lang('password_error');
     $error = true;
   }
   if (!isValidEmailAddress($mail)) {
-    $errorMessage .= "\nHet e-mail adres is niet geldig.";
+    $errorMessage .= lang('email_error');
     $error = true;    
   }
   if (count(Database::getUserByName($name)) != 0) {
-    $errorMessage .= "\nDe door u gekozen gebruikersnaam is al in gebruik.";
+    $errorMessage .= lang('name_exists');
     $error = true;
   }
   if (count(Database::getUserByEmail($mail)) != 0) {
-    $errorMessage .= "\nHet door u gekozen e-mail adres is al in gebruik.";
+    $errorMessage .= lang('email_exists');
     $error = true;
   }
   if (isset($_GET) && isset($_GET["js"]) && $_GET['js'] == "no") {
@@ -78,9 +81,9 @@ function handleRegistry($name, $password, $mail) {
       return getRegistryForm() . '<br />' . nl2br($errorMessage);
     }
     Database::registerUser($name, $password, $mail);
-    $emailMessage = new Mail('Welkom op bugtracker', '<html><head><title>Welkom '.$_POST['name'].'</title></head><body>Welkom op de bucktracker site http://bugsbunny.slapware.eu/. U kunt nu inloggen met uw email adres en wachtwoord.<br /><br />Met vriendelijke groet, Alex de Vries.</body></html>');
+    $emailMessage = new Mail(lang('register_subject'), '<html><head><title>'.lang('welcome').' '.$_POST['name'].'</title></head><body>'.lang('register_body').'</body></html>');
     $emailMessage->send($mail);
-    $registerMessage = 'Bedank voor het registreren, u kunt nu inloggen op de site';
+    $registerMessage = lang('register_ok');
     return $registerMessage;
   } else {
     if ($error) {
@@ -98,7 +101,9 @@ function handleRegistry($name, $password, $mail) {
           '</body>'.
         '</html>';
       return $returnValue;
+
     } else {
+
       Database::registerUser($name, $password, $mail);
       $returnValue =  ''.
         '<html>'.
@@ -106,7 +111,7 @@ function handleRegistry($name, $password, $mail) {
           '</head>'.
           '<body>'.
             '<script>'.
-              'window.parent.updateContent("Successvol geregistreerd");'.
+              'window.parent.updateContent('.lang('register_success').');'.
             '</script>'.
           '</body>'.
         '</html>';
@@ -114,4 +119,3 @@ function handleRegistry($name, $password, $mail) {
     }
   }
 }
-?>
