@@ -7,7 +7,7 @@
 //require_once('includes/helperfunctions.php');
 
 function getsubmitbug() {
-  $returnValue = "<h1>Bug rapporteren</h1>";
+  $returnValue = "<h1>". lang('bug_report') ."</h1>\n";
   
   if(isLoggedIn()) {
     if (isset($_GET) && isset($_GET['submitit']) && $_GET['submitit'] == "true") {
@@ -16,14 +16,15 @@ function getsubmitbug() {
       $returnValue .= getSubmitBugForm();
     }
   } else {
-    $returnValue .= "Voor deze functionaliteit moet u ingelogd zijn.";
+    $returnValue .= lang('login_required_for_this');
   }
   
   return $returnValue;
 }
 
-//Get the projects and their versionIds who are visible for logged in user from
-//the database and put in in a selection box. The value is delimited by ;.
+//Get the projects and their versionIds who are visible for logged in user
+// from the database and put in in a selection box.
+// The value is delimited by ;.
 function getProjectsAndVersions($projectId, $versionId) {
   $versions = '<option value="0">&nbsp;</option>';
 
@@ -62,8 +63,8 @@ function getProjectsAndVersions($projectId, $versionId) {
   return $versions;
 }
 
-//Get the projects who are visible for logged in user from
-//the database and put in in a selection box.
+//Get the projects who are visible for logged in user
+// from the database and put in in a selection box.
 function getProjects($projectId) {
   $projects = '<option value="0">&nbsp;</option>';
 
@@ -96,8 +97,8 @@ function getProjects($projectId) {
   return $projects;
 }
 
-//Get the versions from a project who are visible for logged in user from
-//the database and put in in a selection box.
+//Get the versions from a project who are visible for logged in user
+// from the database and put in in a selection box.
 function getVersions($projectId, $versionId) {
   $versions = '<option value="0">&nbsp;</option>';
 
@@ -171,8 +172,8 @@ function isEmptyVersions($projectId) {
 function getSubmitBugForm() {
   $returnValue = '';
   
-  $title       = '';
-  $description   = '';
+  $title        = '';
+  $description  = '';
   $projectId    = 0;
   $versionId    = 0;
   $category1    = 0;
@@ -180,7 +181,7 @@ function getSubmitBugForm() {
   
   if (isset($_GET) && isset($_GET['title']) && isset($_GET['description'])) {
     $title       = $_GET['title'];
-    $description   = $_GET['description'];
+    $description = $_GET['description'];
     
     if($_GET['js'] == 'no' && isset($_GET['projectandversion'])) {
       $aProjVersion  = explode(htmlSafe(';'), $_GET['projectandversion']);
@@ -194,8 +195,8 @@ function getSubmitBugForm() {
   }    
 
   if(!isEmptyCategorys() && isset($_GET) && isset($_GET['category1']) && isset($_GET['category2'])) {
-    $category1  = $_GET['category1'];
-    $category2  = $_GET['category2'];    
+    $category1 = $_GET['category1'];
+    $category2 = $_GET['category2'];    
   }  
     
   $thisPage   = "submitbug";
@@ -210,30 +211,30 @@ function getSubmitBugForm() {
             '<div><input type="hidden" name="page" value="'.$thisPage.'"/></div>'.
             '<div><input type="hidden" name="js" value="'.(strpos(getCurrentRequestUrl(),'script.php')===false?'no':'yes').'"/></div>'.
             '<div><input type="hidden" name="submitit" value="true"/></div>'.
-            '<div class="registerlabel"><label for="title">Titel:</label></div><div class="registerinput"><input class="" type="text" id="title" name="title" value="'.$title.'"/></div>'.
-            '<div class="registerlabel"><label for="description">Omschrijving:</label></div><div class="registerinput"><textarea class="" id="description" name="description" cols="40" rows="6">'.$description.'</textarea></div>';
+            '<div class="registerlabel"><label for="title">'.lang('title').'</label></div><div class="registerinput"><input class="" type="text" id="title" name="title" value="'.$title.'"/></div>'.
+            '<div class="registerlabel"><label for="description">'.lang('description').':</label></div><div class="registerinput"><textarea class="" id="description" name="description" cols="40" rows="6">'.$description.'</textarea></div>';
       
   if(isset($_GET['js']) && $_GET['js'] == "no") {
-    $returnValue .= '<div class="registerlabel"><label for="projectandversion">Project:</label></div><div class="registerinput"><select class="" id="projectandversion" name="projectandversion">'.getProjectsAndVersions($projectId, $versionId).'</select></div>';
+    $returnValue .= '<div class="registerlabel"><label for="projectandversion">'.lang('project').':</label></div><div class="registerinput"><select class="" id="projectandversion" name="projectandversion">'.getProjectsAndVersions($projectId, $versionId).'</select></div>';
   } else {
-    $returnValue .=  '<div class="registerlabel"><label for="projectid">Project:</label></div><div class="registerinput"><select class="" id="projectid" name="projectid" onchange="javascriptSubmit(\'submitbug\', false);">'.getProjects($projectId).'</select></div>'.
-            '<div class="registerlabel"><label for="versionid">Versie:</label></div><div class="registerinput"><select class="" id="versionid" name="versionid">'.getVersions($projectId, $versionId).'</select></div>';
+    $returnValue .=  '<div class="registerlabel"><label for="projectid">'.lang('project').':</label></div><div class="registerinput"><select class="" id="projectid" name="projectid" onchange="javascriptSubmit(\'submitbug\', false);">'.getProjects($projectId).'</select></div>'.
+            '<div class="registerlabel"><label for="versionid">'.lang('version').':</label></div><div class="registerinput"><select class="" id="versionid" name="versionid">'.getVersions($projectId, $versionId).'</select></div>';
   }
   
   if(!isEmptyCategorys()) {
-    $returnValue .=  '<div class="registerlabel"><label for="categorie1">Categorie 1:</label></div><div class="registerinput"><select class="" id="category1" name="category1">'.getCategorys($category1).'</select></div>'.
-            '<div class="registerlabel"><label for="categorie2">Categorie 2:</label></div><div class="registerinput"><select class="" id="category2" name="category2">'.getCategorys($category2).'</select></div>';
+    $returnValue .=  '<div class="registerlabel"><label for="categorie1">'.lang('category1').':</label></div><div class="registerinput"><select class="" id="category1" name="category1">'.getCategorys($category1).'</select></div>'.
+            '<div class="registerlabel"><label for="categorie2">'.lang('category2').':</label></div><div class="registerinput"><select class="" id="category2" name="category2">'.getCategorys($category2).'</select></div>';
   }
             
-  $returnValue .=   '<div class="registerlabel"><label for="verzenden">Verzenden:</label></div><div class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="Verzenden!"/></div>'.
+  $returnValue .=   '<div class="registerlabel"><label for="verzenden">'. lang('send') .':</label></div><div class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/></div>'.
           '</form>';
 
   if(!empty($projectId) && isEmptyProjects()) {
-    $returnValue .= 'Er zijn geen projecten gevonden, er kunnen geen bugs worden geplaatst.';
+    $returnValue .= lang('bug_no_projects')."\n";
   }
   
   if(!empty($projectId) && isEmptyVersions($projectId)) {
-    $returnValue .= 'Er zijn geen versies gevonden voor dit project, er kan geen bug voor dit project worden geplaatst.';
+    $returnValue .= lang('bug_no_versions')."\n";
   }          
               
   return $returnValue;
@@ -241,8 +242,8 @@ function getSubmitBugForm() {
 
 //Submit the informatie to the database
 function handleSubmitBug() {
-  $title       = '';
-  $description   = '';
+  $title        = '';
+  $description  = '';
   $projectId    = 0;
   $versionId    = 0;  
   $category1    = 0;
@@ -250,7 +251,7 @@ function handleSubmitBug() {
   
   if (isset($_GET) && isset($_GET['title']) && isset($_GET['description'])) {
     $title       = $_GET['title'];
-    $description   = $_GET['description'];
+    $description = $_GET['description'];
     
     if($_GET['js'] == 'no' && isset($_GET['projectandversion'])) {
       $aProjVersion  = explode(htmlSafe(';'), $_GET['projectandversion']);
@@ -273,22 +274,22 @@ function handleSubmitBug() {
   
   if(empty($title) && $error == false) {
     $error        = true;
-    $errorMessage   .= 'De titel moet gevuld zijn.';
+    $errorMessage .= lang('title_empty');
   }
   
   if(empty($description) && $error == false) {
     $error        = true;
-    $errorMessage   .= 'De beschrijving moet gevuld zijn.';
+    $errorMessage .= lang('description_empty');
   }  
   
   if(empty($projectId) && $error == false) {
     $error        = true;
-    $errorMessage   .= 'Er moet een project worden gekozen.';    
+    $errorMessage .= lang('project_not_selected');    
   }
   
   if(empty($versionId) && $error == false) {
     $error        = true;
-    $errorMessage   .= 'Er moet een versie worden gekozen.';
+    $errorMessage .= lang('version_empty');
   }    
 
   if ($error) {
@@ -302,6 +303,5 @@ function handleSubmitBug() {
     Database::setProjectUser($projectId, getCurrentUserId());  
   }
     
-  return 'Bedankt voor het plaatsen van deze bug.';  
+  return lang('thax_for_bug_report');  
 }
-?>
