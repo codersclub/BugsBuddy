@@ -7,7 +7,7 @@
 //require_once('includes/helperfunctions.php');
 
 function getviewbug() {
-  $returnValue = "<h1>Bug informatie</h1>";
+  $returnValue = '<h1>' . lang('bug_info') . '</h1>';
   
   if (isset($_GET) && isset($_GET['submitit']) && $_GET['submitit'] == "true") {
     $returnValue .= handleSubmit();
@@ -15,7 +15,7 @@ function getviewbug() {
     if(isset($_GET) && isset($_GET['action']) && isset($_GET['actionId'])) {
       if($_GET['action'] == 'delBug') {
         Database::deleteBug($_GET['actionId']);
-        $returnValue .= 'De bug is verwijdert.';
+        $returnValue .= lang('bug_removed');
       }
       
       if($_GET['action'] == 'delComment') {
@@ -40,8 +40,10 @@ function getviewbug() {
   return $returnValue;
 }
 
-//Get the projects and their versionIds who are visible for logged in user from
-//the database and put in in a selection box. The value is delimited by ;.
+//Get the projects and their versionIds
+// who are visible for logged in user
+// from the database and put in in a selection box.
+// The value is delimited by ;.
 function getProjectsAndVersions($projectId, $versionId) {
   $versions = '<option value="0">&nbsp;</option>';
 
@@ -80,8 +82,8 @@ function getProjectsAndVersions($projectId, $versionId) {
   return $versions;
 }
 
-//Get the projects who are visible for logged in user from
-//the database and put in in a selection box.
+//Get the projects who are visible for logged in user
+// fromthe database and put in in a selection box.
 function getProjects($projectId) {
   $projects = '<option value="0">&nbsp;</option>';
 
@@ -114,8 +116,8 @@ function getProjects($projectId) {
   return $projects;
 }
 
-//Get the versions from a project who are visible for logged in user from
-//the database and put in in a selection box.
+//Get the versions from a project who are visible for logged in user
+// fromthe database and put in in a selection box.
 function getVersions($projectId, $versionId) {
   $versions = '<option value="0">&nbsp;</option>';
 
@@ -261,12 +263,12 @@ function getEditBugForm($bugId) {
       
   if (isset($_GET) && isset($_GET['title']) && isset($_GET['description'])) {
     $title       = $_GET['title'];
-    $description   = $_GET['description'];
-    $fixedInId    = $_GET['fixedin'];
+    $description = $_GET['description'];
+    $fixedInId   = $_GET['fixedin'];
 
-    $priorityId    = $_GET['priorityid'];
-    $bugStatusId  = $_GET['bugstatusid'];
-    $fixedInId    = $_GET['fixedin'];  
+    $priorityId  = $_GET['priorityid'];
+    $bugStatusId = $_GET['bugstatusid'];
+    $fixedInId   = $_GET['fixedin'];  
         
     if($_GET['js'] == 'no' && isset($_GET['projectandversion'])) {
       $aProjVersion  = explode(htmlSafe(';'), $_GET['projectandversion']);
@@ -282,13 +284,13 @@ function getEditBugForm($bugId) {
 
     if(!empty($result)) {
       foreach ($result as $row) {
-        $title       = $row['title'];
-        $description   = $row['description'];
+        $title        = $row['title'];
+        $description  = $row['description'];
         $projectId    = $row['project_id'];
         $versionId    = $row['version_id'];
         $category1    = $row['category1_id'];
         $category2    = $row['category2_id'];
-        $priorityId    = $row['priority_id'];
+        $priorityId   = $row['priority_id'];
         $bugStatusId  = $row['status_id'];
         $fixedInId    = $row['versionFixedId'];
       }
@@ -310,44 +312,46 @@ function getEditBugForm($bugId) {
             '<div><input type="hidden" name="submitit" value="true"/></div>'.
             '<div><input type="hidden" name="action" value="editBug"/></div>'.
             '<div><input type="hidden" name="actionId" value="'.$bugId.'"/></div>'.
-            '<div class="registerlabel"><label for="title">Titel:</label></div><div class="registerinput"><input class="" type="text" id="title" name="title" value="'.$title.'"/></div>'.
-            '<div class="registerlabel"><label for="description">Omschrijving:</label></div><div class="registerinput"><textarea class="" id="description" name="description" cols="40" rows="6">'.$description.'</textarea></div>';
+            '<div class="registerlabel"><label for="title">'.lang('title').':</label></div><div class="registerinput"><input class="" type="text" id="title" name="title" value="'.$title.'"/></div>'.
+            '<div class="registerlabel"><label for="description">'.lang('description').':</label></div><div class="registerinput"><textarea class="" id="description" name="description" cols="40" rows="6">'.$description.'</textarea></div>';
       
   if(isset($_GET['js']) && $_GET['js'] == "no") {
-    $returnValue .= '<div class="registerlabel"><label for="projectandversion">Project:</label></div><div class="registerinput"><select class="" id="projectandversion" name="projectandversion">'.getProjectsAndVersions($projectId, $versionId).'</select></div>';
+    $returnValue .= '<div class="registerlabel"><label for="projectandversion">'.lang('project').':</label></div><div class="registerinput"><select class="" id="projectandversion" name="projectandversion">'.getProjectsAndVersions($projectId, $versionId).'</select></div>';
   } else {
-    $returnValue .=  '<div class="registerlabel"><label for="projectid">Project:</label></div><div class="registerinput"><select class="" id="projectid" name="projectid" onchange="javascriptSubmit(\'submitbug\', false);">'.getProjects($projectId).'</select></div>'.
-            '<div class="registerlabel"><label for="versionid">Versie:</label></div><div class="registerinput"><select class="" id="versionid" name="versionid">'.getVersions($projectId, $versionId).'</select></div>';
+    $returnValue .=  '<div class="registerlabel"><label for="projectid">'.lang('project').':</label></div><div class="registerinput"><select class="" id="projectid" name="projectid" onchange="javascriptSubmit(\'submitbug\', false);">'.getProjects($projectId).'</select></div>'.
+            '<div class="registerlabel"><label for="versionid">'.lang('version').':</label></div><div class="registerinput"><select class="" id="versionid" name="versionid">'.getVersions($projectId, $versionId).'</select></div>';
   }
   
   if(!isEmptyCategorys()) {
-    $returnValue .=  '<div class="registerlabel"><label for="categorie1">Categorie 1:</label></div><div class="registerinput"><select class="" id="category1" name="category1">'.getCategorys($category1).'</select></div>'.
-            '<div class="registerlabel"><label for="categorie2">Categorie 2:</label></div><div class="registerinput"><select class="" id="category2" name="category2">'.getCategorys($category2).'</select></div>';
+    $returnValue .=  '<div class="registerlabel"><label for="categorie1">'.lang('category1').':</label></div><div class="registerinput"><select class="" id="category1" name="category1">'.getCategorys($category1).'</select></div>'.
+            '<div class="registerlabel"><label for="categorie2">'.lang('category2').':</label></div><div class="registerinput"><select class="" id="category2" name="category2">'.getCategorys($category2).'</select></div>';
   }
 
   if (getCurrentGroupId() == 2 || getCurrentGroupId() == 3) {
-    $returnValue .=   '<div class="registerlabel"><label for="priorityid">Prioriteit:</label></div><div class="registerinput"><select class="" id="priorityid" name="priorityid">'.getPrioritys($priorityId).'</select></div>'.
-            '<div class="registerlabel"><label for="bugstatusid">Status:</label></div><div class="registerinput"><select class="" id="bugstatusid" name="bugstatusid">'.getBugstatus($bugStatusId).'</select> in <select class="" id="fixedin" name="fixedin">'.getVersions($projectId, $fixedInId).'</select></div>';
+    $returnValue .=   '<div class="registerlabel"><label for="priorityid">'.lang('priority').':</label></div><div class="registerinput"><select class="" id="priorityid" name="priorityid">'.getPrioritys($priorityId).'</select></div>'.
+            '<div class="registerlabel"><label for="bugstatusid">'.lang('status').':</label></div><div class="registerinput"><select class="" id="bugstatusid" name="bugstatusid">'.getBugstatus($bugStatusId).'</select>
+            '.lang('in').' <select class="" id="fixedin" name="fixedin">'.getVersions($projectId, $fixedInId).'</select></div>';
   } else {
     $returnValue .= '<input type="hidden" name="priorityid" value="'.$priorityId.'" /><input type="hidden" name="bugstatusid" value="'.$bugStatusId.'" /><input type="hidden" name="fixedin" value="'.$fixedInId.'" />';
   }
-  $returnValue .=    '<div class="registerlabel"><label for="verzenden">Verzenden:</label></div><div class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="Verzenden!"/></div>'.
+
+  $returnValue .=    '<div class="registerlabel"><label for="verzenden">'. lang('send') .':</label></div><div class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/></div>'.
           '</form>';
 
   if(!empty($projectId) && isEmptyProjects()) {
-    $returnValue .= 'Er zijn geen projecten gevonden, er kunnen geen bugs worden geplaatst.';
+    $returnValue .= lang('bug_no_projects');
   }
   
   if(!empty($projectId) && isEmptyVersions($projectId)) {
-    $returnValue .= 'Er zijn geen versies gevonden voor dit project, er kan geen bug voor dit project worden geplaatst.';
+    $returnValue .= lang('bug_no_versions');
   }          
 
   if(isEmptyPriority()) {
-    $returnValue .= 'Er zijn geen prioriteiten gevonden, er kan geen bug worden geplaatst.';
+    $returnValue .= lang('bug_no_priorities');
   }
   
   if(isEmptyBugstatus()) {
-    $returnValue .= 'Er zijn geen bug statussen gevonden, er kan geen bug worden geplaatst.';
+    $returnValue .= lang('bug_no_statuses');
   }    
   
   return $returnValue;  
@@ -358,15 +362,15 @@ function getEditCommentForm($commentId) {
 
   if (isset($_GET) && isset($_GET['message'])) {
     $message   = $_GET['message'];
-    $bugId    = $_GET['bugId'];
-    $commentId  = $_GET['actionId'];
+    $bugId     = $_GET['bugId'];
+    $commentId = $_GET['actionId'];
   } else {
     $result = Database::getComment($commentId);
     
     if(!empty($result)) {
       foreach($result as $row) {
-        $message   = $row['message'];
-        $bugId    = $row['bug_id'];
+        $message = $row['message'];
+        $bugId   = $row['bug_id'];
       }
     }
   }
@@ -383,12 +387,12 @@ function getEditCommentForm($commentId) {
             '<div><input type="hidden" name="id" value="'.$bugId.'"/></div>'.
             '<div><input type="hidden" name="actionId" value="'.$commentId.'"/></div>'.
             '<div><input type="hidden" name="action" value="editComment"/></div>'.
-            '<table style="width: 700px;">'.
+            '<table style="width: 100%;">'.
               '<tr>'.            
-                '<td class="registerlabel"><label for="message">Bericht:</label></td><td class="registerinput"><textarea class="" id="message" name="message" cols="40" rows="6">'.$message.'</textarea></td>'.
+                '<td class="registerlabel"><label for="message">' . lang('message') . ':</label></td><td class="registerinput"><textarea class="" id="message" name="message" cols="40" rows="6">'.$message.'</textarea></td>'.
               '</tr>'.
               '<tr>'.
-                '<td class="registerlabel"><label for="verzenden">Verzenden:</label></td><td class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="Verzenden!"/></td>'.
+                '<td class="registerlabel"><label for="verzenden">'. lang('send') .':</label></td><td class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/></td>'.
               '</tr>'.
             '</table>'.
           '</form>';
@@ -403,7 +407,7 @@ function getViewBugForm() {
   if(isset($_GET) && isset($_GET['id'])) {
     $bugId = intval($_GET['id']);
 
-    $userGroup   = getCurrentGroupId();
+    $userGroup = getCurrentGroupId();
     $results   = Database::getPermissions(intval($userGroup));
   
     $permissions = Array();
@@ -415,48 +419,49 @@ function getViewBugForm() {
     
     if(!empty($result)) {
       foreach ($result as $row) {
-        $returnValue .= '<table style="width: 700px;">';
+        $returnValue .= '<table style="width: 100%; margin: 0 auto;">';
         
         if (getCurrentUserId() == $row['user_id'] || (isset($permissions['mayadd_viewbug_comment']) && $permissions['mayadd_viewbug_comment'] == 'true')) {
           $returnValue .=  '<tr>'.
-                    '<td colspan="2">'.pageLink('viewbug&id='.$bugId.'&action=editBug&actionId='.$bugId, 'Wijzigen').' '.pageLink('viewbug&id='.$bugId.'&action=delBug&actionId='.$bugId, 'Verwijderen').'</td>'.
+                    '<td colspan="2">'.pageLink('viewbug&id='.$bugId.'&action=editBug&actionId='.$bugId, lang('edit')).' '.pageLink('viewbug&id='.$bugId.'&action=delBug&actionId='.$bugId, lang('delete')).'</td>'.
                   '</tr>';
         }
         
         $bbTags = Database::getBBTags(false, 0);
         
         $returnValue .=    '<tr>'.
-                    '<td class="lightgray" width="100">Ingevoerd door:</td><td>'.htmlSafe($row['userName']).' op '.htmlSafe(timestamp2date($row['submitdate'])).'</td>'.
+//                    '<td class="lightgray" width="100">' . lang('reported_by') . ':</td><td>'.htmlSafe($row['userName']) . lang('at') . htmlSafe(timestamp2date($row['submitdate'])).'</td>'.
+                    '<td class="lightgray" width="100">' . lang('reported_by') . ':</td><td>'.htmlSafe($row['userName']) . ', ' . htmlSafe(timestamp2date($row['submitdate'])).'</td>'.
                   '</tr>'.  
                   '<tr>'.
                     '<td class="lightgray" width="100">&nbsp;</td><td>&nbsp;</td>'.
                   '</tr>'.                          
                   '<tr>'.
-                    '<td class="lightgray" width="100">Titel:</td><td>'.$row['title'].'</td>'.
+                    '<td class="lightgray" width="100">'.lang('title').':</td><td>'.$row['title'].'</td>'.
                   '</tr>'.
                   '<tr>'.
-                    '<td class="lightgray" width="100">Omschrijving:</td><td>'.parseWithBBTags($row['description'], $bbTags).'</td>'.
+                    '<td class="lightgray" width="100">'.lang('description').':</td><td>'.parseWithBBTags($row['description'], $bbTags).'</td>'.
                   '</tr>'.
                   '<tr>'.
-                    '<td class="lightgray" width="100">Project:</td><td>'.($row['projectName']).'</td>'.
+                    '<td class="lightgray" width="100">'.lang('project').':</td><td>'.($row['projectName']).'</td>'.
                   '</tr>'.  
                   '<tr>'.
-                    '<td class="lightgray" width="100">Versie:</td><td>'.($row['version']).'</td>'.
+                    '<td class="lightgray" width="100">'.lang('version').':</td><td>'.($row['version']).'</td>'.
                   '</tr>'.                                              
                   '<tr>'.
-                    '<td class="lightgray" width="100">Categorie 1:</td><td>'.($row['category1Name']).'</td>'.
+                    '<td class="lightgray" width="100">'.lang('category1').':</td><td>'.($row['category1Name']).'</td>'.
                   '</tr>'.  
                   '<tr>'.
-                    '<td class="lightgray" width="100">Categorie 2:</td><td>'.($row['category2Name']).'</td>'.
+                    '<td class="lightgray" width="100">'.lang('category2').':</td><td>'.($row['category2Name']).'</td>'.
                   '</tr>'.                                      
                   '<tr>'.
-                    '<td class="lightgray" width="100">Prioriteit:</td><td>'.($row['priorityName']).'</td>'.
+                    '<td class="lightgray" width="100">'.lang('priority').':</td><td>'.($row['priorityName']).'</td>'.
                   '</tr>'.                  
                   '<tr>'.
-                    '<td class="lightgray" width="100">Status:</td><td>'.($row['statusName']);
+                    '<td class="lightgray" width="100">'.lang('status').':</td><td>'.($row['statusName']);
                     
         if(!empty($row['versionFixed'])) {                  
-          $returnValue .=  ' in versie '.($row['versionFixed']);  
+          $returnValue .=  lang('in_version') . $row['versionFixed'];  
         }
         
         $returnValue .=      '</td>'.
@@ -466,39 +471,39 @@ function getViewBugForm() {
       
       $result = Database::getBugComments($bugId);
       if(!empty($result)) {
-        $returnValue .= '<table style="width: 700px;">'.
+        $returnValue .= '<table style="width: 100%;">'.
                   '<tr>'.
                     '<td>&nbsp;</td>'.
                   '</tr>'.
                   '<tr>'.
-                    '<th>Berichten</th>'.
+                    '<th>' . lang('messages') . '</th>'.
                   '</tr>';                  
         
         foreach($result as $row) {
           if (getCurrentUserId() == $row['user_id'] || (isset($permissions['mayadd_viewbug_comment']) && $permissions['mayadd_viewbug_comment'] == 'true')) {
             $returnValue .=  '<tr>'.
-                      '<td>'.pageLink('viewbug&id='.$bugId.'&action=editComment&actionId='.$row['id'], 'Wijzigen').' '.pageLink('viewbug&id='.$bugId.'&action=delComment&actionId='.$row['id'], 'Verwijderen').'</td>'.
+                      '<td>'.pageLink('viewbug&id='.$bugId.'&action=editComment&actionId='.$row['id'], lang('edit')).' '.pageLink('viewbug&id='.$bugId.'&action=delComment&actionId='.$row['id'], lang('delete') ).'</td>'.
                     '</tr>';
             }  
                     
           $returnValue .= '<tr>'.
-                    '<td>'.htmlSafe($row['userName']).' op '.htmlSafe(timestamp2date($row['submitdate'])).'</td>'.
+                    '<td>'.htmlSafe($row['userName']). lang('at') . htmlSafe(timestamp2date($row['submitdate'])).'</td>'.
                   '</tr>'.
                   '<tr>'.
                     '<td>'.parseWithBBTags($row['message'], $bbTags).'</td>'.
                   '</tr>'.
                   '<tr>'.
-                    '<td><hr></hr></td>'.
+                    '<td><hr /></td>'.
                   '</tr>';                  
         }
         
         $returnValue .= '</table>';
       }
     } else {
-      $returnValue = 'De bug met het opgegeven id kan niet worden gevonden.';
+      $returnValue = lang('bug_id_not_found');
     }
   } else {
-    $returnValue = 'De bug met het opgegeven id kan niet worden gevonden.';
+    $returnValue = lang('bug_id_not_found');
   }    
   
   return $returnValue;
@@ -546,23 +551,23 @@ function getCommentSubmitForm($recoverData) {
               '<div><input type="hidden" name="js" value="'.(strpos(getCurrentRequestUrl(),'script.php')===false?'no':'yes').'"/></div>'.
               '<div><input type="hidden" name="submitit" value="true"/></div>'.
               '<div><input type="hidden" name="id" value="'.$bugId.'"/></div>'.
-              '<table style="width: 700px;">'.
+              '<table style="width: 100%;">'.
                 '<tr>'.
                   '<td style="width: 100px;">&nbsp;</td>'.
                 '</tr>'.
                 '<tr>'.
-                  '<th colspan="2">Bericht plaatsen</th>'.
+                  '<th colspan="2">' . lang('message_post') . '</th>'.
                 '</tr>'.                
                 '<tr>'.            
-                  '<td class="registerlabel"><label for="message">Bericht:</label></td><td class="registerinput"><textarea class="" id="message" name="message" cols="40" rows="6">'.$message.'</textarea></td>'.
+                  '<td class="registerlabel"><label for="message">' . lang('message') . ':</label></td><td class="registerinput"><textarea class="" id="message" name="message" cols="40" rows="6">'.$message.'</textarea></td>'.
                 '</tr>'.
                 '<tr>'.
-                  '<td class="registerlabel"><label for="verzenden">Verzenden:</label></td><td class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="Verzenden!"/></td>'.
+                  '<td class="registerlabel"><label for="verzenden">'. lang('send') .':</label></td><td class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/></td>'.
                 '</tr>'.
               '</table>'.
             '</form>';
   } else {
-    $returnValue .= '<h1>Onvoldoende rechten om berichten te plaatsen</h1>';
+    $returnValue .= '<h1>' . lang('message_post_no_rights') . '</h1>';
   }
   
   return $returnValue;
@@ -572,7 +577,7 @@ function handleSubmit() {
   if(isset($_GET)) {
     if (isset($_GET) && isset($_GET['message']) && isset($_GET['id']) && !isset($_GET['action'])) {
       $message = $_GET['message'];
-      $bugId    = $_GET['id'];
+      $bugId   = $_GET['id'];
   
       $errorMessage = '';
       $error = false;  
@@ -597,27 +602,27 @@ function handleSubmit() {
     }
     
     if(isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'editBug'){
-      $title       = '';
-      $description   = '';
-      $bugId      = 0;
+      $title        = '';
+      $description  = '';
+      $bugId        = 0;
       $projectId    = 0;
       $versionId    = 0;  
       $category1    = 0;
       $category2    = 0;
-      $priorityId    = 0;
+      $priorityId   = 0;
       $bugStatusId  = 0;
       $fixedInId    = 0;
       
       if (isset($_GET) && isset($_GET['id']) && isset($_GET['title']) && isset($_GET['description']) && isset($_GET['priorityid']) && isset($_GET['bugstatusid'])) {
-        $bugId      = $_GET['id'];
-        $title       = $_GET['title'];
-        $description   = $_GET['description'];
-        $priorityId    = $_GET['priorityid'];
+        $bugId        = $_GET['id'];
+        $title        = $_GET['title'];
+        $description  = $_GET['description'];
+        $priorityId   = $_GET['priorityid'];
         $bugStatusId  = $_GET['bugstatusid'];
         $fixedInId    = $_GET['fixedin'];
                 
         if($_GET['js'] == 'no' && isset($_GET['projectandversion'])) {
-          $aProjVersion  = explode(htmlSafe(';'), $_GET['projectandversion']);
+          $aProjVersion = explode(htmlSafe(';'), $_GET['projectandversion']);
             
           $projectId    = $aProjVersion[0];
           $versionId    = $aProjVersion[1];
@@ -637,22 +642,22 @@ function handleSubmit() {
       
       if(empty($title) && $error == false) {
         $error        = true;
-        $errorMessage   .= 'De titel moet gevuld zijn.';
+        $errorMessage .= lang('title_empty');
       }
       
       if(empty($description) && $error == false) {
         $error        = true;
-        $errorMessage   .= 'De beschrijving moet gevuld zijn.';
+        $errorMessage .= lang('description_empty');
       }  
       
       if(empty($projectId) && $error == false) {
         $error        = true;
-        $errorMessage   .= 'Er moet een project worden gekozen.';    
+        $errorMessage .= lang('project_not_selected');    
       }
       
       if(empty($versionId) && $error == false) {
         $error        = true;
-        $errorMessage   .= 'Er moet een versie worden gekozen.';
+        $errorMessage .= lang('version_empty');
       }    
     
       if ($error) {
@@ -673,7 +678,7 @@ function handleSubmit() {
         
       if (isset($_GET) && isset($_GET['message']) && isset($_GET['actionId'])) {
         $message   = $_GET['message'];
-        $CommentId  = $_GET['actionId'];
+        $CommentId = $_GET['actionId'];
       }  
       
       $errorMessage = '';
@@ -696,4 +701,3 @@ function handleSubmit() {
     }
   }
 }
-?>
