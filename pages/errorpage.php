@@ -7,17 +7,18 @@
  */
  
 function geterrorpage() {
+
   if (isset($_GET['message'])) {
     switch ($_GET['message']) {
       case 'database':
-        return '<p>Sorry, er is iets mis met de database, probeer het later nog eens</p>';
+        return '<p>' . lang('database_error') . '</p>';
         break;
       default:
-        return '<p>Deze pagina is op dit moment niet beschikbaar</p>';
+        return '<p>' . lang('page_unavailable') . '</p>';
         break;
     }
   } else {
-    return '<p>Deze pagina is op dit moment niet beschikbaar</p>';
+    return '<p>' . lang('page_unavailable') . '</p>';
   }
 }
-?>
+
