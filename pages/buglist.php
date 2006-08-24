@@ -36,9 +36,10 @@ function getbuglist() {
   
   $result = Database::getBugAll(getCurrentUserId(), ($page-1)*$maximum, $maximum, $_GET['sort'], $_GET['order']);
 
-  $returnValue = '<h1>Buglijst, in totaal ' . ($bugcount+1) . ' bugs gevonden</h1>';
+  $returnValue = '<h1>' . lang('bugs_total', $bugcount+1) . '</h1>';
+
   if (empty($result)) {
-    $returnValue .= '<p><i>Geen bugs gevonden</i></p>';
+    $returnValue .= '<p><i>' . lang('bugs_no') . '</i></p>';
   } else {
 
 
@@ -46,7 +47,7 @@ function getbuglist() {
   if ($page != 1) {
     $returnValue.= pageLink('buglist&buglistpage='.($page-1).'&sort='.$_GET['sort'].'&order='.$_GET['order'], '<<').'&nbsp;&nbsp;';
   } else {
-    $returnValue .= '<<&nbsp;';
+    $returnValue .= '&lt;&lt;&nbsp;';
   }
   $shownPreviousPageNumber = true;
   $showThisPageNumber = true;
@@ -79,11 +80,11 @@ function getbuglist() {
   $returnValue .= '</div>';
     $returnValue .= '<table>' .
               '<tr>' .
-                '<th style="width: 200px;">'.pageLink('buglist&buglistpage=1&sort=description&order=asc', 'Omschrijving').'</th>' .
-                '<th style="width: 100px;">'.pageLink('buglist&buglistpage=1&sort=poster&order=asc', 'Poster').'</th>' .
-                '<th style="width: 120px;">'.pageLink('buglist&buglistpage=1&sort=date&order=desc', 'Datum').'</th>' .
-                '<th style="width: 100px;">'.pageLink('buglist&buglistpage=1&sort=status&order=asc', 'Status').'</th>' .
-                '<th style="width: 140px;">'.pageLink('buglist&buglistpage=1&sort=projectversion&order=asc', 'Projectversie').'</th>' .
+                '<th style="width: 200px;">'.pageLink('buglist&buglistpage=1&sort=description&order=asc', lang('description')).'</th>' .
+                '<th style="width: 100px;">'.pageLink('buglist&buglistpage=1&sort=poster&order=asc', lang('poster')).'</th>' .
+                '<th style="width: 120px;">'.pageLink('buglist&buglistpage=1&sort=date&order=desc', lang('date')).'</th>' .
+                '<th style="width: 100px;">'.pageLink('buglist&buglistpage=1&sort=status&order=asc', lang('status')).'</th>' .
+                '<th style="width: 140px;">'.pageLink('buglist&buglistpage=1&sort=projectversion&order=asc', lang('project_version')).'</th>' .
               '</tr>';
     $i = 1;
     
@@ -111,4 +112,4 @@ function getbuglist() {
   
   return $returnValue;
 }
-?>
+
