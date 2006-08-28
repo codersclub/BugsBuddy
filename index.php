@@ -4,7 +4,7 @@ session_start();
 require_once('includes/helperfunctions.php');
 
 if (file_exists('./install/')) {
-  die( lang('install_remove') );
+  echo( lang('install_remove') );
 }
 
 //DEBUG
@@ -50,24 +50,35 @@ function showPage() {
         $_GET["page"] = "pagenotfound";
       }
       // Every variabele is checked before it is parsed into php code!
-      $phpCode = "require_once('pages/".$_GET["page"].".php');  echo get".$_GET["page"]."();";
-      eval($phpCode);
+//      $phpCode = "require_once('pages/".$_GET["page"].".php');  echo get".$_GET["page"]."();";
+//      eval($phpCode);
+      require_once(ROOT_DIR.'/pages/'.$_GET['page'].'.php');
+      $f = "get".$_GET['page'];
+      if(function_exists($f)) {
+//echo "function ".$f." exists.<br>";
+        echo $f();
+      } else {
+//echo "function ".$f." NOT exists.<br>";
+      }
     }
-  } else {
+  } else {	// Show by Ajax
     if (isset($_GET['page']) && $_GET['page'] == 'errorpage') {
-      require_once('pages/errorpage.php');
+      require_once(ROOT_DIR.'/pages/errorpage.php');
       echo geterrorpage() . "\n";
     } else {
       if (!isset($_POST['page'])) {
-        require_once('pages/home.php');
+        require_once(ROOT_DIR.'/pages/home.php');
         echo gethome() . "\n";
       } else {
         if (!isAllowedPage($_POST['page'])) {
           $_POST["page"] = "pagenotfound";
         }
         // Every variabele is checked before it is parsed into php code!
-        $phpCode = "require_once('pages/".$_POST["page"].".php');  echo get".$_POST["page"]."();";
-        eval($phpCode);
+//        $phpCode = "require_once('pages/".$_POST["page"].".php');  echo get".$_POST["page"]."();";
+//        eval($phpCode);
+        require_once(ROOT_DIR. '/pages/".$_POST["page"].".php');
+        $f = "get".$_POST["page"];
+        echo $f();
       }
     }
   }
@@ -78,24 +89,7 @@ function showPage() {
  * If the $_GET['js'] value is not set, then the browser has to decide to use AJAX or not. This depends on JavaScript availability
  */
 if (!isset($_GET["js"])) {
-?>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html>
-  <head>
-    <noscript>
-      <meta http-equiv="refresh" content="0;index.php?js=no">
-    </noscript>
-    <script type="text/javascript">
-      document.location.href="index.php?js=yes";
-    </script>
-  </head>
-  <body>
-  </body>
-</html>
-<?php
-  exit;
+  //vot  noajaxcall();
 }
   
 /*
@@ -130,7 +124,8 @@ if (isset($_COOKIE['AUTOLOGIN'])) {
  * If the user tries to login on the non-AJAX,
  * set the session before initial page output
  */
-if ($_GET['js'] == "no" && isset($_POST) && isset($_POST['email']) && isset($_POST['pass'])) {
+//vot if ($_GET['js'] == "no" && isset($_POST) && isset($_POST['email']) && isset($_POST['pass'])) {
+if (isset($_POST) && isset($_POST['email']) && isset($_POST['pass'])) {
   require_once('pages/login.php');
 
   if (!setLoginSession(htmlUnsafe($_POST['email']), htmlUnsafe($_POST['pass']), ((isset($_POST['stay'])&&$_POST['stay']=='on')?true:false), ((isset($_POST['ip'])&&$_POST['ip']=='on')?true:false))) {
@@ -142,8 +137,9 @@ if ($_GET['js'] == "no" && isset($_POST) && isset($_POST['email']) && isset($_PO
 /*
  * Handle logout before any other output is generated on non-AJAX pages
  */
-if (isset($_GET['js']) && $_GET['js'] == "no" && isset($_GET['page']) && $_GET['page'] == "logout") {
-  $_GET["page"] = "changepassword";
+//if (isset($_GET['js']) && $_GET['js'] == "no" && isset($_GET['page']) && $_GET['page'] == "logout") {
+if (isset($_GET['page']) && $_GET['page'] == "logout") {
+//  $_GET["page"] = "changepassword";
   require_once('pages/logout.php');
   logout();
 }
@@ -178,7 +174,7 @@ if (isLoggedIn() && isset($_POST['changepassword']) && isValidPassword(htmlUnsaf
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=<?=CHARSET;?>" />
     <link href="style/default.css" rel="stylesheet" type="text/css"/>
 <?php
-if ($_GET["js"] == "yes") {
+//if ($_GET["js"] == "yes") {
 ?>
 <script type="text/javascript">
   var currentPage = "home";
@@ -344,48 +340,14 @@ if ($_GET["js"] == "yes") {
   }
 </script>
 <?php
-}
+//}
 ?>
   </head>
   <body>
     <div id="container">
       <div id="header">
         <img src="./images/logo.gif" alt="Bugsbuddy" />
-      </div>
-      <div id="balk">
-<?php echo getLinksHtml(); ?>
-      </div>
-      <div id="goback">
-        <?php
-          if (isset($_GET['js']) && $_GET['js']!='yes' && isset($_SERVER['HTTP_REFERER'])) {  
-            $js = '?';
-            $page = '';
-            $id = '';
-            $strpos = strpos($_SERVER['HTTP_REFERER'], '?');
-            if ($strpos === false) {
-              $arguments = '';
-            } else {
-              $arguments = substr($_SERVER['HTTP_REFERER'], $strpos+1);
-              $argumentArray = explode('&', $arguments);
-              $arguments = Array();
-              foreach($argumentArray as $argumentValue) {
-                if (strpos($argumentValue, '=') !== false) {
-                  $splittedArgumentValue = explode('=', $argumentValue);
-                  $arguments[$splittedArgumentValue[0]] = $splittedArgumentValue[1];
-                }
-              }
-              if (isset($arguments['js'])) $js = '?js='.$arguments['js'].'&';
-              else $js = '?js=no&';
-              if (isset($arguments['page'])) $page = 'page='.$arguments['page'].'&';
-              if (isset($arguments['id'])) $id = 'id='.$arguments['id'].'&';
-              
-            }
-            echo '<a href="index.php?js=no&'.$page.$id.'">'.$lang['go_back'].'</a>';
-          }
-          
-        ?>
-      </div>
-      <div id="login">
+        <div id="login">
 <?php
 
 require_once('pages/login.php');
@@ -400,16 +362,100 @@ if (defined('LOGIN_FAILED') && LOGIN_FAILED) {
   }
 }
 ?>
-      </div>
-      <div id="content">
-<?php showPage(); ?>
-      </div>
-      <div id="footer">
-        XHTML 1.0 Strict & CSS2 valid.
-      </div>
     </div>
+
+  </div>
+
+  <div id="menubar">
+    <?php echo getLinksHtml(); ?>
+  </div>
+
+<?php
+/*
+  <div id="goback">
+
+if (isset($_GET['js']) && $_GET['js']!='yes' && isset($_SERVER['HTTP_REFERER'])) {
+  $js = '?';
+  $page = '';
+  $id = '';
+  $strpos = strpos($_SERVER['HTTP_REFERER'], '?');
+
+  if ($strpos === false) {
+    $arguments = '';
+  } else {
+    $arguments = substr($_SERVER['HTTP_REFERER'], $strpos+1);
+    $argumentArray = explode('&', $arguments);
+    $arguments = Array();
+
+    foreach($argumentArray as $argumentValue) {
+      if (strpos($argumentValue, '=') !== false) {
+        $splittedArgumentValue = explode('=', $argumentValue);
+        $arguments[$splittedArgumentValue[0]] = $splittedArgumentValue[1];
+      }
+    }
+
+    if (isset($arguments['js'])) $js = '?js='.$arguments['js'].'&';
+    else $js = '?';
+
+    if (isset($arguments['page'])) $page = 'page='.$arguments['page'].'&';
+    if (isset($arguments['id'])) $id = 'id='.$arguments['id'].'&';
+              
+  }
+  echo '<a href="index.php?'.$page.$id.'">'. $lang['go_back'] .'</a>';
+}
+  </div>
+*/
+?>
+
+
+  <div id="content">
+    <?php showPage(); ?>
+  </div>
+
+
+  <div id="footer">
+    <? echo lang('xhtml1_css2_valid');?>
+  </div>
+
+</div>
+
+
 <?php if ($_GET['js'] == "yes") { ?>
     <iframe name="submitFrame" id="loginFrame" marginwidth="0" marginheight="0" height="0" width="0" name="0" style="width:0px; height:0px; border:0px"></iframe>
 <?php } ?>
   </body>
 </html>
+
+<?
+exit;
+
+
+
+
+
+
+
+
+//----------------------------
+function noajaxcall() {
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+
+<noscript>
+  <meta http-equiv="refresh" content="0;index.php">
+</noscript>
+
+<script type="text/javascript">
+  document.location.href="index.php";
+</script>
+
+</head>
+
+<body>
+</body>
+</html>
+<?php
+  exit;
+}
