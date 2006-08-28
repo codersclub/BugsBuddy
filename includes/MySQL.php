@@ -27,12 +27,36 @@ class MySQL {
       $this->connected = false;
       return;
     }
+    if(defined('DATABASE_DATABASENAME')) {
     if (!mysql_select_db(DATABASE_DATABASENAME, $this->databaseConnection)) {
       @mysql_close($this->databaseConnection);
       $this->connected = false;
       return;
     }
+    }
     $this->connected = true;
+  }
+  
+  /*
+   * Returns the only instance of the MySQL object. If the object does not yet exists, a new one will
+   * be created
+   */
+  function select_db($database) {
+//DEBUG
+//echo '<pre>';
+//echo 'select_db started. $database=', $database, "\n";
+//var_dump(debug_backtrace());
+//echo '</pre>';
+//exit;
+    $mySQLInstance = MySQL::instance();
+    if ($mySQLInstance==null) {
+      return null;
+    }
+    if (!mysql_select_db($database, $mySQLInstance->databaseConnection)) {
+      @mysql_close($mySQLInstance->databaseConnection);
+      $mySQLInstance->connected = false;
+      return;
+    }
   }
   
   /*
@@ -56,6 +80,11 @@ class MySQL {
    * query, the value 'null' is returned
    */
   function query($queryString) {
+//DEBUG
+//echo '<pre>';
+//echo 'query=', htmlspecialchars($queryString), "\n";
+//echo '</pre>';
+
     $mySQLInstance = MySQL::instance();
     if ($mySQLInstance==null) {
       return null;

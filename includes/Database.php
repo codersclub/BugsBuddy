@@ -9,7 +9,13 @@
 require_once(ROOT_DIR.'/includes/MySQL.php');
 
 class Database {
-  function install($name, $email, $password) {
+
+  function install($database, $name, $email, $password) {
+
+    MySQL::query('DROP DATABASE IF EXISTS `' . addslashes($database) . '`');
+    MySQL::query('CREATE DATABASE `' . addslashes($database) . '` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci');
+    MySQL::select_db(addslashes($database));
+
     $filename = ROOT_DIR.'/install/install.sql';
     $handle = fopen ($filename, 'rb');
     $sql = fread ($handle, filesize ($filename));

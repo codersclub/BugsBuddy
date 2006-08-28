@@ -28,7 +28,7 @@ $msg2 = '';
 $install_complete = false;
 
 if (!empty($_POST)) {
-  $file = ROOT_DIR.'/config.php'; 
+  $file = ROOT_DIR.'/includes/config.php'; 
   $_POST['aemail']=html_entity_decode($_POST['aemail']);
 
 //DEBUG
@@ -60,7 +60,7 @@ if (!empty($_POST)) {
               if ($file_handle = fopen($file, 'a')) {
                 if (fwrite($file_handle, $data)) {
                     
-                  if (Database::install($_POST['aname'], $_POST['aemail'], passwordHash2($_POST['apassword']))) {
+                  if (Database::install($_POST['ddatabase'], $_POST['aname'], $_POST['aemail'], passwordHash2($_POST['apassword']))) {
                     $install_complete = true;
                   }
                 } else {
