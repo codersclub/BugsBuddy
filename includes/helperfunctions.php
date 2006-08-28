@@ -24,8 +24,20 @@ define('ROOT_URL', $url);
 //echo $_SERVER['PHP_SELF']."<br>\n";
 //echo $_SERVER['SCRIPT_NAME']."<br>\n";;
 //echo "</pre>\n";
-
-require_once(ROOT_DIR."/includes/config.php");
+if(is_file(ROOT_DIR.'/includes/config.php')) {
+  require_once(ROOT_DIR.'/includes/config.php');
+} else {
+  // Auto generated configuration file
+  define('DATABASE_TYPE',          'MySQL');
+  define('DATABASE_SERVER',        'localhost');
+  define('DATABASE_USER_NAME',     'root');
+  define('DATABASE_USER_PASSWORD', '');
+  define('DATABASE_DATABASENAME' , '');
+  define('LANG',                   'en');
+  define('CHARSET',                'UTF-8');
+  define('MAIL_CHARSET',           'UTF-8');
+  define('DATABASE_CHARSET',       'utf8');
+}
 
 require_once(ROOT_DIR.'/lang/'.LANG.'.php');
 require_once(ROOT_DIR.'/includes/Database.php');
