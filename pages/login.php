@@ -157,7 +157,7 @@ function getLoginHtml() {
 
   $returnValue .=   '<p class="nomargin">';
 
-  $returnValue .= lang('welcome').' <strong>'.lang('guest').'</strong><br />';
+  $returnValue .= lang('welcome') . ' <strong>' . lang('guest') . '</strong><br />';
 
   if (isset($_GET['js']) && $_GET['js'] == 'yes') {
     $returnValue .= '
@@ -165,7 +165,7 @@ function getLoginHtml() {
       |
       <a href="javascript:getNewContent(\'register\');">' . lang('register') . '</a>
       |
-      <a href='javascript:getNewContent(\'forgotpassword\');">' . lang('password_forgot') . "</a>\n";
+      <a href="javascript:getNewContent(\'forgotpassword\');">' . lang('password_forgot') . "</a>\n";
   } else {
     $returnValue .= '
       <a href="index.php?page=login">' . lang('login') . '</a>
