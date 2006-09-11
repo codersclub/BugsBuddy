@@ -9,14 +9,14 @@
  */
 
 function getbugcategory() {
-  $returnValue = '<h1>Bugcategory toevoegen of verwijderen</h1>';
+  $returnValue = '<h1>' . lang('category_add') . '</h1>';
   if (!empty($_GET['id'])) {
     if (is_numeric($_GET['id'])) {
       Database::delBugCategory($_GET['id']);
-      $returnValue .= '<p>Categorie verwijderd</p><br />';
-      $returnValue .= '<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugcategory"> << Back </a>';
+      $returnValue .= '<p>' . lang('category_removed') . '</p><br />';
+      $returnValue .= '<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugcategory">'. lang('back') .'</a>';
     } else {
-      $returnValue .= '<p><i>Geen geldig id</i></p>';
+      $returnValue .= '<p><i>' . lang('id_invalid') . '</i></p>';
     }
   } else {
 
@@ -29,37 +29,37 @@ function getbugcategory() {
         $bugnamecount = Database::countBugCategory($_POST['delthis']);
         $bugnamecount = count($bugnamecount);
         if ($bugnamecount > 0) {
-          $returnValue .= '<p>Er zijn bugs gevonden met dezelfde categorie, deze zullen verwijderd worden.<br />';
-          $returnValue .= 'Aantal bugs met dezelfde categorie: ' . $bugnamecount . '</p>';
-          $returnValue .= '<p>Weet u zeker dat u door wilt gaan.</p>';
-          $returnValue .= '<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugcategory&id=' . $_POST['delthis'] . '">Ja</a>&nbsp;';
-          $returnValue .= '&nbsp;<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugcategory">Nee</a>';
+          $returnValue .= '<p>' . lang('category_has_bugs') . '<br />';
+          $returnValue .= lang('category_bugs_number') . ': ' . $bugnamecount . '</p>';
+          $returnValue .= '<p>' . lang('continue_sure') . '</p>';
+          $returnValue .= '<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugcategory&id=' . $_POST['delthis'] . '">' . lang('yes') . '</a>&nbsp;';
+          $returnValue .= '&nbsp;<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugcategory">' . lang('no') . '</a>';
         } else {
           Database::delBugCategory($_POST['delthis']);
-          $returnValue .= '<p>Bugcategory ' . $bugstatusname . ' verwijderd</p><br />';
-          $returnValue .= '<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugcategory"> << Back </a>';
+          $returnValue .= '<p>' . lang('category_x_removed',$bugstatusname) . '</p><br />';
+          $returnValue .= '<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugcategory">'. lang('back') .'</a>';
         }
       } else {
-        $returnValue .= '<p><i>Geen geldig id</i></p>';
+        $returnValue .= '<p><i>' . lang('id_invalid') . '</i></p>';
       }
     } elseif (!empty($_POST['bugaddname'])) {
         Database::insBugCategory($_POST['bugaddname']);
-        $returnValue .= '<p>Bugcategory ' . $_POST['bugaddname'] . ' toegevoegd</p><br />';
-        $returnValue .= '<div><a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugcategory"> << Back </a></div>';
+        $returnValue .= '<p>' . lang('category_x_added',$_POST['bugaddname']) . '</p><br />';
+        $returnValue .= '<div><a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugcategory">'. lang('back') .'</a></div>';
         $returnValue .= '<meta http-equiv="refresh" content="3;URL=index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugcategory" />';
     } else {
-      //return "Admin Bug Status Page";
+      //return lang('admin_statuses');
 
       
       
       $returnValue .= '<form action="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugcategory" id="add" method="post">';
-        $returnValue .= '<div>Bugcategory toevoegen: <input type="text" name="bugaddname" />';
-        $returnValue .= '&nbsp;<input type="submit" value="Toevoegen" /></div>';
+      $returnValue .= '<div>' . lang('category_add') . ': <input type="text" name="bugaddname" />';
+      $returnValue .= '&nbsp;<input type="submit" value="' . lang('add') . '" /></div>';
       $returnValue .= '</form>';
       
       $returnValue .= '<form id="delete" method="post" action="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugcategory">';
-        $returnValue .= '<div>Bugcategory verwijderen: <input type="hidden" name="page" value="bugcategory" />';
-          $returnValue .= '<select name="delthis">';
+      $returnValue .= '<div>' . lang('category_delete') . ': <input type="hidden" name="page" value="bugcategory" />';
+      $returnValue .= '<select name="delthis">';
       
       $getbugs = Database::getBugCategory();    
       if(!empty($getbugs)) {
@@ -70,12 +70,11 @@ function getbugcategory() {
         $returnValue .= '<option value="0"></option>';
       }          
 
-          $returnValue .= '</select>';
-        $returnValue .= '&nbsp;<input type="submit" value="Verwijder" /></div>';
+      $returnValue .= '</select>';
+      $returnValue .= '&nbsp;<input type="submit" value="' . lang('delete') . '" /></div>';
       $returnValue .= '</form>';
     }
   }
   return $returnValue;
 }
 
-?>

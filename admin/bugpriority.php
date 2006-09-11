@@ -10,19 +10,19 @@
  */
 
 function getbugpriority() {
-  $returnValue = '<h1>Bugpriority toevoegen of verwijderen</h1>';
+  $returnValue = '<h1>' . lang('priority_add_remove') . '</h1>';
   
   if (!empty($_GET['remBugPriorityID'])) 
   {
     if (is_numeric($_GET['remBugPriorityID']) && intval($_GET['remBugPriorityID']) != 1) 
     {
       Database::remBugPriority($_GET['remBugPriorityID']);
-      $returnValue .= '<p>Bugpriority verwijderd</p><br />';
-      $returnValue .= '<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugpriority"> << Back </a>';
+      $returnValue .= '<p>' . lang('priority_deleted') . '</p><br />';
+      $returnValue .= '<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugpriority">'. lang('back') .'</a>';
     }
     else 
     {
-      $returnValue .= '<p><i>Geen geldig id</i></p>';
+      $returnValue .= '<p><i>' . lang('id_invalid') . '</i></p>';
     }
   } 
   else 
@@ -43,45 +43,45 @@ function getbugpriority() {
           
           if ($bugprioritynamecount > 0) 
           {
-            $returnValue .= '<p>Er zijn bugs gevonden met dezelfde bugpriority, deze zullen verwijderd worden.<br />';
-            $returnValue .= 'Aantal bugs met dezelfde bugpriority: ' . $bugprioritynamecount . '</p>';
-            $returnValue .= '<p>Weet u zeker dat u door wilt gaan.</p>';
-            $returnValue .= '<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugpriority&remBugPriorityID=' . $_POST['delBugPriority'] . '">Ja</a>&nbsp;';
-            $returnValue .= '&nbsp;<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugpriority">Nee</a>';
+            $returnValue .= '<p>' . lang('priority_has_bugs') . '<br />';
+            $returnValue .= lang('priority_bugs_number') . ': ' . $bugprioritynamecount . '</p>';
+            $returnValue .= '<p>' . lang('continue_sure') . '</p>';
+            $returnValue .= '<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugpriority&remBugPriorityID=' . $_POST['delBugPriority'] . '">' . lang('yes') . '</a>&nbsp;';
+            $returnValue .= '&nbsp;<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugpriority">' . lang('no') . '</a>';
           } 
           else 
           {
             Database::remBugPriority($_POST['delBugPriority']);
-            $returnValue .= '<p>Bugpriority ' . $bugprioritystatusname . ' verwijderd</p><br />';
-            $returnValue .= '<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugpriority"> << Back </a>';
+            $returnValue .= '<p>' . lang('priority_x_deleted',$bugprioritystatusname) . '</p><br />';
+            $returnValue .= '<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugpriority">'. lang('back') .'</a>';
           }
         } else {
-          $returnValue .= '<p>Deze bugpriority kan niet worden verwijdert, omdat dit de standaard bug-priority is.</p><br />';
-          $returnValue .= '<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugpriority"> << Back </a>';
+          $returnValue .= '<p>' . lang('priority_not_removable') . '</p><br />';
+          $returnValue .= '<a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugpriority">'. lang('back') .'</a>';
         }
       } 
       else 
       {
-        $returnValue .= '<p><i>Geen geldig id</i></p>';
+        $returnValue .= '<p><i>' . lang('id_invalid') . '</i></p>';
       }
     } 
     elseif (!empty($_POST['addBugPriority'])) 
     {
       Database::insBugPriority($_POST['addBugPriority']);
         
-      $returnValue .= '<p>Bugpriority ' . $_POST['addBugPriority'] . ' toegevoegd</p><br />';
-      $returnValue .= '<div><a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugpriority"> << Back </a></div>';
+      $returnValue .= '<p>' . lang('priority_x_added',$_POST['addBugPriority']) . '</p><br />';
+      $returnValue .= '<div><a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugpriority">'. lang('back') .'</a></div>';
       $returnValue .= '<meta http-equiv="refresh" content="3;URL=index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugpriority" />';
     } 
     else 
     {
       $returnValue .= '<form action="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugpriority" id="add" method="post">';
-      $returnValue .=    '<div>Bugpriority toevoegen:<input type="text" name="addBugPriority" />';
-      $returnValue .=    '&nbsp;<input type="submit" value="Toevoegen"/></div>';
+      $returnValue .=    '<div>' . lang('priority_add') . ': <input type="text" name="addBugPriority" />';
+      $returnValue .=    '&nbsp;<input type="submit" value="' . lang('add') . '"/></div>';
       $returnValue .= '</form>';
 
       $returnValue .= '<form id="delete" method="post" action="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bugpriority">';
-      $returnValue .=    '<div>Bugpriority verwijderen: <input type="hidden" name="page" value="bugpriority" />';
+      $returnValue .=    '<div>' . lang('priority_delete') . ': <input type="hidden" name="page" value="bugpriority" />';
       $returnValue .=    '<select name="delBugPriority">';
 
       $getpriorities = Database::getBugPriorities();
@@ -94,11 +94,10 @@ function getbugpriority() {
       }  
 
       $returnValue .=    '</select>';
-      $returnValue .=    '&nbsp;<input type="submit" value="Verwijder"/></div>';
+      $returnValue .=    '&nbsp;<input type="submit" value="' . lang('delete') . '"/></div>';
       $returnValue .= '</form>';
     }
   }
   return $returnValue;
 }
 
-?>

@@ -12,10 +12,10 @@ function geteditconfig() {
   if (!empty($_POST)) {
     Database::updateConfig($_POST['email'], $_POST['from']);
 
-    $msg = 'Configuratie gewijzigd.';
+    $msg = lang('config_changed');
   }
 
-  $ret = '<h1>Wijzig configuratie</h1>';
+  $ret = '<h1>' . lang('config_edit') . '</h1>';
   
   if (!empty($msg)) {
     $ret .= '<p><span class="error">' . $msg . '</span></p>';
@@ -32,12 +32,12 @@ function geteditconfig() {
   }
 
   $ret .= '<form action="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=editconfig" method="post">' .
-        '<div class="registerlabel"><label for="email">Webmaster mail:</label></div><div class="registerinput"><input  type="text" id="email" name="email" value="' . $email . '" /></div>' .
-        '<div class="registerlabel"><label for="from">E-mail from:</label></div><div class="registerinput"><input  type="text" id="from" name="from" value="' . $from . '" /></div>' .
-        '<div class="registerlabel"><label for="verzenden">Verzenden:</label></div><div class="registerinput"><input  id="verzenden" name="verzenden" type="submit" value="Wijzig" /></div>'.
+        '<div class="registerlabel"><label for="email">' . lang('email_site') . ':</label></div><div class="registerinput"><input  type="text" id="email" name="email" value="' . $email . '" /></div>' .
+        '<div class="registerlabel"><label for="from">' . lang('email_sender') . ':</label></div><div class="registerinput"><input  type="text" id="from" name="from" value="' . $from . '" /></div>' .
+        '<div class="registerlabel"><label for="verzenden">'. lang('send') .':</label></div><div class="registerinput"><input  id="verzenden" name="verzenden" type="submit" value="' . lang('edit') . '" /></div>'.
         '</form>';
 
   return $ret;  
 }
 
-?>
+

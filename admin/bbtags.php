@@ -25,10 +25,10 @@ function getbbtags() {
         $returnValue .= getBbForm(true); 
       }
     } else {
-      $returnValue = 'Onvoldoende rechten.';
+      $returnValue = lang('permission_not_enough');
     }
   } else {
-    $returnValue = 'Voor deze functionaliteit moet u ingelogd zijn.';
+    $returnValue = lang('login_required_for_this');
   }  
   
   return $returnValue;
@@ -67,7 +67,7 @@ function getBbForm($recoverData) {
   $result = Database::getBbTags(false, 0);
   
   if(!empty($result)) {
-    $returnValue .= '<table style="width: 700px;">'.
+    $returnValue .= '<table style="width: 100%;">'.
               '<tr>'.
                 '<th>&nbsp;</th><th>&nbsp;</th><th>BBCode</th><th>HTMLCode</th>'.
               '</tr>';
@@ -81,7 +81,7 @@ function getBbForm($recoverData) {
         $returnValue .= '<tr>';
       }      
       
-      $returnValue .=   '<td><a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bbtags&id='.$row['id'].'&edit=true">Wijzigen</a></td><td><a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bbtags&id='.$row['id'].'&delete=true">Verwijderen</a></td><td>'.$row['bbcode'].'</td><td>'.$row['htmlcode'].'</td>'.
+      $returnValue .=   '<td><a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bbtags&id='.$row['id'].'&edit=true">' . lang('edit') . '</a></td><td><a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bbtags&id='.$row['id'].'&delete=true">' . lang('delete') . '</a></td><td>'.$row['bbcode'].'</td><td>'.$row['htmlcode'].'</td>'.
               '</tr>';
               
       $i++;
@@ -94,8 +94,8 @@ function getBbForm($recoverData) {
   }
     
   //TODO:
-  //  registerlabel: vervangen door iets algemeners of een nieuwe
-  //  registerinput: vervangen door iets algemeners of een nieuwe
+  //  registerlabel: replaced by something more general, or a new
+  //  registerinput: replaced by something more general, or a new
   $returnValue .= '<table>'.
             '<tr>'.
               '<td>'.
@@ -110,7 +110,7 @@ function getBbForm($recoverData) {
                 
   $returnValue .=          '<div class="registerlabel"><label for="bbtag">BBCode:</label></div><div class="registerinput"><input type="text" class="" id="bbtag" name="bbtag" value="'.$bbTag.'"/></div>'.
                   '<div class="registerlabel"><label for="htmltag">HTMLCode:</label></div><div class="registerinput"><input type="text" class="" id="htmltag" name="htmltag" value="'.$htmlTag.'"/></div>'.
-                  '<div class="registerlabel"><label for="verzenden">Verzenden:</label></div><div class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="Verzenden!"/></div>'.
+                  '<div class="registerlabel"><label for="verzenden">'. lang('send') .':</label></div><div class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send'). '!"/></div>'.
                 '</form>'.
               '</td>'.
             '</tr>'.
@@ -163,5 +163,5 @@ function handleBbForm() {
   return getBbForm(false);
 }
 
-?>
+
 

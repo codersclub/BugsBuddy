@@ -29,15 +29,15 @@ function getbuglist() {
 
   $returnValue = '<h1>Laatste ' . $maximum . ' bugs</h1>';
   if (empty($result)) {
-    $returnValue .= '<p><i>Geen bugs gevonden</i></p>';
+    $returnValue .= '<p><i>'. lang('bugs_no') .'</i></p>';
   } else {
 
 
   $returnValue .= '<div align="center">';
   if ($page != 1) {
-    $returnValue.= pageLink('buglist&buglistpage='.($page-1), '<<').'&nbsp;&nbsp;';
+    $returnValue.= pageLink('buglist&buglistpage='.($page-1), '&lt;&lt;').'&nbsp;&nbsp;';
   } else {
-    $returnValue .= '<<&nbsp;';
+    $returnValue .= '&lt;&lt;&nbsp;';
   }
   for ($i=0; $i<$totalPages; $i++) {
     if ($i!=0) {
@@ -57,12 +57,12 @@ function getbuglist() {
   }
 
   $returnValue .= '</div>';
-    $returnValue .= '<table>' .
+    $returnValue .= '<table width="100%">' .
               '<tr>' .
-                '<th style="width: 200px;">Omschrijving</th>' .
-                '<th style="width: 100px;">Poster</th>' .
-                '<th style="width: 120px;">Datum</th>' .
-                '<th style="width: 140px;">Status</th>' .
+                '<th style="width: 200px;">'. lang('description') .'</th>' .
+                '<th style="width: 100px;">'. lang('poster') .'</th>' .
+                '<th style="width: 120px;">'. lang('date') .'</th>' .
+                '<th style="width: 140px;">'. lang('status') .'</th>' .
               '</tr>';
     $i = 1;
     
@@ -86,4 +86,4 @@ function getbuglist() {
   
   return $returnValue;
 }
-?>
+

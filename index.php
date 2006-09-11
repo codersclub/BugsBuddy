@@ -36,7 +36,7 @@ if ($pages == null || $config == null) {
  *  Subroutine to show the content
  */
 function showPage() {
-  echo '        ';
+//  echo '        ';
   if (!isset($_GET["page"]) || $_GET["page"] == "") {
     $_GET["page"] = "home";
   }

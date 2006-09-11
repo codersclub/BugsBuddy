@@ -17,7 +17,6 @@ if (!isset($permissions['mayview_admin']) || $permissions['mayview_admin'] != 't
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
 <html>
   <head>
     <noscript>
@@ -31,15 +30,15 @@ if (!isset($permissions['mayview_admin']) || $permissions['mayview_admin'] != 't
   </body>
 </html>
 <?php
-    exit;
-  }
+  exit;
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html>
   <head>
     <title>BugsBuddy</title>
-    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=<? echo CHARSET;?>" />
     <link href="../style/default.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
@@ -49,7 +48,7 @@ if (!isset($permissions['mayview_admin']) || $permissions['mayview_admin'] != 't
         <img src="../images/logo.gif" alt="Bugsbuddy" />
       </div>
       <div id="balk">
-        <a class="m" href="../?js=<?=((isset($_GET['js'])&&$_GET['js']=='yes')?'yes':'no')?>">HOME</a>
+        <a class="m" href="../?js=<?=((isset($_GET['js'])&&$_GET['js']=='yes')?'yes':'no')?>"><?=lang('home')?></a>
 <?
   require_once('./admin/pages.php');
   showAdminPages($permissions);
@@ -58,7 +57,7 @@ if (!isset($permissions['mayview_admin']) || $permissions['mayview_admin'] != 't
       <div id="content">
 <?php
   if (!isset($_GET['page'])) {
-    echo "<h1>Welkom op de adminpagina.</h1>";
+    echo '<h1>' . lang('admin_welcome') . '</h1>';
   } else {
     if ($_GET['page']=='bbtags' && isset($permissions['mayview_admin_bbtags']) && $permissions['mayview_admin_bbtags'] == 'true') {
       require_once('./admin/bbtags.php');
@@ -88,19 +87,14 @@ if (!isset($permissions['mayview_admin']) || $permissions['mayview_admin'] != 't
       require_once('./admin/bugcategory.php');
       echo getbugcategory();
     } else {
-      echo "You do not have the right permissions to view this page.";
+      echo lang('page_no_permission');
     }
   }
 ?>
       </div>
       <div id="footer">
-        XHTML 1.0 Strict & CSS2 valid.
+        <? echo lang('xhtml1_css2_valid');?>
       </div>
     </div>
   </body>
 </html>
-<?php
-
-
-
-?>
