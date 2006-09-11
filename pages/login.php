@@ -93,7 +93,7 @@ function getLoginForm() {
 
     $returnValue .= '
     <form action="" method="post">
-      <input type="hidden" name="mod" value="login">
+      <input type="hidden" name="page" value="login">
       <div class="clear">
         <label for="email" class="registerlabel">'.lang('email').'</label>
         <input class="registerinput" type="text" value="'.$_POST['email'].'" name="email" id="email" />

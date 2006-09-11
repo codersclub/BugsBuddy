@@ -366,7 +366,7 @@ if (defined('LOGIN_FAILED') && LOGIN_FAILED) {
 
   </div>
 
-  <div id="menubar">
+  <div id="balk">
     <?php echo getLinksHtml(); ?>
   </div>
 
