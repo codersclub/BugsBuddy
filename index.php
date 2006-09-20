@@ -3,10 +3,6 @@ session_start();
 
 require_once('includes/helperfunctions.php');
 
-if (file_exists('./install/')) {
-  echo( lang('install_remove') );
-}
-
 //DEBUG
 //echo "<pre>";
 //print_r($lang);
@@ -410,7 +406,12 @@ if (isset($_GET['js']) && $_GET['js']!='yes' && isset($_SERVER['HTTP_REFERER']))
 
 
   <div id="content">
-    <?php showPage(); ?>
+<?php
+  if (file_exists('./install/')) {
+    echo( lang('install_remove') );
+  }
+ showPage();
+?>
   </div>
 
 

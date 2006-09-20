@@ -81,7 +81,7 @@ echo "</pre>";
                     '<div><input type="hidden" name="submitit" value="true"/></div>'.
                     '<div><input type="hidden" name="page" value="'.$thisPage.'"/></div>'.
                     '<div><input type="hidden" name="submitit" value="true"/></div>';
-    if (isset($_GET['js']) {
+    if (isset($_GET['js'])) {
       $returnValue .= '<div><input type="hidden" name="js" value="yes"/></div>';
     }      
     if(!empty($id)) {

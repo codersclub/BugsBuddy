@@ -12,6 +12,7 @@ define('ROOT_DIR', $dir);
 //--------------------------------------------------------
 // Web root directory (start from the SITE ROOT, With ending slash !)
 $url = u(dirname($_SERVER['PHP_SELF']));
+$url = preg_replace("/\/admin$/",'',$url);
 define('ROOT_URL', $url);
 
 //DEBUG
