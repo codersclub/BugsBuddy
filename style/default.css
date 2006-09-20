@@ -252,26 +252,27 @@ a:hover {
 }
 
 .pwdText {
+	display: inline-block;
 	position:relative;
 	padding: 3px;
 	color: #000000;
 	background-color: inherit;
-	float: left;
 }
 
 .pwdStrength {
+	display: inline-block;
 	padding: 0px;
 	width: 100px; 
-	height: 10px;
+	height: 8px;
 	border: 1px solid;
 	color: #000000;
 	border-color: #000000;
-    background-color: red;
+	background-color: red;
 }
 
 .pwdBeamGreen {
 	width: 0px; 
-	height: 10px;
+	height: 8px;
 	color: #000000;
 	background-color: green;
 }

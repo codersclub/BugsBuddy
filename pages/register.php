@@ -33,8 +33,14 @@ function getRegistryForm() {
       <h1>'.lang('register').'</h1>
       <form action="'.getCurrentRequestUrl().'" method="post">
         <div class="registerlabel"><label for="name">'.lang('name').':</label></div><div class="registerinput"><input class="registerinputcontent" type="text" id="name" name="name" value="'.$name.'" /></div>
-        <div class="registerlabel"><label for="password">'.lang('password').':</label></div><div class="registerinput"><input class="registerinputcontent" type="password" id="password" name="password" value="" /></div>
+        <div class="registerlabel"><label for="password">'.lang('password').':</label></div>
+        <div class="registerinput">
+          <input class="registerinputcontent" type="password" id="password" name="password" value="" />
+          <div class="pwdStrength" id="pwdStrength"><div class="pwdBeamGreen" id="pwdBeamGreen"></div></div>
+          <div class="pwdText" id="pwdText"></div>
+        </div>
         <div class="registerlabel"><label for="mail">'.lang('email').':</label></div><div class="registerinput"><input class="registerinputcontent" type="text" id="mail" name="mail" value="'.$mail.'" /></div>
+        <div id="registerError"></div>
         <div class="registerlabel"><label for="submit">'.lang('register').':</label></div><div class="registerinput"><input class="registerinputcontent" id="submit" name="submit" type="submit" value="'.lang('register').'" /></div>
       </form>';
   } else {
