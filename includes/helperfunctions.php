@@ -207,7 +207,7 @@ function pageLink($page, $text, $class=null) {
     return '<a'.($class!=null?' class="'.$class.'"':' ').' href="javascript:getNewContent(\''.$page.'\');">'.$text.'</a>';
   } else {
     $pg = $page=='home'?'':'page='.$page;
-    return '<a'.($class!=null?' class="'.$class.'"':' ').' href="index.php?'.$pg.'">'.$text.'</a>';
+    return '<a'.($class!=null?' class="'.$class.'"':' ').' href="'.ROOT_URL.'/index.php?'.$pg.'">'.$text.'</a>';
   }
 }
 

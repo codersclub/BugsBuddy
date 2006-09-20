@@ -46,6 +46,24 @@ if (!isset($permissions['mayview_admin']) || $permissions['mayview_admin'] != 't
     <div id="container">
       <div id="header">
         <a href="<?=ROOT_URL?>/"><img src="<?=ROOT_URL?>/images/logo.gif" alt="Bugsbuddy" /></a>
+
+        <div id="login">
+<?php
+
+require_once('pages/login.php');
+
+if (defined('LOGIN_FAILED') && LOGIN_FAILED) {
+  echo getWrongLoginHtml();
+} else {
+  if (!isLoggedIn()) {
+    echo getLoginHtml(); 
+  } else {
+    echo getLogoutHtml(); 
+  }
+}
+?>
+    </div>
+
       </div>
       <div id="balk">
 <?
