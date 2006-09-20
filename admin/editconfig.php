@@ -31,7 +31,7 @@ function geteditconfig() {
     }
   }
 
-  $ret .= '<form action="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=editconfig" method="post">' .
+  $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=editconfig" method="post">' .
         '<div class="registerlabel"><label for="email">' . lang('email_site') . ':</label></div><div class="registerinput"><input  type="text" id="email" name="email" value="' . $email . '" /></div>' .
         '<div class="registerlabel"><label for="from">' . lang('email_sender') . ':</label></div><div class="registerinput"><input  type="text" id="from" name="from" value="' . $from . '" /></div>' .
         '<div class="registerlabel"><label for="verzenden">'. lang('send') .':</label></div><div class="registerinput"><input  id="verzenden" name="verzenden" type="submit" value="' . lang('edit') . '" /></div>'.

@@ -183,7 +183,7 @@ function getSubmitBugForm() {
     $title       = $_GET['title'];
     $description = $_GET['description'];
     
-    if($_GET['js'] == 'no' && isset($_GET['projectandversion'])) {
+    if(!isset($_GET['js']) && isset($_GET['projectandversion'])) {
       $aProjVersion  = explode(htmlSafe(';'), $_GET['projectandversion']);
         
       $projectId    = $aProjVersion[0];
@@ -214,7 +214,7 @@ function getSubmitBugForm() {
             '<div class="registerlabel"><label for="title">'.lang('title').'</label></div><div class="registerinput"><input class="" type="text" id="title" name="title" value="'.$title.'"/></div>'.
             '<div class="registerlabel"><label for="description">'.lang('description').':</label></div><div class="registerinput"><textarea class="" id="description" name="description" cols="40" rows="6">'.$description.'</textarea></div>';
       
-  if(isset($_GET['js']) && $_GET['js'] == "no") {
+  if(!isset($_GET['js'])) {
     $returnValue .= '<div class="registerlabel"><label for="projectandversion">'.lang('project').':</label></div><div class="registerinput"><select class="" id="projectandversion" name="projectandversion">'.getProjectsAndVersions($projectId, $versionId).'</select></div>';
   } else {
     $returnValue .=  '<div class="registerlabel"><label for="projectid">'.lang('project').':</label></div><div class="registerinput"><select class="" id="projectid" name="projectid" onchange="javascriptSubmit(\'submitbug\', false);">'.getProjects($projectId).'</select></div>'.
@@ -253,7 +253,7 @@ function handleSubmitBug() {
     $title       = $_GET['title'];
     $description = $_GET['description'];
     
-    if($_GET['js'] == 'no' && isset($_GET['projectandversion'])) {
+    if(!isset($_GET['js']) && isset($_GET['projectandversion'])) {
       $aProjVersion  = explode(htmlSafe(';'), $_GET['projectandversion']);
         
       $projectId    = $aProjVersion[0];

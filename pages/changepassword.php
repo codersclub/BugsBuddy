@@ -16,7 +16,7 @@ function getchangepassword() {
     if (isLoggedIn()) {
       $returnValue = '';
 
-      $js = !isset($_GET['js'])||$_GET['js']=='no'?'':'js=yes';
+      $js = isset($_GET['js'])?'js=yes':'';
 
       $returnValue .=  '<h1>' . lang('password_modify') . '</h1>
 <form action="index.php?' . $js . '" method="post">

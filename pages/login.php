@@ -7,7 +7,7 @@ function getlogin() {
   // Check Login Parameters
   if (isset($_POST) && isset($_POST['email']) && isset($_POST['pass'])) {
 
-    if (!isset($_GET['js']) || $_GET['js'] == "no") {
+    if (!isset($_GET['js'])) {
       //don't do anything.
       // It is allready been taken care of by 'setLoginSession()' and index.php
       require_once('pages/home.php');
@@ -89,7 +89,7 @@ function getLoginForm() {
 
   $returnValue .=   "<p class='nomargin'>\n";
 
-  if (!isset($_GET['js']) || $_GET['js'] == 'no') {
+  if (!isset($_GET['js'])) {
 
     $returnValue .= '
     <form action="" method="post">
@@ -129,7 +129,7 @@ function getLoginForm() {
       </div>\n";
 
 /*
-  if (!isset($_GET['js']) || $_GET['js'] == "no") {
+  if (!isset($_GET['js'])) {
     $returnValue .= "
       <div class='clear'>
         <a href='index.php?page=register'>" . lang('register') . "</a>
@@ -159,7 +159,7 @@ function getLoginHtml() {
 
   $returnValue .= lang('welcome') . ' <strong>' . lang('guest') . '</strong><br />';
 
-  if (isset($_GET['js']) && $_GET['js'] == 'yes') {
+  if (isset($_GET['js'])) {
     $returnValue .= '
       <a href="javascript:getNewContent(\'login\');">' . lang('login') . '</a>
       |
@@ -194,8 +194,8 @@ function getLogoutHtml() {
 }
 
 function getWrongLoginHtml() {
-  $js = (isset($_GET['js']) && $_GET['js']=='yes') ? '?js=yes' : '';
-  return lang('login_invalid') . '<br/>' . lang('click') . ' <a href="index.php'.$js.'">' . lang('here') . '</a> ' . lang('to_try_again');
+  $js = isset($_GET['js']) ? 'js=yes' : '';
+  return lang('login_invalid') . '<br/>' . lang('click') . ' <a href="index.php?'.$js.'">' . lang('here') . '</a> ' . lang('to_try_again');
 }
 
 

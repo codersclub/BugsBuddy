@@ -42,7 +42,7 @@ function project($id=0) {
           $ret .= '<p><span class="error">' . $msg . '</span></p>';
         }
 
-        $ret .= '<form action="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'').'&page=project&id=' . $id . '&act=edit" method="post"><p>' .
+        $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&id=' . $id . '&act=edit" method="post"><p>' .
             '<input type="hidden" name="act" value="project" />' .
             '<div class="clear"><label for="name" class="registerlabel">'. lang('name'). ' *:</label><input class="registerinput" type="text" id="name" name="name" value="' . $name . '" /></div>' .
             '<div class="clear"><label for="visible" class="registerlabel">'. lang('private') .':</label><input class="registerinput"  type="checkbox" id="visible" name="visible" value="2"' . $checkbox . ' /></div>' .
@@ -60,7 +60,7 @@ function project($id=0) {
         $versions = Database::getVersions($id);
 
         if (count($versions) > 0) {        
-          $ret .= '<form action="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'').'&page=project&id=' . $id . '&act=versionDelete" method="post"><p>
+          $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&id=' . $id . '&act=versionDelete" method="post"><p>
                <div class="registerlabel"><label for="name">'. lang('version') .':</label></div><div class="registerinput"><select name="version">';
 
           foreach ($versions as $row) {
@@ -86,7 +86,7 @@ function project($id=0) {
           $users = Database::getNormalUserList();
           
           if (count($users) > 0) {
-            $ret .= '<form action="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'').'&page=project&id=' . $id . '&act=edit" method="post" name="users">
+            $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&id=' . $id . '&act=edit" method="post" name="users">
                 <input type="hidden" name="act" value="users" />
                   <table>
                   <tr>
@@ -176,8 +176,7 @@ function projectList() {
     <th>&nbsp;</th>
   </tr>\n";
 
-    $js = (isset($_GET['js']) && $_GET['js']=='yes') ? 'js=yes' : '';
-
+    $js = isset($_GET['js'] ? 'js=yes' : '';
 
     foreach ($projects as $row) {
 

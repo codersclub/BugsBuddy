@@ -11,7 +11,7 @@ define('ROOT_DIR', $dir);
 
 //--------------------------------------------------------
 // Web root directory (start from the SITE ROOT, With ending slash !)
-$url = u($_SERVER['PHP_SELF']).'/';
+$url = u(dirname($_SERVER['PHP_SELF']));
 define('ROOT_URL', $url);
 
 //DEBUG
@@ -24,6 +24,7 @@ define('ROOT_URL', $url);
 //echo $_SERVER['PHP_SELF']."<br>\n";
 //echo $_SERVER['SCRIPT_NAME']."<br>\n";;
 //echo "</pre>\n";
+
 if(is_file(ROOT_DIR.'/includes/config.php')) {
   require_once(ROOT_DIR.'/includes/config.php');
 } else {
@@ -73,8 +74,10 @@ function getLinksHtml() {
   if (isLoggedIn()) {
     // For debug reasons: show every link to every page:
     $returnValue .= ''.
-      pageLink('home', lang('menu_home'), 'm') . '&nbsp;&nbsp;&nbsp;&nbsp;'.
-      pageLink('buglist', lang('menu_buglist'), 'm') . '&nbsp;&nbsp;&nbsp;&nbsp;'.
+      pageLink('home', lang('menu_home'), 'm')
+      . '&nbsp;&nbsp;!&nbsp;&nbsp;'.
+      pageLink('buglist', lang('menu_buglist'), 'm')
+      . '&nbsp;&nbsp;!&nbsp;&nbsp;'.
       pageLink('submitbug', lang('menu_bugreport'), 'm') . ''.
 //      pageLink('download', lang('menu_download'), 'm') . ''.
         '';
@@ -87,13 +90,15 @@ function getLinksHtml() {
     }
 
     if (isset($permissions['mayview_admin']) && $permissions['mayview_admin'] == 'true') {
-      $returnValue .= '&nbsp;&nbsp;&nbsp;&nbsp;<a class="m" href="./admin/?js='.((isset($_GET['js'])&&$_GET['js']=='yes')?'yes':'no').'">'.lang('menu_admin').'</a>';
+      $returnValue .= '&nbsp;&nbsp;|&nbsp;&nbsp;'.
+                      '<a class="m" href="./admin/?'.(isset($_GET['js'])?'js=yes':'').'">'.lang('menu_admin').'</a>';
     }
 
   } else {
 
     $returnValue .= ''.
-      pageLink('home', lang('menu_home'), 'm') . '&nbsp;&nbsp;&nbsp;&nbsp;'.
+      pageLink('home', lang('menu_home'), 'm')
+      . '&nbsp;&nbsp;|&nbsp;&nbsp;'.
       pageLink('buglist', lang('menu_buglist'), 'm') . ''.
 //      pageLink('download', lang('menu_download'), 'm') . ''.
       '';
@@ -197,10 +202,11 @@ function isValidEmailAddress($email) {
  * Create HTML code for an text-link that works for both AJAX as non-AJAX
  */
 function pageLink($page, $text, $class=null) {
-  if (!isset($_GET["js"]) || $_GET["js"] != "no") {
+  if (isset($_GET['js'])) {
     return '<a'.($class!=null?' class="'.$class.'"':' ').' href="javascript:getNewContent(\''.$page.'\');">'.$text.'</a>';
   } else {
-    return '<a'.($class!=null?' class="'.$class.'"':' ').' href="index.php?js=no&page='.$page.'">'.$text.'</a>';
+    $pg = $page=='home'?'':'page='.$page;
+    return '<a'.($class!=null?' class="'.$class.'"':' ').' href="index.php?'.$pg.'">'.$text.'</a>';
   }
 }
 

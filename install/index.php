@@ -101,7 +101,7 @@ if (!empty($_POST)) {
 <body>
   <div id="container">
     <div id="header">
-      <img src="../images/logo.gif" alt="Bugsbuddy" />
+        <a href="<?=ROOT_URL?>/"><img src="<?=ROOT_URL?>/images/logo.gif" alt="Bugsbuddy" /></a>
     </div>
 
     <div id="balk"></div>

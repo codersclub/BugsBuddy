@@ -20,10 +20,10 @@ if (!isset($permissions['mayview_admin']) || $permissions['mayview_admin'] != 't
 <html>
   <head>
     <noscript>
-      <meta http-equiv="refresh" content="0;../index.php?js=no" />
+      <meta http-equiv="refresh" content="0;../index.php" />
     </noscript>
     <script type="text/javascript">
-      document.location.href="../index.php?js=yes";
+      document.location.href="../index.php";
     </script>
   </head>
   <body>
@@ -45,10 +45,9 @@ if (!isset($permissions['mayview_admin']) || $permissions['mayview_admin'] != 't
 
     <div id="container">
       <div id="header">
-        <img src="../images/logo.gif" alt="Bugsbuddy" />
+        <a href="<?=ROOT_URL?>/"><img src="<?=ROOT_URL?>/images/logo.gif" alt="Bugsbuddy" /></a>
       </div>
       <div id="balk">
-        <a class="m" href="../?js=<?=((isset($_GET['js'])&&$_GET['js']=='yes')?'yes':'no')?>"><?=lang('home')?></a>
 <?
   require_once('./admin/pages.php');
   showAdminPages($permissions);

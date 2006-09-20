@@ -40,7 +40,8 @@ function showPage() {
   if (!isset($_GET["page"]) || $_GET["page"] == "") {
     $_GET["page"] = "home";
   }
-  if ($_GET['js'] == "no") {
+//vot  if ($_GET['js'] == "no") {
+  if (!isset($_GET['js'])) {
     // Handle error page differently, because it might concern the disability to connect to the database
     if ($_GET['page'] == 'errorpage') {
       require_once('pages/errorpage.php');
@@ -88,7 +89,7 @@ function showPage() {
 /*
  * If the $_GET['js'] value is not set, then the browser has to decide to use AJAX or not. This depends on JavaScript availability
  */
-if (!isset($_GET["js"])) {
+if (!isset($_GET['js'])) {
   //vot  noajaxcall();
 }
   
@@ -174,7 +175,7 @@ if (isLoggedIn() && isset($_POST['changepassword']) && isValidPassword(htmlUnsaf
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=<?=CHARSET;?>" />
     <link href="style/default.css" rel="stylesheet" type="text/css"/>
 <?php
-//if ($_GET["js"] == "yes") {
+//if ($_GET['js'] == "yes") {
 ?>
 <script type="text/javascript">
   var currentPage = "home";
@@ -346,7 +347,7 @@ if (isLoggedIn() && isset($_POST['changepassword']) && isValidPassword(htmlUnsaf
   <body>
     <div id="container">
       <div id="header">
-        <img src="./images/logo.gif" alt="Bugsbuddy" />
+        <a href="<?=ROOT_URL?>/"><img src="<?=ROOT_URL?>/images/logo.gif" alt="Bugsbuddy" /></a>
         <div id="login">
 <?php
 
@@ -420,7 +421,7 @@ if (isset($_GET['js']) && $_GET['js']!='yes' && isset($_SERVER['HTTP_REFERER']))
 </div>
 
 
-<?php if ($_GET['js'] == "yes") { ?>
+<?php if (isset($_GET['js'])) { ?>
     <iframe name="submitFrame" id="loginFrame" marginwidth="0" marginheight="0" height="0" width="0" name="0" style="width:0px; height:0px; border:0px"></iframe>
 <?php } ?>
   </body>

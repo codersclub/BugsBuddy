@@ -22,12 +22,9 @@ function getForgotPasswordForm() {
 
   $returnValue .= "<div class='info'>".lang('password_forgot_info').'</div>';
 
-  if (isset($_GET) && isset($_GET['js']) && $_GET['js'] == "no") {
+  if (!isset($_GET['js'])) {
     $returnValue .= '
-<form action="index.php" method="get">';
-  <div>
-    <input type="hidden" name="js" value="no" />
-  </div>
+<form action="index.php" method="get">
   <div>
     <input type="hidden" name="page" value="forgotpassword" />
   </div>

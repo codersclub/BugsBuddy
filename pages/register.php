@@ -20,7 +20,7 @@ function getregister() {
 
 function getRegistryForm() {
 
-  if (!isset($_GET['js']) || $_GET['js'] == 'no') {
+  if (!isset($_GET['js'])) {
 
     if (isset($_POST) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['mail'])) {
       $name = $_POST['name'];
@@ -76,7 +76,7 @@ function handleRegistry($name, $password, $mail) {
     $errorMessage .= lang('email_exists');
     $error = true;
   }
-  if (isset($_GET) && isset($_GET["js"]) && $_GET['js'] == "no") {
+  if (!isset($_GET['js'])) {
     if ($error) {
       return getRegistryForm() . '<br />' . nl2br($errorMessage);
     }

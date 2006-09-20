@@ -81,7 +81,7 @@ function getBbForm($recoverData) {
         $returnValue .= '<tr>';
       }      
       
-      $returnValue .=   '<td><a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bbtags&id='.$row['id'].'&edit=true">' . lang('edit') . '</a></td><td><a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=bbtags&id='.$row['id'].'&delete=true">' . lang('delete') . '</a></td><td>'.$row['bbcode'].'</td><td>'.$row['htmlcode'].'</td>'.
+      $returnValue .=   '<td><a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=bbtags&id='.$row['id'].'&edit=true">' . lang('edit') . '</a></td><td><a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=bbtags&id='.$row['id'].'&delete=true">' . lang('delete') . '</a></td><td>'.$row['bbcode'].'</td><td>'.$row['htmlcode'].'</td>'.
               '</tr>';
               
       $i++;
@@ -101,11 +101,12 @@ function getBbForm($recoverData) {
               '<td>'.
                 '<form action="'.$currentUrl.'" method="get">'.
                   '<div><input type="hidden" name="page" value="'.$thisPage.'"/></div>'.
-                  '<div><input type="hidden" name="submitit" value="true"/></div>'.
-                  '<div><input type="hidden" name="js" value="'.((isset($_GET['js'])&&$_GET['js']=='yes')?'yes':'no').'"/></div>';
-        
+                  '<div><input type="hidden" name="submitit" value="true"/></div>';
+  if (isset($_GET['js']) {
+    $returnValue .= '<div><input type="hidden" name="js" value="yes"/></div>';
+  }      
   if(!empty($id)) {
-    $returnValue .=       '<div><input type="hidden" name="id" value="'.$id.'"/></div>';
+    $returnValue .= '<div><input type="hidden" name="id" value="'.$id.'"/></div>';
   }
                 
   $returnValue .=          '<div class="registerlabel"><label for="bbtag">BBCode:</label></div><div class="registerinput"><input type="text" class="" id="bbtag" name="bbtag" value="'.$bbTag.'"/></div>'.

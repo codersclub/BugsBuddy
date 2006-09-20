@@ -35,7 +35,7 @@ echo "</pre>";
       } else {
         $returnValue .= '<tr>';
       }      
-      $returnValue .=   '<td><a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=users&id='.$row['id'].'">' . lang('edit') . '</a></td><td><a href="index.php?'.((isset($_GET['js'])&&$_GET['js']=='yes')?'js=yes':'js=no').'&page=users&id='.$row['id'].'&delete=true">' . lang('delete') . '</a></td><td>'.htmlSafe($row['name']).'</td><td>'.htmlSafe($row['email']).'</td><td>'.htmlSafe($row['groupname']).'</td>'.
+      $returnValue .=   '<td><a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=users&id='.$row['id'].'">' . lang('edit') . '</a></td><td><a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=users&id='.$row['id'].'&delete=true">' . lang('delete') . '</a></td><td>'.htmlSafe($row['name']).'</td><td>'.htmlSafe($row['email']).'</td><td>'.htmlSafe($row['groupname']).'</td>'.
               '</tr>';
       $i++;
     }
@@ -80,9 +80,10 @@ echo "</pre>";
                   '<form action="'.$currentUrl.'" method="get">'.
                     '<div><input type="hidden" name="submitit" value="true"/></div>'.
                     '<div><input type="hidden" name="page" value="'.$thisPage.'"/></div>'.
-                    '<div><input type="hidden" name="submitit" value="true"/></div>'.
-                    '<div><input type="hidden" name="js" value="'.((isset($_GET['js'])&&$_GET['js']=='yes')?'yes':'no').'"/></div>';
-                        
+                    '<div><input type="hidden" name="submitit" value="true"/></div>';
+    if (isset($_GET['js']) {
+      $returnValue .= '<div><input type="hidden" name="js" value="yes"/></div>';
+    }      
     if(!empty($id)) {
       $returnValue .=       '<div><input type="hidden" name="id" value="'.$id.'"/></div>';
     }
