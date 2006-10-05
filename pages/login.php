@@ -23,9 +23,9 @@ function getlogin() {
           $returnValue .= '<script>window.parent.updateLogin("OMFG")</script>';
         } else {
           $returnValue .= '<script>';
-          $returnValue .=   'window.parent.updateLogin("'.addslashes(getLogoutHtml()).'");';
-          $returnValue .=   'window.parent.updateLinks("'.str_replace ("\n", "", addslashes(getLinksHtml())).'");';
-          $returnValue .=   'window.parent.getNewContent("home");';
+          $returnValue .= 'window.parent.updateLogin("'.addslashes(getLogoutHtml()).'");';
+          $returnValue .= 'window.parent.updateLinks("'.str_replace ("\n", "", addslashes(getLinksHtml())).'");';
+          $returnValue .= 'window.parent.getNewContent("home");';
           $returnValue .= '</script>';
         }
       } else {
@@ -87,21 +87,17 @@ function getLoginForm() {
 
   $returnValue = '<h1>'.lang('login').'</h1>'."\n";
 
-  $returnValue .=   "<p class='nomargin'>\n";
+  $returnValue .=   '<p class="nomargin">';
 
   if (!isset($_GET['js'])) {
 
     $returnValue .= '
-    <form action="" method="post">
-      <input type="hidden" name="page" value="login">
-      <div class="clear">
-        <label for="email" class="registerlabel">'.lang('email').'</label>
-        <input class="registerinput" type="text" value="'.$_POST['email'].'" name="email" id="email" />
-      </div>
-      <div class="clear">
-        <label for="pass" class="registerlabel">'.lang('password').'</label>
-        <input class="registerinput" type="password" value="" name="pass" id="pass" />
-      </div>'."\n";
+    <form action="'.getCurrentRequestUrl().'" method="post">
+      <div class="registerlabel"><label for="email">'.lang('email').':</label></div>
+      <div class="registerinput"><input class="registerinputcontent" type="text" id="email" name="email" value="'.$_POST['email'].'" /></div>
+      <div class="registerlabel"><label for="pass">'.lang('password').':</label></div>
+      <div class="registerinput"><input class="registerinputcontent" type="password" id="pass" name="pass" value="" /></div>'
+      ."\n";
 
   } else {
 
@@ -128,22 +124,6 @@ function getLoginForm() {
         <div class='registerlabel'></div><input type='submit' value='".lang('login')."' />
       </div>\n";
 
-/*
-  if (!isset($_GET['js'])) {
-    $returnValue .= "
-      <div class='clear'>
-        <a href='index.php?page=register'>" . lang('register') . "</a>
-        |
-        <a href='index.php?page=forgotpassword'>" . lang('password_forgot') . "</a>
-      </div>\n";
-  } else {
-    $returnValue .= '
-      <br />
-      <a href="javascript:getNewContent(\'register\');">' . lang('register') . '</a>
-      <br />
-      <a href="javascript:getNewContent(\'forgotpassword\');">' . lang('password_forgot') . '</a>'."\n";
-  }
-*/
   $returnValue .= "    </form>\n";
   $returnValue .=   "</p>\n";
 
