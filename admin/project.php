@@ -61,7 +61,7 @@ function getproject() {
         '<div class="registerlabel"><label for="name">'. lang('name'). ' *:</label></div><div class="registerinput"><input  type="text" id="name" name="name" /></div>' .
         '<div class="registerlabel"><label for="version">'. lang('version') .' *:</label></div><div class="registerinput"><input  type="text" id="version" name="version" /></div>' .
         '<div class="registerlabel"><label for="visible">'. lang('private') .':</label></div><div class="registerinput"><input  type="checkbox" id="visible" name="visible" value="2" /></div>' .
-        '<div class="registerlabel"><label for="verzenden">'. lang('send') .':</label></div><div class="registerinput"><input  id="verzenden" name="verzenden" type="submit" value="Aanmaken" /></div>'.
+        '<div class="registerlabel"><label for="verzenden">'. lang('send') .':</label></div><div class="registerinput"><input  id="verzenden" name="verzenden" type="submit" value="'.lang('send').'" /></div>'.
         '</form>' .
         '<p><span class="graytext">'. lang('required_fields') .'</span></p>';
 
