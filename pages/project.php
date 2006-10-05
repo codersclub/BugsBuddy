@@ -167,7 +167,7 @@ function projectList() {
   } else {
 
     $ret .= "
-<table>
+<table width='100%'>
   <tr>
     <th style='width: 200px;'>". lang('name'). "</th>
     <th>" . lang('bugs_number') . "</th>
@@ -176,7 +176,7 @@ function projectList() {
     <th>&nbsp;</th>
   </tr>\n";
 
-    $js = isset($_GET['js'] ? 'js=yes' : '';
+    $js = isset($_GET['js']) ? 'js=yes' : '';
 
     foreach ($projects as $row) {
 
