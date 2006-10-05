@@ -18,6 +18,8 @@ $_COOKIE = htmlSafe($_COOKIE);
  * If it is an array, loop throut the array and make every key and value htmlsafe.
  */
 function htmlSafe($string) {
+  return $string;
+/*
   if (is_array($string)) {
     $returnValue = array();
     foreach($string as $key => $value) {
@@ -40,9 +42,12 @@ function htmlSafe($string) {
     }
     return implode("", $returnArray);
   }
+*/
 }
 
 function htmlUnsafe($string) {
+  return $string;
+/*
   if (is_array($string)) {
     $returnValue = array();
     foreach($string as $key => $value) {
@@ -69,6 +74,7 @@ function htmlUnsafe($string) {
     }
     return $string;
   }
+*/
 }
 
 function safenl2br($string) {
