@@ -72,16 +72,20 @@ function getLinksHtml() {
     $returnValue .= pageLink('home', lang('database_connect_error'), 'm');
     return $returnValue;
   }
+
+  $returnValue .= pageLink('home', lang('menu_home'), 'm');
+
   if (isLoggedIn()) {
     // For debug reasons: show every link to every page:
-    $returnValue .= ''.
-      pageLink('home', lang('menu_home'), 'm')
-      . '&nbsp;&nbsp;!&nbsp;&nbsp;'.
-      pageLink('buglist', lang('menu_buglist'), 'm')
-      . '&nbsp;&nbsp;!&nbsp;&nbsp;'.
-      pageLink('submitbug', lang('menu_bugreport'), 'm') . ''.
-//      pageLink('download', lang('menu_download'), 'm') . ''.
-        '';
+    $returnValue .= ''
+      . '&nbsp;&nbsp;|&nbsp;&nbsp;'
+      . pageLink('project', lang('menu_projects'), 'm')
+      . '&nbsp;&nbsp;|&nbsp;&nbsp;'
+      . pageLink('buglist', lang('menu_buglist'), 'm')
+      . '&nbsp;&nbsp;|&nbsp;&nbsp;'
+      . pageLink('submitbug', lang('menu_bugreport'), 'm')
+//      . pageLink('download', lang('menu_download'), 'm')
+      . '';
     $userGroup = getCurrentGroupId();
 
     $permissionsResults = Database::getPermissions(intval($userGroup));
@@ -91,18 +95,18 @@ function getLinksHtml() {
     }
 
     if (isset($permissions['mayview_admin']) && $permissions['mayview_admin'] == 'true') {
-      $returnValue .= '&nbsp;&nbsp;|&nbsp;&nbsp;'.
-                      '<a class="m" href="./admin/?'.(isset($_GET['js'])?'js=yes':'').'">'.lang('menu_admin').'</a>';
+      $returnValue .= '&nbsp;&nbsp;|&nbsp;&nbsp;'
+                    . '<a class="m" href="./admin/?'.(isset($_GET['js'])?'js=yes':'').'">'.lang('menu_admin').'</a>';
     }
 
   } else {
 
-    $returnValue .= ''.
-      pageLink('home', lang('menu_home'), 'm')
-      . '&nbsp;&nbsp;|&nbsp;&nbsp;'.
-      pageLink('buglist', lang('menu_buglist'), 'm') . ''.
-//      pageLink('download', lang('menu_download'), 'm') . ''.
-      '';
+    $returnValue .= ''
+      . '&nbsp;&nbsp;|&nbsp;&nbsp;'
+      . pageLink('buglist', lang('menu_buglist'), 'm')
+//      . '&nbsp;&nbsp;|&nbsp;&nbsp;'
+//      . pageLink('download', lang('menu_download'), 'm')
+      . '';
   }
 
   $returnValue .= "\n";
@@ -179,7 +183,9 @@ function passwordHash($password) {
 }
 
 function isValidUsername($username) {
-  // TODO CHECK IF USERNAME IS VALID: De naam mag bestaan uit alphanumerieke tekens met tussenliggende spaties
+  // TODO
+  // CHECK IF USERNAME IS VALID:
+  // The name may consist of alphanumeric characters with intervening spaces
   return true;
 }
 
