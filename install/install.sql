@@ -176,7 +176,8 @@ INSERT INTO `pages` (`id`, `page`) VALUES
 (9, 'viewbug'),
 (10, 'download'),
 (11, 'login'),
-(12, 'logout');
+(12, 'logout'),
+(13, 'project');
 
 -- --------------------------------------------------------
 
