@@ -238,12 +238,15 @@ a:hover {
 }
 
 .registerlabel{
-	position:relative;
+	display: inline-block;
 	padding: 3px;
 	width: 100px;
 	color: #000000;
+/*
+	position:relative;
 	float: left;
 	background-color: inherit;
+*/
 }
 	
 .registerinput{
