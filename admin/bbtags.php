@@ -8,7 +8,7 @@
 
 function getbbtags() {
   $returnValue = '';
-  $returnValue .= "<h1>BBTags</h1>";
+  $returnValue .= '<h1>' .lang('bbtags'). '</h1>';
   
   if(isLoggedIn()) {
     $results     = Database::getPermissions(intval(getCurrentGroupId()));
@@ -109,8 +109,8 @@ function getBbForm($recoverData) {
     $returnValue .= '<div><input type="hidden" name="id" value="'.$id.'"/></div>';
   }
                 
-  $returnValue .=          '<div class="registerlabel"><label for="bbtag">BBCode:</label></div><div class="registerinput"><input type="text" class="" id="bbtag" name="bbtag" value="'.$bbTag.'"/></div>'.
-                  '<div class="registerlabel"><label for="htmltag">HTMLCode:</label></div><div class="registerinput"><input type="text" class="" id="htmltag" name="htmltag" value="'.$htmlTag.'"/></div>'.
+  $returnValue .= '<div class="registerlabel"><label for="bbtag">'.lang('bbcode').':</label></div><div class="registerinput"><input type="text" class="" id="bbtag" name="bbtag" value="'.$bbTag.'"/></div>'.
+                  '<div class="registerlabel"><label for="htmltag">'.lang('htmlcode').':</label></div><div class="registerinput"><input type="text" class="" id="htmltag" name="htmltag" value="'.$htmlTag.'"/></div>'.
                   '<div class="registerlabel"><label for="verzenden">'. lang('send') .':</label></div><div class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send'). '!"/></div>'.
                 '</form>'.
               '</td>'.

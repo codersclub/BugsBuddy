@@ -230,6 +230,10 @@ $lang = array(
 'admin_welcome'		=> 'Welkom op de adminpagina.',
 'page_no_permission'	=> 'You do not have the right permissions to view this page.',
 
+'bbtags'		=> 'BBTags',//'BBTags',
+'bbcode'		=> 'BBCode',//'BBCode',
+'htmlcode'		=> 'HTMLCode',//'HTMLCode',
+
 'menu_admin'		=> 'ADMIN',
 'menu_bbtags'		=> 'BBTAGS',
 'menu_buglist'		=> 'BUGLIJST',

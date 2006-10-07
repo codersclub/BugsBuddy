@@ -182,7 +182,7 @@ $lang = array(
 'admin_statuses'	=> 'Admin Bug Status Page',//'Admin Bug Status Page',
 
 // Group Permissions
-'mayview_admin'				=> 'This user group can view the admin page',//'Deze gebruikersgroep mag de admin pagina\'s bekijken',
+'mayview_admin'			=> 'This user group can view the admin page',//'Deze gebruikersgroep mag de admin pagina\'s bekijken',
 'mayview_admin_bbtags'		=> 'This user group can view the admin page &quot;BBTags&quot;',//'Deze gebruikersgroep mag de admin-pagina &quot;BBTags&quot; bekijken',
 'mayview_admin_bugpriority'	=> 'This user group can view the admin page &quot;Bug Priority&quot;',//'Deze gebruikersgroep mag de admin-pagina "BugPriority" bekijken',
 'mayview_admin_bugstatus'	=> 'This user group can view the admin page &quot;Bug Status&quot;',//'Deze gebruikersgroep mag de admin-pagina "BugStatus" bekijken',
@@ -193,9 +193,9 @@ $lang = array(
 'mayview_admin_projectstatus'	=> 'This user group can view the admin page &quot;Project Statuses&quot;',//'Deze gebruikersgroep mag de admin-pagina "ProjectStatus" bekijken',
 'mayadd_viewbug_comment'	=> 'This user group can add a bug comment',//'Deze gebruikersgroep mag een bericht toevoegen aan een bug',
 'mayview_admin_categories'	=> 'This user group can view the admin page &quot;Bug Categories&quot;',//'Deze gebruikersgroep mag de admin_page "BugCategory" bekijken',
-//'mayview_project'			=> 'This user group can view the page &quot;Projects&quot;',//'Deze gebruikersgroep mag de pagina "Project" bekijken',
+//'mayview_project'		=> 'This user group can view the page &quot;Projects&quot;',//'Deze gebruikersgroep mag de pagina "Project" bekijken',
 
-//'created'			=> 'created.',//'is aangemaakt.',
+//'created'		=> 'created.',//'is aangemaakt.',
 'name_empty'		=> 'You have no name given.',//'U heeft geen naam opgegeven.',
 'category_removed'	=> 'Category removed',//'Categorie verwijderd',
 'id_invalid'		=> 'Not valid ID',//'Geen geldig id',
@@ -229,6 +229,10 @@ $lang = array(
 
 'admin_welcome'		=> 'Welcome to the admin page.',//'Welkom op de adminpagina.',
 'page_no_permission'	=> 'You have no permissions to view this page.',//'You do not have the right permissions to view this page.',
+
+'bbtags'		=> 'BBTags',//'BBTags',
+'bbcode'		=> 'BBCode',//'BBCode',
+'htmlcode'		=> 'HTMLCode',//'HTMLCode',
 
 'menu_admin'		=> 'ADMIN',//'ADMIN',
 'menu_bbtags'		=> 'BBTAGS',//'BBTAGS',
