@@ -8,7 +8,11 @@ function getproject() {
 
   // Check for action
   if($id) {
-    return project($id);
+    if($action=='edit') {
+      return projectEdit($id);
+    } else {
+      return project($id);
+    }
   } else {
     return projectList();
   }
@@ -16,6 +20,132 @@ function getproject() {
 
 //------------------------------------------------
 function project($id=0) {
+
+//  $ret = 'project('.$id.') started.';
+
+    $ret = '<h1>' . lang('project_details') . '</h1>';
+
+//htmlsafe($project['name'])
+//    $id = $_GET['id'];
+
+    if (is_numeric($id)) {
+      $msg = '';
+      $msg2 = '';
+      $msg3 = '';
+
+      $check = Database::getProject($id);
+
+      if (count($check) == 1) {
+        foreach ($check as $row) {
+          $name = $row['name'];
+          $hidden = $row['projectstatus_id'];
+          $checkbox = ($hidden == 2) ? "checked='checked'" : '';
+        }
+
+        if (!empty($msg)) {
+          $ret .= '<p><span class="error">' . $msg . '</span></p>';
+        }
+
+        $ret .= '<p>' .
+            '<div><label class="registerlabel">'. lang('name'). ':</label> ' . $name . '</div>' .
+            '<div><label class="registerlabel">'. lang('private') .':</label> <input type="checkbox" id="visible" name="visible" value="2"' . $checkbox . ' /></div>';
+
+        $versions = Database::getVersions($id);
+
+        if (count($versions) > 0) {        
+          $ret .= '<div class="registerlabel"><label>'. lang('version') .':</label></div><div class="registerinput">';
+
+          foreach ($versions as $row) {
+            $ret .= '<span class="version">' . $row['version'] . '</span>';
+          }
+                 
+          $ret .= '</div>';
+        } else {
+          $ret .= '<p><i>' . lang('versions_not_found') . '</i></p>';
+        }
+
+
+
+        if ($hidden == 2) {
+          $ret .= '<h1>' . lang('user_access') . '</h1>';
+
+          if (!empty($msg2)) {
+            $ret .= '<p><span class="error">' .  $msg2 . '</span></p>';
+          }
+
+          $users = Database::getNormalUserList();
+          
+          if (count($users) > 0) {
+            $ret .= '
+                <input type="hidden" name="act" value="users" />
+                  <table width="100%">
+                  <tr>
+                    <th>'. lang('name'). '</th>
+                    <th>'. lang('email'). '</th>
+                    <th>' . lang('access') . '</th>
+                  </tr>';
+            
+            $i = 0;
+            foreach ($users as $row) {
+              if ($i % 2 != 0) {
+                $ret .= '<tr class="gray">';
+              } else {
+                $ret .= '<tr>';
+              }
+
+              $checkbox = (Database::hasUserAccess2Project($id, $row['id'])) ? ' checked="checked"' : '';
+
+              $ret .= '<td>' . $row['name'] . '</td><td>' . $row['email'] . '</td><td class="center"><input type="checkbox" name="' . $row['id'] . '" value="1"' . $checkbox . ' /></td></tr>';
+
+              $i++;
+            }
+            
+            $ret .= '<tr><td colspan="3" class="right"><input type="submit" value="' . lang('edit') . '" /></td></tr></table>';
+          } else {
+            $ret .= '<p><i>' . lang('users_not_found') . '</p></i>';
+          }
+        } elseif ($hidden = 1) {
+          $ret .= '<h1>' . lang('users_linked') . '</h1>';
+
+          $users = Database::getUsersFromProject($id);
+          
+          if (count($users) > 0) {
+            $ret .= '<table>
+                  <tr>
+                    <th>'. lang('name'). '</th>
+                    <th>'. lang('email'). '</th>
+                  </tr>';
+            
+            $i = 0;
+            foreach ($users as $row) {
+              if ($i % 2 != 0) {
+                $ret .= '<tr class="gray">';
+              } else {
+                $ret .= '<tr>';
+              }
+
+              $ret .= '<td>' . $row['name'] . '</td><td>' . $row['email'] . '</td></tr>';
+
+              $i++;
+            }
+            
+            $ret .= '</table>';
+          } else {
+            $ret .= '<p><i>' . lang('users_no_linked') . '</p></i>';
+          }
+        }
+      } else {
+        $ret .= '<p><i>' . lang('project_not_found') . '</i></p>';
+      }
+    } else {
+      $ret .= '<p><i>' . lang('project_not_found') . '</i></p>';
+    }
+
+  return $ret;
+}
+
+//------------------------------------------------
+function projectEdit($id=0) {
 
 //  $ret = 'project('.$id.') started.';
 
