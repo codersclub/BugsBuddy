@@ -242,9 +242,9 @@ a:hover {
 	padding: 3px;
 	width: 100px;
 	color: #000000;
+	float: left;
 /*
 	position:relative;
-	float: left;
 	background-color: inherit;
 */
 }
