@@ -35,7 +35,7 @@ function getRegistryForm() {
         <div class="registerlabel"><label for="name">'.lang('name').':</label></div><div class="registerinput"><input class="registerinputcontent" type="text" id="name" name="name" value="'.$name.'" /></div>
         <div class="registerlabel"><label for="password">'.lang('password').':</label></div>
         <div class="registerinput">
-          <input class="registerinputcontent" type="password" id="password" name="password" value="" />
+          <input class="registerinputcontent" type="password" id="password" name="password" value="" onkeyup="checkPassWordStrength(\'password\');" />
           <div class="pwdStrength" id="pwdStrength"><div class="pwdBeamGreen" id="pwdBeamGreen"></div></div>
           <div class="pwdText" id="pwdText"></div>
         </div>
