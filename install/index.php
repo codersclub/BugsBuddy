@@ -29,7 +29,7 @@ $install_complete = false;
 
 if (!empty($_POST)) {
   $file = ROOT_DIR.'/includes/config.php'; 
-  $_POST['aemail']=html_entity_decode($_POST['aemail']);
+  $_POST['email']=html_entity_decode($_POST['email']);
 
 //DEBUG
 //echo '<pre>';
@@ -39,9 +39,9 @@ if (!empty($_POST)) {
 //echo '</pre>';
 
   if (!empty($_POST['dserver']) && !empty($_POST['dhost']) && !empty($_POST['ddatabase']) && !empty($_POST['dusername']) /*&& !empty($_POST['dpassword'])*/) {
-    if (!empty($_POST['aname']) && !empty($_POST['aemail']) && !empty($_POST['apassword']) && !empty($_POST['apassword2'])) {
+    if (!empty($_POST['aname']) && !empty($_POST['email']) && !empty($_POST['apassword']) && !empty($_POST['apassword2'])) {
       if ($_POST['apassword'] == $_POST['apassword2']) {
-        if (preg_match('/^[a-z0-9\._-]+@[a-z0-9\.-]+\.([a-z]{2,})$/i', $_POST['aemail'])) {
+        if (preg_match('/^[a-z0-9\._-]+@[a-z0-9\.-]+\.([a-z]{2,})$/i', $_POST['email'])) {
           if (isValidPassword2($_POST['apassword'])) {
             if (!file_exists($file)) {
               $data = "<?php\n
@@ -60,7 +60,7 @@ if (!empty($_POST)) {
               if ($file_handle = fopen($file, 'a')) {
                 if (fwrite($file_handle, $data)) {
                     
-                  if (Database::install($_POST['ddatabase'], $_POST['aname'], $_POST['aemail'], passwordHash2($_POST['apassword']))) {
+                  if (Database::install($_POST['ddatabase'], $_POST['aname'], $_POST['email'], passwordHash2($_POST['apassword']))) {
                     $install_complete = true;
                   }
                 } else {
@@ -176,10 +176,10 @@ if (!empty($_POST)) {
           </div>
 
           <div class="registerlabel">
-            <label for="aemail"><?=lang('email')?>:</label>
+            <label for="email"><?=lang('email')?>:</label>
           </div>
           <div class="registerinput">
-            <input  type="text" id="aemail" name="aemail" />
+            <input  type="text" id="email" name="email" />
           </div>
 
           <div class="registerlabel">

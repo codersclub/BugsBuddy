@@ -7,9 +7,9 @@
 require_once(ROOT_DIR.'/includes/Mail.php');
 
 function getforgotpassword() {
-  if (isset($_GET) && isset($_GET['mail'])) {
-    $mail = strtolower(htmlUnsafe($_GET['mail']));
-    return handleForgotPassword($mail);
+  if (isset($_GET) && isset($_GET['email'])) {
+    $email = strtolower(htmlUnsafe($_GET['email']));
+    return handleForgotPassword($email);
   } else {
     return getForgotPasswordForm();
   }
@@ -29,10 +29,10 @@ function getForgotPasswordForm() {
     <input type="hidden" name="page" value="forgotpassword" />
   </div>
   <div class="forgotpasswordlabel">
-    <label style="width: 100;" for="mail">'.lang('email').':</label>
+    <label style="width: 100;" for="email">'.lang('email').':</label>
   </div>
   <div class="forgotpasswordinput">
-    <input class="forgotpasswordinputcontent" type="text" id="mail" name="mail" value="" />
+    <input class="forgotpasswordinputcontent" type="text" id="email" name="email" value="" />
   </div>
   <div class="registerlabel">
     <label for="submit">'.lang('password_reset').':</label>
@@ -46,9 +46,9 @@ function getForgotPasswordForm() {
 
   } else {
     $returnValue = '';
-    $returnValue .=  '<form method="get" target="submitFrame" onsubmit="getNewContent(\'forgotpassword\&mail=\'+document.getElementById(\'mail\').value); return false;">';
+    $returnValue .=  '<form method="get" target="submitFrame" onsubmit="getNewContent(\'forgotpassword\&email=\'+document.getElementById(\'email\').value); return false;">';
     $returnValue .=   '<div><input type="hidden" name="page" value="forgotpassword" /></div>';
-    $returnValue .=    '<div class="forgotpasswordlabel"><label for="mail">'.lang('email').':</label></div><div class="forgotpasswordinput"><input class="forgotpasswordcontent" type="text" name="mail" id="mail" value="" /></div>';
+    $returnValue .=    '<div class="forgotpasswordlabel"><label for="email">'.lang('email').':</label></div><div class="forgotpasswordinput"><input class="forgotpasswordcontent" type="text" name="email" id="email" value="" /></div>';
     $returnValue .=    '<div class="registerlabel"><label for="submit">'.lang('password_reset').':</label></div><div class="registerinput"><input class="registerinputcontent" id="submit" type="submit" value="'.lang('send_mail').'" /></div>';
     $returnValue .=  '</form>';
     $returnValue .=  '<br />';
@@ -58,10 +58,10 @@ function getForgotPasswordForm() {
   }
 }
 
-function handleForgotPassword($mail) {
+function handleForgotPassword($email) {
   $errorMessage = '';
   $error = false;
-  $user = Database::getUserByEmail($mail);
+  $user = Database::getUserByEmail($email);
   if (!$user || count($user) != 1) {
     $errorMessage .= "\n" . lang('email_not_found');
     $error = true;
@@ -73,10 +73,10 @@ function handleForgotPassword($mail) {
 
   $newPassword = createRandomPassword();
   $emailMessage = new Mail(lang('password_reset_subject'), '<html><head><title>'.lang('password_reset').'</title></head><body>'.lang('password_reset_body1') . htmlSafe($newPassword) . lang('password_reset_body2') . getConfigurationValue('webmastermail') . lang('password_reset_body3')  .'</body></html>');
-  $result = $emailMessage->send($mail);
+  $result = $emailMessage->send($email);
 
   if ($result !== false) {
-    $registerMessage = lang('password_reset_ok') . htmlSafe($mail).'&nbsp;';
+    $registerMessage = lang('password_reset_ok') . htmlSafe($email).'&nbsp;';
     Database::updateUserPassword($user[0]['id'], $newPassword);
   } else {
     $registerMessage = getForgotPasswordForm() . lang('password_reset_error');

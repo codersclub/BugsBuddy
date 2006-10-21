@@ -69,9 +69,9 @@ if ($_GET['page'] == 'logout') {
 }
 // If the register-submit page is requested
 if ($_GET['page'] == 'register') {
-  if (isset($_POST) && isset($_POST["name"]) && isset($_POST["password"]) && isset($_POST["mail"])) {
+  if (isset($_POST) && isset($_POST["name"]) && isset($_POST["password"]) && isset($_POST["email"])) {
     require_once('pages/register.php');
-    echo handleRegistry(htmlUnsafe($_POST['name']), htmlUnsafe($_POST['password']), htmlUnsafe($_POST['mail']));
+    echo handleRegistry(htmlUnsafe($_POST['name']), htmlUnsafe($_POST['password']), htmlUnsafe($_POST['email']));
     exit;
   }
 }

@@ -7,12 +7,12 @@
 require_once(ROOT_DIR.'/includes/Mail.php');
 
 function getregister() {
-  if (isset($_POST) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['mail'])) {
+  if (isset($_POST) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email'])) {
     $name     = htmlUnsafe($_POST['name']);
     $password = htmlUnsafe($_POST['password']);
-    $mail     = strtolower(htmlUnsafe($_POST['mail']));
+    $email     = strtolower(htmlUnsafe($_POST['email']));
     
-    return handleRegistry($name, $password, $mail);
+    return handleRegistry($name, $password, $email);
   } else {
     return getRegistryForm();
   }
@@ -22,12 +22,12 @@ function getRegistryForm() {
 
   if (!isset($_GET['js'])) {
 
-    if (isset($_POST) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['mail'])) {
+    if (isset($_POST) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email'])) {
       $name = $_POST['name'];
-      $mail = strtolower($_POST['mail']);
+      $email = strtolower($_POST['email']);
     } else {
       $name = '';
-      $mail = '';
+      $email = '';
     }
     return '
       <h1>'.lang('register').'</h1>
@@ -39,7 +39,7 @@ function getRegistryForm() {
           <div class="pwdStrength" id="pwdStrength"><div class="pwdBeamGreen" id="pwdBeamGreen"></div></div>
           <div class="pwdText" id="pwdText"></div>
         </div>
-        <div class="registerlabel"><label for="mail">'.lang('email').':</label></div><div class="registerinput"><input class="registerinputcontent" type="text" id="mail" name="mail" value="'.$mail.'" /></div>
+        <div class="registerlabel"><label for="email">'.lang('email').':</label></div><div class="registerinput"><input class="registerinputcontent" type="text" id="email" name="email" value="'.$email.'" /></div>
         <div id="registerError"></div>
         <div class="registerlabel"><label for="submit">'.lang('register').':</label></div><div class="registerinput"><input class="registerinputcontent" id="submit" name="submit" type="submit" value="'.lang('register').'" /></div>
       </form>';
@@ -49,7 +49,7 @@ function getRegistryForm() {
         '<div class="registerlabel"><label for="registrationName">'.lang('name').':</label></div><div class="registerinput"><input class="registerinputcontent" type="text" name="name" id="registrationName" value="" /></div>'.    
         '<div class="registerlabel"><label for="registrationPassword">'.lang('password').':</label></div><div class="registerinput"><input class="registerinputcontent" type="password" name="password" id="registrationPassword" value="" onkeyup="checkPassWordStrength(\'registrationPassword\');"/>'.
         '<br /><br /><div class="pwdStrength" id="pwdStrength"><div class="pwdBeamGreen" id="pwdBeamGreen"></div></div><div class="pwdText" id="pwdText"></div></div><br /><br />' .
-        '<div class="registerlabel"><label for="mail">'.lang('email').':</label></div><div class="registerinput"><input class="registerinputcontent" type="text" id="mail" name="mail" value="" /></div>'.
+        '<div class="registerlabel"><label for="email">'.lang('email').':</label></div><div class="registerinput"><input class="registerinputcontent" type="text" id="email" name="email" value="" /></div>'.
         '<div class="registerlabel"><label for="submit">'.lang('register').':</label></div><div class="registerinput"><input class="registerinputcontent" id="submit" name="submit" type="submit" value="'.lang('register').'" /></div>'.
       '</form>'.
       '<br />'.
@@ -58,7 +58,7 @@ function getRegistryForm() {
   }
 }
 
-function handleRegistry($name, $password, $mail) {
+function handleRegistry($name, $password, $email) {
   
   $errorMessage = '';
   $error = false;
@@ -70,7 +70,7 @@ function handleRegistry($name, $password, $mail) {
     $errorMessage .= lang('password_error');
     $error = true;
   }
-  if (!isValidEmailAddress($mail)) {
+  if (!isValidEmailAddress($email)) {
     $errorMessage .= lang('email_error');
     $error = true;    
   }
@@ -78,7 +78,7 @@ function handleRegistry($name, $password, $mail) {
     $errorMessage .= lang('name_exists');
     $error = true;
   }
-  if (count(Database::getUserByEmail($mail)) != 0) {
+  if (count(Database::getUserByEmail($email)) != 0) {
     $errorMessage .= lang('email_exists');
     $error = true;
   }
@@ -86,9 +86,9 @@ function handleRegistry($name, $password, $mail) {
     if ($error) {
       return getRegistryForm() . '<br />' . nl2br($errorMessage);
     }
-    Database::registerUser($name, $password, $mail);
+    Database::registerUser($name, $password, $email);
     $emailMessage = new Mail(lang('register_subject'), '<html><head><title>'.lang('welcome').' '.$_POST['name'].'</title></head><body>'.lang('register_body').'</body></html>');
-    $emailMessage->send($mail);
+    $emailMessage->send($email);
     $registerMessage = lang('register_ok');
     return $registerMessage;
   } else {
@@ -110,7 +110,7 @@ function handleRegistry($name, $password, $mail) {
 
     } else {
 
-      Database::registerUser($name, $password, $mail);
+      Database::registerUser($name, $password, $email);
       $returnValue =  ''.
         '<html>'.
           '<head>'.
