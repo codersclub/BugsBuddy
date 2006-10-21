@@ -58,7 +58,7 @@ function getRegistryForm() {
   }
 }
 
-function handleRegistry($name, $password, $email) {
+function handleRegistry($name, $password, $email, groupid=0) {
   
   $errorMessage = '';
   $error = false;
@@ -110,7 +110,8 @@ function handleRegistry($name, $password, $email) {
 
     } else {
 
-      Database::registerUser($name, $password, $email);
+      Database::registerUser($name, $password, $email, $groupid);
+
       $returnValue =  ''.
         '<html>'.
           '<head>'.
