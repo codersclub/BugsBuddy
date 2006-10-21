@@ -161,8 +161,8 @@ class Database {
     return MySQL::query('SELECT * FROM users WHERE email = \'' . addslashes($email) . '\' AND passwordhash = \'' . addslashes(passwordHash($password)) . '\'');
   }
   
-  function registerUser($username, $password, $email) {
-    return MySQL::query('INSERT INTO users (name , passwordhash , email) VALUES (\'' . addslashes($username) . '\', \'' . addslashes(passwordHash($password)) . '\', \'' . addslashes($email) . '\')');
+  function registerUser($username, $password, $email, $groupid=0) {
+    return MySQL::query('INSERT INTO users (name, passwordhash, email, group_id) VALUES (\'' . addslashes($name) . '\', \'' .  addslashes($password) . '\', \'' . addslashes($email) . '\', \'' . intval($groupid) . '\')');
   }
 
   function updateConfig($email, $from) {
