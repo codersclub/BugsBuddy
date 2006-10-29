@@ -284,6 +284,7 @@ $lang = array(
 'passwords_not_equal'	=> 'Wachtwoorden komen niet overeen.',
 'fill_all_fields'	=> ''U heeft niet alles ingevuld',
 
+'users'			=> 'Users',//'',
 'user_add'		=> 'Add user',//'',
 
 ''	=> '',//'',
