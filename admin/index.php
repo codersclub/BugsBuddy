@@ -40,6 +40,7 @@ if (!isset($permissions['mayview_admin']) || $permissions['mayview_admin'] != 't
     <title>BugsBuddy</title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=<? echo CHARSET;?>" />
     <link href="../style/default.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="<?=ROOT_URL?>/js/main.php"></script>
   </head>
   <body>
 
@@ -103,6 +104,9 @@ if (defined('LOGIN_FAILED') && LOGIN_FAILED) {
     } else if($_GET['page']=='bugcategory' && isset($permissions['mayview_admin_categories']) && $permissions['mayview_admin_categories'] == 'true') {
       require_once('./admin/bugcategory.php');
       echo getbugcategory();
+    } else if ($_GET['page']=='register' && isset($permissions['mayview_admin_register']) && $permissions['mayview_admin_register'] == 'true') {
+      require_once('./admin/register.php');    
+      echo getregister();
     } else {
       echo lang('page_no_permission');
     }
