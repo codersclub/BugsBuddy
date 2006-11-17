@@ -194,7 +194,10 @@ class Database {
   }
   
   function getAllUsers() {
-    return MySQL::query('SELECT u.id, u.name, u.email, ug.name groupname FROM users u, usergroups ug WHERE u.group_id = ug.id');
+    return MySQL::query('SELECT u.id, u.name, u.email, ug.name groupname
+			FROM users u
+			LEFT JOIN usergroups ug
+				ON (u.group_id = ug.id)');
   }
   
   function getUserById($id) {
