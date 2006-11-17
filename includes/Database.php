@@ -204,7 +204,11 @@ class Database {
     if (!is_numeric($id)) {
       return null;
     }
-    return MySQL::query('SELECT u.id, u.name, u.email, u.group_id, ug.name groupname FROM users u, usergroups ug WHERE u.group_id = ug.id AND u.id = \'' . $id . '\'');
+    return MySQL::query('SELECT u.id, u.name, u.email, u.group_id, ug.name groupname
+			FROM users u
+			LEFT JOIN usergroups ug
+				ON (u.group_id = ug.id)
+			WHERE u.id = \'' . $id . '\'');
   }
   
   function deleteUserById($id) {
