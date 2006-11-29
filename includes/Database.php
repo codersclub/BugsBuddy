@@ -161,8 +161,17 @@ class Database {
     return MySQL::query('SELECT * FROM users WHERE email = \'' . addslashes($email) . '\' AND passwordhash = \'' . addslashes(passwordHash($password)) . '\'');
   }
   
-  function registerUser($username, $password, $email, $groupid=0) {
-    return MySQL::query('INSERT INTO users (name, passwordhash, email, group_id) VALUES (\'' . addslashes($name) . '\', \'' .  addslashes($password) . '\', \'' . addslashes($email) . '\', \'' . intval($groupid) . '\')');
+  function registerUser($name, $password, $email, $groupid=0) {
+//DEBUG
+//echo '<pre>';
+//echo 'registerUser:', "\n";
+//echo 'name=', $name, "\n";
+//echo 'password=', $password, "\n";
+//echo 'email=', $email, "\n";
+//echo 'groupid=', $groupid, "\n";
+//echo '</pre>';
+//exit;
+    return MySQL::query('INSERT INTO users (name, passwordhash, email, group_id) VALUES (\'' . addslashes($name) . '\', \'' .  addslashes(passwordHash($password)) . '\', \'' . addslashes($email) . '\', \'' . intval($groupid) . '\')');
   }
 
   function updateConfig($email, $from) {
