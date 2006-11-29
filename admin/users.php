@@ -15,6 +15,9 @@ function getusers() {
 function outputForm($recoverData) {
   $returnValue = '';
   $returnValue .= '<h1>'.lang('users').'</h1>';
+  $returnValue .= '<div class="right">
+                     <a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=register">'. lang('user_add') .'</a>
+                   </div>';
 
   $result = Database::getAllUsers();
 /*
