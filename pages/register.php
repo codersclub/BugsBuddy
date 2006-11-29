@@ -126,11 +126,15 @@ function getRegistryForm() {
 }
 
 function handleRegistry($name, $password, $email, $groupid=0) {
-  
+
 //DEBUG
 //echo '<pre>';
 //echo 'handleRegistry', "\n";
 //echo '_POST='; print_r($_POST);
+//echo 'name=', $name, "\n";
+//echo 'password=', $password, "\n";
+//echo 'email=', $email, "\n";
+//echo 'groupid=', $groupid, "\n";
 //echo '</pre>';
 //exit;
 
@@ -159,11 +163,13 @@ function handleRegistry($name, $password, $email, $groupid=0) {
 
   if (!isset($_GET['js'])) {
     if ($error) {
-      return getRegistryForm() . '<br />' . nl2br($errorMessage);
+      return getRegistryForm() . '<div class="errormessage">' . nl2br($errorMessage) . '</div>';
     }
-    Database::registerUser($name, $password, $email, $groupid=0);
+    Database::registerUser($name, $password, $email, $groupid);
+
     $emailMessage = new Mail(lang('register_subject'), '<html><head><title>'.lang('welcome').' '.$_POST['name'].'</title></head><body>'.lang('register_body').'</body></html>');
     $emailMessage->send($email);
+
     $registerMessage = lang('register_ok');
     return $registerMessage;
 
@@ -186,7 +192,7 @@ function handleRegistry($name, $password, $email, $groupid=0) {
 
     } else {
 
-      Database::registerUser($name, $password, $email, $groupid=0);
+      Database::registerUser($name, $password, $email, $groupid);
 
       $returnValue =  ''.
         '<html>'.

@@ -312,3 +312,6 @@ a:hover {
 	color: #999999;
 	background-color: #ffffff;
 }
+.errormessage {
+	color: red;
+}
