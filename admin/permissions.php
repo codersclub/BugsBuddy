@@ -4,8 +4,6 @@
   View and edit usergroup permissions
 */
 
-//require_once('includes/helperfunctions.php');
-
 function getpermissions() {
   $returnValue = '';
   $returnValue .= '<h1>' . lang('permissions') . '</h1>';

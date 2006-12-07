@@ -6,8 +6,6 @@
  * Description: buglist
  */
 
-//require_once('./includes/helperfunctions.php');
-
 function getbuglist() {
   $maximum = 15;
   $bugcount = Database::getVisibleBugCount();

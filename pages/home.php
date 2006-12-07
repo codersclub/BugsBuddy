@@ -6,8 +6,6 @@
  * Description: the home page
  */
 
-//require_once('./includes/helperfunctions.php');
-
 function gethome() {
 //DEBUG
 //echo "pages/home::gethome started.<br>";

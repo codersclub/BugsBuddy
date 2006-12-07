@@ -1,7 +1,5 @@
 <?php
 
-//require_once('includes/helperfunctions.php');
-
 function getlogin() {
 
   // Check Login Parameters

@@ -4,8 +4,6 @@
   If somebody wants to submit a bug
 */
 
-//require_once('includes/helperfunctions.php');
-
 function getsubmitbug() {
   $returnValue = "<h1>". lang('bug_report') ."</h1>\n";
   

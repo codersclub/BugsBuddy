@@ -4,8 +4,6 @@
   View and edit bbTags
 */
 
-//require_once('includes/helperfunctions.php');
-
 function getbbtags() {
   $returnValue = '';
   $returnValue .= '<h1>' .lang('bbtags'). '</h1>';

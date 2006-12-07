@@ -1,7 +1,5 @@
 <?php
 
-//require_once('./includes/helperfunctions.php');
-
 function getbuglist() {
   $maximum = 16;
   $bugcount = Database::getVisibleBugCount(getCurrentUserId());

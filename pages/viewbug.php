@@ -4,8 +4,6 @@
   If somebody wants to view a bug
 */
 
-//require_once('includes/helperfunctions.php');
-
 function getviewbug() {
   $returnValue = '<h1>' . lang('bug_info') . '</h1>';
   
