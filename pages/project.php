@@ -134,6 +134,8 @@ function project($id=0) {
             $ret .= '<p><i>' . lang('users_no_linked') . '</p></i>';
           }
         }
+        require_once(ROOT_DIR.'/pages/buglist.php');
+        $ret .= getbuglist();
       } else {
         $ret .= '<p><i>' . lang('project_not_found') . '</i></p>';
       }

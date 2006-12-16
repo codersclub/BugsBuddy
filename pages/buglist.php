@@ -7,6 +7,9 @@ function getbuglist() {
   //if ($bugcount <= 0) $bugcount = 1;
   $totalPages = ceil(($bugcount+1) / $maximum);
   
+  $page      = isset($_GET['page']) ? $_GET['page'] : 'buglist';
+  $projectid = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
   if (!isset($_GET['sort'])) {
     $_GET['sort'] = 'date';
   } else {
@@ -32,7 +35,7 @@ function getbuglist() {
   
   $page = intval($_GET['buglistpage']);
   
-  $result = Database::getBugAll(getCurrentUserId(), ($page-1)*$maximum, $maximum, $_GET['sort'], $_GET['order']);
+  $result = Database::getBugAll($projectid, getCurrentUserId(), ($page-1)*$maximum, $maximum, $_GET['sort'], $_GET['order']);
 
   $returnValue = '<h1>' . lang('bugs_total', $bugcount+1) . '</h1>';
 

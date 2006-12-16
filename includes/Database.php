@@ -295,7 +295,7 @@ class Database {
     }
   }
   
-  function getBugAll($userId, $startfrom, $maximum, $sort='date', $order='desc') {
+  function getBugAll($projectid=0, $userId, $startfrom, $maximum, $sort='date', $order='desc') {
     if (!is_numeric($maximum)) {
       return null;
     }
@@ -326,14 +326,31 @@ class Database {
       $orderTable = 'status';
     }
     $sqlOrder = 'ORDER BY '.$orderTable.' '.$order.', id ASC';
+    $sqlProject = $projectid ? 'AND p.id='.$projectid : '';
     
-    if(getCurrentGroupId() == 1 ||  getCurrentGroupId() == 5) {    
+    if(getCurrentGroupId() == 1 ||  getCurrentGroupId() == 5) {
       return MySQL::query('SELECT DISTINCT b.id, b.title, u.name username, b.submitdate, \'b.projectstatus_id\', pv.version projectversion, p.name projectname, s.name status FROM bugs b, users u, bugstatus s, project p, projectversion pv, projectusers pu WHERE b.user_id = u.id AND b.status_id = s.id AND pv.id = b.productversion_id AND pv.project_id = p.id AND p.id = pu.project_id AND pu.user_id = '.intval(getCurrentUserId()).' AND p.projectstatus_id = 2 UNION '.
                           'SELECT DISTINCT b.id, b.title, u.name username, b.submitdate, \'b.projectstatus_id\', pv.version projectversion, p.name projectname, s.name status FROM bugs b, users u, bugstatus s, project p, projectversion pv, projectusers pu WHERE b.user_id = u.id AND b.status_id = s.id AND pv.id = b.productversion_id AND pv.project_id = p.id AND p.projectstatus_id = 1 '.$sqlOrder.' LIMIT '.$startfrom.', '.$maximum);                
     } else if(!is_numeric(getCurrentGroupId())) {
       return MySQL::query('SELECT DISTINCT b.id, b.title, u.name username, b.submitdate, \'b.projectstatus_id\', pv.version projectversion, p.name projectname, s.name status FROM bugs b, users u, bugstatus s, project p, projectversion pv, projectusers pu WHERE b.user_id = u.id AND b.status_id = s.id AND pv.id = b.productversion_id AND pv.project_id = p.id AND p.projectstatus_id = 1 '.$sqlOrder.' LIMIT '.$startfrom.', '.$maximum);
     } else {
-      return MySQL::query('SELECT DISTINCT b.id, b.title, u.name username, b.submitdate, \'b.projectstatus_id\', pv.version projectversion, p.name projectname, s.name status FROM bugs b, users u, bugstatus s, project p, projectversion pv, projectusers pu WHERE b.user_id = u.id AND b.status_id = s.id AND pv.id = b.productversion_id AND pv.project_id = p.id '.$sqlOrder.' LIMIT '.$startfrom.', '.$maximum);
+      $sql =	'SELECT DISTINCT
+			b.id, b.title,
+			u.name username,
+			b.submitdate,
+			\'b.projectstatus_id\',
+			pv.version projectversion,
+			p.name projectname,
+			s.name status
+		FROM bugs b, users u, bugstatus s, project p, projectversion pv, projectusers pu
+		WHERE b.user_id = u.id
+			AND b.status_id = s.id
+			AND pv.id = b.productversion_id
+			AND pv.project_id = p.id
+			'.$sqlProject.'
+			'.$sqlOrder.'
+		LIMIT '.$startfrom.', '.$maximum;
+      return MySQL::query($sql);
     }    
   }
 
