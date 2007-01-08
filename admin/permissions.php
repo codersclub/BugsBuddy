@@ -89,10 +89,14 @@ function getPermissionsForm($recoverData) {
   $result = Database::getPermissionWithClause(true, 0);
   
   if(!empty($result)) {
-    $returnValue .= '<table style="width: 100%;">'.
-              '<tr>'.
-                '<th>&nbsp;</th><th>&nbsp;</th><th>' . lang('group') . '</th><th>' . lang('keyword') . '</th><th>' . lang('value') . '</th>'.
-              '</tr>';
+    $returnValue .= '<table style="width: 100%;">
+              <tr>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>' . lang('group') . '</th>
+                <th>' . lang('keyword') . '</th>
+                <th>' . lang('value') . '</th>
+              </tr>';
     
     $i = 1;              
               
@@ -103,41 +107,60 @@ function getPermissionsForm($recoverData) {
         $returnValue .= '<tr>';
       }      
       
-      $returnValue .=   '<td><a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=permissions&id='.$row['id'].'">' . lang('edit') . '</a></td><td><a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=permissions&id='.$row['id'].'&delete=true">' . lang('delete') . '</a></td><td>'.$row['groupName'].'</td><td>'.$row['setting'].'</td><td>'.$row['value'].'</td>'.
-              '</tr>';
+      $returnValue .= '
+                <td><a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=permissions&id='.$row['id'].'">' . lang('edit') . '</a></td>
+                <td><a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=permissions&id='.$row['id'].'&delete=true">' . lang('delete') . '</a></td>
+                <td>'.$row['groupName'].'</td>
+                <td>'.$row['setting'].'</td>
+                <td>'.$row['value'].'</td>
+              </tr>';
               
       $i++;
     }
     
-    $returnValue .=   '<tr>'.
-                '<td>&nbsp;</td>'.
-              '</tr>'.
-            '</table>';
+    $returnValue .=   '
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+            </table>';
   }
     
-  $returnValue .= '<table>'.
-            '<tr>'.
-              '<td>'.
-                '<h2>'.lang('permission_add').'</h2>'.
-                '<form action="'.$currentUrl.'" method="get">'.
-                  '<div><input type="hidden" name="page" value="'.$thisPage.'"/></div>'.
-                  '<div><input type="hidden" name="submitit" value="true"/></div>';
+  $returnValue .= '
+                <h2>'.lang('permission_add').'</h2>
+                <form action="'.$currentUrl.'" method="get">
+                  <input type="hidden" name="page" value="'.$thisPage.'"/>
+                  <input type="hidden" name="submitit" value="true"/>';
   if (isset($_GET['js'])) {
-    $returnValue .= '<div><input type="hidden" name="js" value="yes"/></div>';
+    $returnValue .= '<input type="hidden" name="js" value="yes"/>';
   }                    
   if(!empty($id)) {
-    $returnValue .= '<div><input type="hidden" name="id" value="'.$id.'"/></div>';
+    $returnValue .= '<input type="hidden" name="id" value="'.$id.'"/>';
   }
                 
-  $returnValue .= '<div class="registerlabel"><label for="groupid">' . lang('group') . ':</label></div><div class="registerinput"><select class="" id="groupid" name="groupid">'.getGroups($groupId).'</select></div>'.
-                  '<div class="registerlabel"><label for="setting">' . lang('keyword') . ':</label></div><div class="registerinput"><input type="text" class="" id="setting" name="setting" size="66" value="'.$setting.'"/></div>'.            
-                  '<div class="registerlabel"><label for="value">' . lang('value') . ':</label></div><div class="registerinput"><input type="text" class="" id="value" name="value" value="'.$value.'"/></div>'.
-                  '<div class="registerlabel"><label for="description">'. lang('description') .':</label></div><div class="registerinput"><textarea class="" id="description" name="description" cols="40" rows="6">'.$description.'</textarea></div>'.
-                  '<div class="registerlabel"><label for="verzenden">'. lang('send') .':</label></div><div class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/></div>'.
-                '</form>'.
-              '</td>'.
-            '</tr>'.
-          '</table>';
+  $returnValue .= '<div class="registerinput">
+                     <label class="registerlabel" for="groupid">' . lang('group') . ':</label>
+                     <select class="" id="groupid" name="groupid">'.getGroups($groupId).'</select>
+                   </div>
+                   <div class="registerinput">
+                     <label class="registerlabel" for="setting">' . lang('keyword') . ':</label>
+                     <input type="text" class="" id="setting" name="setting" size="66" value="'.$setting.'"/>
+                   </div>
+                   <div class="registerinput">
+                     <label class="registerlabel" for="value">' . lang('value') . ':</label>
+                     <input type="text" class="" id="value" name="value" value="'.$value.'"/>
+                   </div>
+                   <div class="registerinput">
+                     <label class="registerlabel" for="description">'. lang('description') .':</label>
+                     <textarea class="" id="description" name="description" cols="40" rows="6">'.$description.'</textarea>
+                   </div>
+                   <div class="registerinput">
+                     <label class="registerlabel" for="verzenden">'. lang('send') .':</label>
+                     <input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/>
+                   </div>
+                 </form>
+               </td>
+             </tr>
+           </table>';
   
   return $returnValue;
 }

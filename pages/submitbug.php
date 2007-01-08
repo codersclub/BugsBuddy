@@ -205,27 +205,51 @@ function getSubmitBugForm() {
   //TODO:
   //  registerlabel: vervangen door iets algemeners of een nieuwe
   //  registerinput: vervangen door iets algemeners of een nieuwe
-  $returnValue .= '<form action="'.$currentUrl.'" method="get" '.(strpos(getCurrentRequestUrl(),'script.php')!== false?'onsubmit="javascriptSubmit(\''.$thisPage.'\', true); return false;"':'').'>'.
-            '<div><input type="hidden" name="page" value="'.$thisPage.'"/></div>'.
-            '<div><input type="hidden" name="js" value="'.(strpos(getCurrentRequestUrl(),'script.php')===false?'no':'yes').'"/></div>'.
-            '<div><input type="hidden" name="submitit" value="true"/></div>'.
-            '<div class="registerlabel"><label for="title">'.lang('title').'</label></div><div class="registerinput"><input class="" type="text" id="title" name="title" value="'.$title.'"/></div>'.
-            '<div class="registerlabel"><label for="description">'.lang('description').':</label></div><div class="registerinput"><textarea class="" id="description" name="description" cols="40" rows="6">'.$description.'</textarea></div>';
+  $returnValue .= '<form action="'.$currentUrl.'" method="get" '.(strpos(getCurrentRequestUrl(),'script.php')!== false?'onsubmit="javascriptSubmit(\''.$thisPage.'\', true); return false;"':'').'>
+            ><input type="hidden" name="page" value="'.$thisPage.'"/>
+            <input type="hidden" name="js" value="'.(strpos(getCurrentRequestUrl(),'script.php')===false?'no':'yes').'"/>
+            <input type="hidden" name="submitit" value="true"/>
+            <div class="registerinput">
+              <label class="registerlabel" for="title">'.lang('title').'</label>
+              <input class="" type="text" id="title" name="title" value="'.$title.'"/>
+            </div>
+            <div class="registerinput">
+              <label class="registerlabel" for="description">'.lang('description').':</label>
+              <textarea class="" id="description" name="description" cols="40" rows="6">'.$description.'</textarea>
+            </div>';
       
   if(!isset($_GET['js'])) {
-    $returnValue .= '<div class="registerlabel"><label for="projectandversion">'.lang('project').':</label></div><div class="registerinput"><select class="" id="projectandversion" name="projectandversion">'.getProjectsAndVersions($projectId, $versionId).'</select></div>';
+    $returnValue .= '<div class="registerinput">
+                       <label class="registerlabel" for="projectandversion">'.lang('project').':</label>
+                       <select class="" id="projectandversion" name="projectandversion">'.getProjectsAndVersions($projectId, $versionId).'</select>
+                     </div>';
   } else {
-    $returnValue .=  '<div class="registerlabel"><label for="projectid">'.lang('project').':</label></div><div class="registerinput"><select class="" id="projectid" name="projectid" onchange="javascriptSubmit(\'submitbug\', false);">'.getProjects($projectId).'</select></div>'.
-            '<div class="registerlabel"><label for="versionid">'.lang('version').':</label></div><div class="registerinput"><select class="" id="versionid" name="versionid">'.getVersions($projectId, $versionId).'</select></div>';
+    $returnValue .=  '<div class="registerinput">
+                        <label class="registerlabel" for="projectid">'.lang('project').':</label>
+                        <select class="" id="projectid" name="projectid" onchange="javascriptSubmit(\'submitbug\', false);">'.getProjects($projectId).'</select>
+                      </div>
+                      <div class="registerinput">
+                        <label class="registerlabel" for="versionid">'.lang('version').':</label>
+                        <select class="" id="versionid" name="versionid">'.getVersions($projectId, $versionId).'</select>
+                      </div>';
   }
   
   if(!isEmptyCategorys()) {
-    $returnValue .=  '<div class="registerlabel"><label for="categorie1">'.lang('category1').':</label></div><div class="registerinput"><select class="" id="category1" name="category1">'.getCategorys($category1).'</select></div>'.
-            '<div class="registerlabel"><label for="categorie2">'.lang('category2').':</label></div><div class="registerinput"><select class="" id="category2" name="category2">'.getCategorys($category2).'</select></div>';
+    $returnValue .=  '<div class="registerinput">
+                        <label class="registerlabel" for="categorie1">'.lang('category1').':</label>
+                        <select class="" id="category1" name="category1">'.getCategorys($category1).'</select>
+                      </div>
+                      <div class="registerinput">
+                        <label class="registerlabel" for="categorie2">'.lang('category2').':</label>
+                        <select class="" id="category2" name="category2">'.getCategorys($category2).'</select>
+                      </div>';
   }
             
-  $returnValue .=   '<div class="registerlabel"><label for="verzenden">'. lang('send') .':</label></div><div class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/></div>'.
-          '</form>';
+  $returnValue .=   '<div class="registerinput">
+                       <label class="registerlabel" for="verzenden">'. lang('send') .':</label>
+                       <input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/>
+                     </div>
+                   </form>';
 
   if(!empty($projectId) && isEmptyProjects()) {
     $returnValue .= lang('bug_no_projects')."\n";

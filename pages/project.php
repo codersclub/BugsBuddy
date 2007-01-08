@@ -46,14 +46,22 @@ function project($id=0) {
           $ret .= '<p><span class="error">' . $msg . '</span></p>';
         }
 
-        $ret .= '<p>' .
-            '<div><label class="registerlabel">'. lang('name'). ':</label> ' . $name . '</div>' .
-            '<div><label class="registerlabel">'. lang('private') .':</label> <input type="checkbox" id="visible" name="visible" value="2"' . $checkbox . ' /></div>';
+        $ret .= '<p>
+                   <div class="registerinput">
+                     <label class="registerlabel">'. lang('name'). ':</label>
+                     ' . $name . '
+                   </div>
+                   <div class="registerinput">
+                     <label class="registerlabel">'. lang('private') .':</label>
+                     <input type="checkbox" id="visible" name="visible" value="2"' . $checkbox . ' />
+                   </div>';
 
         $versions = Database::getVersions($id);
 
         if (count($versions) > 0) {        
-          $ret .= '<div class="registerlabel"><label>'. lang('version') .':</label></div><div class="registerinput">';
+          $ret .= '<div class="registerinput">
+                     <label class="registerlabel">'. lang('version') .':</label>
+                     ';
 
           foreach ($versions as $row) {
             $ret .= '<span class="version">' . $row['version'] . '</span>';
@@ -95,12 +103,18 @@ function project($id=0) {
 
               $checkbox = (Database::hasUserAccess2Project($id, $row['id'])) ? ' checked="checked"' : '';
 
-              $ret .= '<td>' . $row['name'] . '</td><td>' . $row['email'] . '</td><td class="center"><input type="checkbox" name="' . $row['id'] . '" value="1"' . $checkbox . ' /></td></tr>';
+              $ret .= '<td>' . $row['name'] . '</td>
+                       <td>' . $row['email'] . '</td>
+                       <td class="center"><input type="checkbox" name="' . $row['id'] . '" value="1"' . $checkbox . ' /></td>
+                     </tr>';
 
               $i++;
             }
             
-            $ret .= '<tr><td colspan="3" class="right"><input type="submit" value="' . lang('edit') . '" /></td></tr></table>';
+            $ret .= '<tr>
+                       <td colspan="3" class="right"><input type="submit" value="' . lang('edit') . '" /></td>
+                     </tr>
+                   </table>';
           } else {
             $ret .= '<p><i>' . lang('users_not_found') . '</p></i>';
           }
@@ -174,14 +188,22 @@ function projectEdit($id=0) {
           $ret .= '<p><span class="error">' . $msg . '</span></p>';
         }
 
-        $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&id=' . $id . '&act=edit" method="post"><p>' .
-            '<input type="hidden" name="act" value="project" />' .
-            '<div class="clear"><label for="name" class="registerlabel">'. lang('name'). ' *:</label><input class="registerinput" type="text" id="name" name="name" value="' . $name . '" /></div>' .
-            '<div class="clear"><label for="visible" class="registerlabel">'. lang('private') .':</label><input class="registerinput"  type="checkbox" id="visible" name="visible" value="2"' . $checkbox . ' /></div>' .
-            '<div class="clear"><label for="verzenden" class="registerlabel">'. lang('send') .':</label><input class="registerinput"  id="verzenden" name="verzenden" type="submit" value="' . lang('change') . '" /></div>'.
-            '<p><span class="graytext">'. lang('required_fields') .'</span></p>' .
-            '</p></form>';
-        
+        $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&id=' . $id . '&act=edit" method="post">
+                   <input type="hidden" name="act" value="project" />
+                   <div class="registerinput">
+                     <label for="name" class="registerlabel">'. lang('name'). ' *:</label>
+                     <input type="text" id="name" name="name" value="' . $name . '" />
+                   </div>
+                   <div class="registerinput">
+                     <label for="visible" class="registerlabel">'. lang('private') .':</label>
+                     <input class="registerinput"  type="checkbox" id="visible" name="visible" value="2"' . $checkbox . ' />
+                   </div>
+                   <div class="registerinput">
+                     <label for="verzenden" class="registerlabel">'. lang('send') .':</label>
+                     <input class="registerinput"  id="verzenden" name="verzenden" type="submit" value="' . lang('change') . '" />
+                   </div>
+                   <p><span class="graytext">'. lang('required_fields') .'</span></p>
+                 </form>';
         
         $ret .= '<h1>' . lang('versions_delete') . '</h1>';
 
@@ -192,21 +214,25 @@ function projectEdit($id=0) {
         $versions = Database::getVersions($id);
 
         if (count($versions) > 0) {        
-          $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&id=' . $id . '&act=versionDelete" method="post"><p>
-               <div class="registerlabel"><label for="name">'. lang('version') .':</label></div><div class="registerinput"><select name="version">';
+          $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&id=' . $id . '&act=versionDelete" method="post">
+                     <div class="registerinput">
+                       <label class="registerlabel" for="name">'. lang('version') .':</label>
+                       <select name="version">';
 
           foreach ($versions as $row) {
             $ret .= '<option value="' . $row['id'] . '">' . $row['version'] . '</option>';
           }
                  
-          $ret .= '</select></div>
-               <div class="registerlabel"><label for="verzenden">'. lang('send') .':</label></div><div class="registerinput"><input  id="verzenden" name="verzenden" type="submit" value="' . lang('delete') . '" /></div>
-               </p></form>';
+          $ret .= '</select>
+                     </div>
+                     <div class="registerinput">
+                       <label class="registerlabel" for="verzenden">'. lang('send') .':</label>
+                       <input  id="verzenden" name="verzenden" type="submit" value="' . lang('delete') . '" />
+                     </div>
+                   </form>';
         } else {
           $ret .= '<p><i>' . lang('versions_not_found') . '</i></p>';
         }
-
-
 
         if ($hidden == 2) {
           $ret .= '<h1>' . lang('user_access') . '</h1>';
@@ -221,11 +247,11 @@ function projectEdit($id=0) {
             $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&id=' . $id . '&act=edit" method="post" name="users">
                 <input type="hidden" name="act" value="users" />
                   <table>
-                  <tr>
-                    <th style="width: 200px;">'. lang('name'). '</th>
-                    <th style="width: 200px;">'. lang('email'). '</th>
-                    <th style="width: 50px;">' . lang('access') . '</th>
-                  </tr>';
+                    <tr>
+                      <th style="width: 200px;">'. lang('name'). '</th>
+                      <th style="width: 200px;">'. lang('email'). '</th>
+                      <th style="width: 50px;">' . lang('access') . '</th>
+                    </tr>';
             
             $i = 0;
             foreach ($users as $row) {
@@ -237,12 +263,18 @@ function projectEdit($id=0) {
 
               $checkbox = (Database::hasUserAccess2Project($id, $row['id'])) ? ' checked="checked"' : '';
 
-              $ret .= '<td>' . $row['name'] . '</td><td>' . $row['email'] . '</td><td class="center"><input type="checkbox" name="' . $row['id'] . '" value="1"' . $checkbox . ' /></td></tr>';
+              $ret .= '<td>' . $row['name'] . '</td><td>' . $row['email'] . '</td>
+                       <td class="center"><input type="checkbox" name="' . $row['id'] . '" value="1"' . $checkbox . ' /></td>
+                     </tr>';
 
               $i++;
             }
             
-            $ret .= '<tr><td colspan="3" class="right"><input type="submit" value="' . lang('edit') . '" /></td></tr></table></form>';
+            $ret .= '<tr>
+                       <td colspan="3" class="right"><input type="submit" value="' . lang('edit') . '" /></td>
+                     </tr>
+                   </table>
+                 </form>';
           } else {
             $ret .= '<p><i>' . lang('users_not_found') . '</p></i>';
           }
@@ -266,7 +298,9 @@ function projectEdit($id=0) {
                 $ret .= '<tr>';
               }
 
-              $ret .= '<td>' . $row['name'] . '</td><td>' . $row['email'] . '</td></tr>';
+              $ret .= '<td>' . $row['name'] . '</td>
+                       <td>' . $row['email'] . '</td>
+                     </tr>';
 
               $i++;
             }

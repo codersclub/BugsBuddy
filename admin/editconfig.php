@@ -31,11 +31,21 @@ function geteditconfig() {
     }
   }
 
-  $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=editconfig" method="post">' .
-        '<div class="registerlabel"><label for="email">' . lang('email_site') . ':</label></div><div class="registerinput"><input  type="text" id="email" name="email" value="' . $email . '" /></div>' .
-        '<div class="registerlabel"><label for="from">' . lang('email_sender') . ':</label></div><div class="registerinput"><input  type="text" id="from" name="from" value="' . $from . '" /></div>' .
-        '<div class="registerlabel"><label for="verzenden">'. lang('send') .':</label></div><div class="registerinput"><input  id="verzenden" name="verzenden" type="submit" value="' . lang('edit') . '" /></div>'.
-        '</form>';
+  $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=editconfig" method="post">
+             <div class="registerinput">
+               <label for="email" class="registerlabel">' . lang('email_site') . ':</label>
+               <input  type="text" id="email" name="email" value="' . $email . '" />
+             </div>
+             <div>
+             <div class="registerinput">
+               <label for="from" class="registerlabel">' . lang('email_sender') . ':</label>
+               <input  type="text" id="from" name="from" value="' . $from . '" />
+             </div>
+             <div class="registerinput">
+               <label for="verzenden" class="registerlabel">'. lang('send') .':</label>
+               <input  id="verzenden" name="verzenden" type="submit" value="' . lang('edit') . '" />
+             </div>
+           </form>';
 
   return $ret;  
 }

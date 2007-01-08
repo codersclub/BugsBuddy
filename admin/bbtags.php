@@ -65,10 +65,10 @@ function getBbForm($recoverData) {
   $result = Database::getBbTags(false, 0);
   
   if(!empty($result)) {
-    $returnValue .= '<table style="width: 100%;">'.
-              '<tr>'.
-                '<th>&nbsp;</th><th>&nbsp;</th><th>BBCode</th><th>HTMLCode</th>'.
-              '</tr>';
+    $returnValue .= '<table style="width: 100%;">
+              <tr>
+                <th>&nbsp;</th><th>&nbsp;</th><th>'.lang('bbcode').'</th><th>'.lang('htmlcode').'</th>
+              </tr>';
     
     $i = 1;              
               
@@ -79,41 +79,59 @@ function getBbForm($recoverData) {
         $returnValue .= '<tr>';
       }      
       
-      $returnValue .=   '<td><a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=bbtags&id='.$row['id'].'&edit=true">' . lang('edit') . '</a></td><td><a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=bbtags&id='.$row['id'].'&delete=true">' . lang('delete') . '</a></td><td>'.$row['bbcode'].'</td><td>'.$row['htmlcode'].'</td>'.
-              '</tr>';
+      $returnValue .=   '<td>
+                           <a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=bbtags&id='.$row['id'].'&edit=true">' . lang('edit') . '</a>
+                         </td>
+                         <td>
+                           <a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=bbtags&id='.$row['id'].'&delete=true">' . lang('delete') . '</a>
+                         </td>
+                         <td>'.$row['bbcode'].'</td>
+                         <td>'.$row['htmlcode'].'</td>
+                       </tr>';
               
       $i++;
     }
     
-    $returnValue .=   '<tr>'.
-                '<td>&nbsp;</td>'.
-              '</tr>'.
-            '</table>';
+    $returnValue .=   '<tr>
+                    <td>&nbsp;</td>
+                  </tr>
+                </table>';
   }
     
   //TODO:
   //  registerlabel: replaced by something more general, or a new
   //  registerinput: replaced by something more general, or a new
-  $returnValue .= '<table>'.
-            '<tr>'.
-              '<td>'.
-                '<form action="'.$currentUrl.'" method="get">'.
-                  '<div><input type="hidden" name="page" value="'.$thisPage.'"/></div>'.
-                  '<div><input type="hidden" name="submitit" value="true"/></div>';
+  $returnValue .= '<table>
+            <tr>
+              <td>
+                <form action="'.$currentUrl.'" method="get">
+                  <input type="hidden" name="page" value="'.$thisPage.'"/>
+                  <input type="hidden" name="submitit" value="true"/>';
+
   if (isset($_GET['js'])) {
-    $returnValue .= '<div><input type="hidden" name="js" value="yes"/></div>';
+    $returnValue .= '<input type="hidden" name="js" value="yes"/>';
   }      
+
   if(!empty($id)) {
-    $returnValue .= '<div><input type="hidden" name="id" value="'.$id.'"/></div>';
+    $returnValue .= '<input type="hidden" name="id" value="'.$id.'"/>';
   }
                 
-  $returnValue .= '<div class="registerlabel"><label for="bbtag">'.lang('bbcode').':</label></div><div class="registerinput"><input type="text" class="" id="bbtag" name="bbtag" value="'.$bbTag.'"/></div>'.
-                  '<div class="registerlabel"><label for="htmltag">'.lang('htmlcode').':</label></div><div class="registerinput"><input type="text" class="" id="htmltag" name="htmltag" value="'.$htmlTag.'"/></div>'.
-                  '<div class="registerlabel"><label for="verzenden">'. lang('send') .':</label></div><div class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send'). '!"/></div>'.
-                '</form>'.
-              '</td>'.
-            '</tr>'.
-          '</table>';
+  $returnValue .= '<div class="registerinput">
+                     <label for="bbtag" class="registerlabel">'.lang('bbcode').':</label>
+                     <input type="text" class="" id="bbtag" name="bbtag" value="'.$bbTag.'"/>
+                   </div>
+                   <div class="registerinput">
+                     <label for="htmltag" class="registerlabel">'.lang('htmlcode').':</label>
+                     <input type="text" class="" id="htmltag" name="htmltag" value="'.$htmlTag.'"/>
+                   </div>
+                   <div class="registerinput">
+                     <label for="verzenden" class="registerlabel">'. lang('send') .':</label>
+                     <input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send'). '!"/>
+                   </div>
+                 </form>
+               </td>
+             </tr>
+           </table>';
   
   return $returnValue;
 }
@@ -122,8 +140,8 @@ function handleBbForm() {
   $returnValue = '';
   
   $id      = 0;
-  $bbTag    = '';
-  $htmlTag  = '';
+  $bbTag   = '';
+  $htmlTag = '';
   
   if(isset($_GET) && isset($_GET['id'])) {
     $id = $_GET['id'];

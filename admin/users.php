@@ -88,14 +88,14 @@ echo "</pre>";
               <tr>
                 <td>
                   <form action="'.$currentUrl.'" method="get">
-                    <div><input type="hidden" name="submitit" value="true"/></div>
-                    <div><input type="hidden" name="page" value="'.$thisPage.'"/></div>
-                    <div><input type="hidden" name="submitit" value="true"/></div>';
+                    <input type="hidden" name="submitit" value="true"/>
+                    <input type="hidden" name="page" value="'.$thisPage.'"/>
+                    <input type="hidden" name="submitit" value="true"/>';
     if (isset($_GET['js'])) {
-      $returnValue .= '<div><input type="hidden" name="js" value="yes"/></div>';
+      $returnValue .= '<input type="hidden" name="js" value="yes"/>';
     }      
     if(!empty($id)) {
-      $returnValue .= '<div><input type="hidden" name="id" value="'.$id.'"/></div>';
+      $returnValue .= '<input type="hidden" name="id" value="'.$id.'"/>';
     }
                   
     $returnValue .=  '<div class="registerinput">

@@ -303,38 +303,72 @@ function getEditBugForm($bugId) {
   //TODO:
   //  registerlabel: vervangen door iets algemeners of een nieuwe
   //  registerinput: vervangen door iets algemeners of een nieuwe
-  $returnValue .= '<form action="'.$currentUrl.'" method="get" '.(strpos(getCurrentRequestUrl(),'script.php')!== false?'onsubmit="javascriptSubmit(\''.$thisPage.'\', true); return false;"':'').'>'.
-            '<div><input type="hidden" name="id" value="'.$bugId.'"/></div>'.
-            '<div><input type="hidden" name="page" value="'.$thisPage.'"/></div>'.
-            '<div><input type="hidden" name="js" value="'.(strpos(getCurrentRequestUrl(),'script.php')===false?'no':'yes').'"/></div>'.
-            '<div><input type="hidden" name="submitit" value="true"/></div>'.
-            '<div><input type="hidden" name="action" value="editBug"/></div>'.
-            '<div><input type="hidden" name="actionId" value="'.$bugId.'"/></div>'.
-            '<div class="registerlabel"><label for="title">'.lang('title').':</label></div><div class="registerinput"><input class="" type="text" id="title" name="title" value="'.$title.'"/></div>'.
-            '<div class="registerlabel"><label for="description">'.lang('description').':</label></div><div class="registerinput"><textarea class="" id="description" name="description" cols="40" rows="6">'.$description.'</textarea></div>';
+  $returnValue .= '<form action="'.$currentUrl.'" method="get" '.(strpos(getCurrentRequestUrl(),'script.php')!== false?'onsubmit="javascriptSubmit(\''.$thisPage.'\', true); return false;"':'').'>
+                     <input type="hidden" name="id" value="'.$bugId.'"/>
+                     <input type="hidden" name="page" value="'.$thisPage.'"/>
+                     <input type="hidden" name="js" value="'.(strpos(getCurrentRequestUrl(),'script.php')===false?'no':'yes').'"/>
+                     <input type="hidden" name="submitit" value="true"/>
+                     <input type="hidden" name="action" value="editBug"/>
+                     <input type="hidden" name="actionId" value="'.$bugId.'"/>
+                     <div class="registerinput">
+                       <label class="registerlabel" for="title">'.lang('title').':</label>
+                       <input class="" type="text" id="title" name="title" value="'.$title.'"/>
+                     </div>
+                     <div class="registerinput">
+                       <label class="registerlabel" for="description">'.lang('description').':</label>
+                       <textarea class="" id="description" name="description" cols="40" rows="6">'.$description.'</textarea>
+                     </div>';
       
   if(!isset($_GET['js'])) {
-    $returnValue .= '<div class="registerlabel"><label for="projectandversion">'.lang('project').':</label></div><div class="registerinput"><select class="" id="projectandversion" name="projectandversion">'.getProjectsAndVersions($projectId, $versionId).'</select></div>';
+    $returnValue .= '<div class="registerinput">
+                       <label class="registerlabel" for="projectandversion">'.lang('project').':</label>
+                       <select class="" id="projectandversion" name="projectandversion">'.getProjectsAndVersions($projectId, $versionId).'</select>
+                     </div>';
   } else {
-    $returnValue .=  '<div class="registerlabel"><label for="projectid">'.lang('project').':</label></div><div class="registerinput"><select class="" id="projectid" name="projectid" onchange="javascriptSubmit(\'submitbug\', false);">'.getProjects($projectId).'</select></div>'.
-            '<div class="registerlabel"><label for="versionid">'.lang('version').':</label></div><div class="registerinput"><select class="" id="versionid" name="versionid">'.getVersions($projectId, $versionId).'</select></div>';
+    $returnValue .=  '<div class="registerinput">
+                        <label class="registerlabel" for="projectid">'.lang('project').':</label>
+                        <select class="" id="projectid" name="projectid" onchange="javascriptSubmit(\'submitbug\', false);">'.getProjects($projectId).'</select>
+                      </div>
+                      <div class="registerinput">
+                        <label class="registerlabel" for="versionid">'.lang('version').':</label>
+                        <select class="" id="versionid" name="versionid">'.getVersions($projectId, $versionId).'</select>
+                      </div>';
   }
   
   if(!isEmptyCategorys()) {
-    $returnValue .=  '<div class="registerlabel"><label for="categorie1">'.lang('category1').':</label></div><div class="registerinput"><select class="" id="category1" name="category1">'.getCategorys($category1).'</select></div>'.
-            '<div class="registerlabel"><label for="categorie2">'.lang('category2').':</label></div><div class="registerinput"><select class="" id="category2" name="category2">'.getCategorys($category2).'</select></div>';
+    $returnValue .=  '<div class="registerinput">
+                        <label class="registerlabel" for="categorie1">'.lang('category1').':</label>
+                        <select class="" id="category1" name="category1">'.getCategorys($category1).'</select>
+                      </div>
+                      <div>
+                        <label class="registerlabel" for="categorie2">'.lang('category2').':</label>
+                      <div class="registerinput">
+                        <select class="" id="category2" name="category2">'.getCategorys($category2).'</select>
+                      </div>';
   }
 
   if (getCurrentGroupId() == 2 || getCurrentGroupId() == 3) {
-    $returnValue .=   '<div class="registerlabel"><label for="priorityid">'.lang('priority').':</label></div><div class="registerinput"><select class="" id="priorityid" name="priorityid">'.getPrioritys($priorityId).'</select></div>'.
-            '<div class="registerlabel"><label for="bugstatusid">'.lang('status').':</label></div><div class="registerinput"><select class="" id="bugstatusid" name="bugstatusid">'.getBugstatus($bugStatusId).'</select>
-            '.lang('in').' <select class="" id="fixedin" name="fixedin">'.getVersions($projectId, $fixedInId).'</select></div>';
+    $returnValue .=   '<div class="registerinput">
+                         <label class="registerlabel" for="priorityid">'.lang('priority').':</label>
+                         <select class="" id="priorityid" name="priorityid">'.getPrioritys($priorityId).'</select>
+                       </div>
+                       <div class="registerinput">
+                         <label class="registerlabel" for="bugstatusid">'.lang('status').':</label>
+                       <select class="" id="bugstatusid" name="bugstatusid">'.getBugstatus($bugStatusId).'</select>
+                       '.lang('in').'
+                       <select class="" id="fixedin" name="fixedin">'.getVersions($projectId, $fixedInId).'</select>
+                     </div>';
   } else {
-    $returnValue .= '<input type="hidden" name="priorityid" value="'.$priorityId.'" /><input type="hidden" name="bugstatusid" value="'.$bugStatusId.'" /><input type="hidden" name="fixedin" value="'.$fixedInId.'" />';
+    $returnValue .= '<input type="hidden" name="priorityid" value="'.$priorityId.'" />
+                     <input type="hidden" name="bugstatusid" value="'.$bugStatusId.'" />
+                     <input type="hidden" name="fixedin" value="'.$fixedInId.'" />';
   }
 
-  $returnValue .=    '<div class="registerlabel"><label for="verzenden">'. lang('send') .':</label></div><div class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/></div>'.
-          '</form>';
+  $returnValue .=    '<div class="registerinput">
+                        <label class="registerlabel" for="verzenden">'. lang('send') .':</label>
+                        <input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/>
+                      </div>
+                    </form>';
 
   if(!empty($projectId) && isEmptyProjects()) {
     $returnValue .= lang('bug_no_projects');
@@ -378,22 +412,24 @@ function getEditCommentForm($commentId) {
   $currentUrl = explode("?", $currentUrl);
   $currentUrl = $currentUrl[0];    
   
-  $returnValue = '<form action="'.$currentUrl.'" method="get" '.(strpos(getCurrentRequestUrl(),'script.php')!== false?'onsubmit="javascriptSubmit(\''.$thisPage.'\', true); return false;"':'').'>'.
-            '<div><input type="hidden" name="page" value="'.$thisPage.'"/></div>'.
-            '<div><input type="hidden" name="js" value="'.(strpos(getCurrentRequestUrl(),'script.php')===false?'no':'yes').'"/></div>'.
-            '<div><input type="hidden" name="submitit" value="true"/></div>'.
-            '<div><input type="hidden" name="id" value="'.$bugId.'"/></div>'.
-            '<div><input type="hidden" name="actionId" value="'.$commentId.'"/></div>'.
-            '<div><input type="hidden" name="action" value="editComment"/></div>'.
-            '<table style="width: 100%;">'.
-              '<tr>'.            
-                '<td class="registerlabel"><label for="message">' . lang('message') . ':</label></td><td class="registerinput"><textarea class="" id="message" name="message" cols="40" rows="6">'.$message.'</textarea></td>'.
-              '</tr>'.
-              '<tr>'.
-                '<td class="registerlabel"><label for="verzenden">'. lang('send') .':</label></td><td class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/></td>'.
-              '</tr>'.
-            '</table>'.
-          '</form>';
+  $returnValue = '<form action="'.$currentUrl.'" method="get" '.(strpos(getCurrentRequestUrl(),'script.php')!== false?'onsubmit="javascriptSubmit(\''.$thisPage.'\', true); return false;"':'').'>
+                    <input type="hidden" name="page" value="'.$thisPage.'"/>
+                    <input type="hidden" name="js" value="'.(strpos(getCurrentRequestUrl(),'script.php')===false?'no':'yes').'"/>
+                    <input type="hidden" name="submitit" value="true"/>
+                    <input type="hidden" name="id" value="'.$bugId.'"/>
+                    <input type="hidden" name="actionId" value="'.$commentId.'"/>
+                    <input type="hidden" name="action" value="editComment"/>
+                    <table style="width: 100%;">
+                    <tr>
+                      <td class="registerlabel"><label for="message">' . lang('message') . ':</label></td>
+                      <td class="registerinput"><textarea class="" id="message" name="message" cols="40" rows="6">'.$message.'</textarea></td>
+                    </tr>
+                    <tr>
+                      <td class="registerlabel"><label for="verzenden">'. lang('send') .':</label></td>
+                      <td class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/></td>
+                    </tr>
+                  </table>
+                </form>';
   
   return $returnValue;
 }
@@ -420,79 +456,87 @@ function getViewBugForm() {
         $returnValue .= '<table style="width: 100%; margin: 0 auto;">';
         
         if (getCurrentUserId() == $row['user_id'] || (isset($permissions['mayadd_viewbug_comment']) && $permissions['mayadd_viewbug_comment'] == 'true')) {
-          $returnValue .=  '<tr>'.
-                    '<td colspan="2">'.pageLink('viewbug&id='.$bugId.'&action=editBug&actionId='.$bugId, lang('edit')).' '.pageLink('viewbug&id='.$bugId.'&action=delBug&actionId='.$bugId, lang('delete')).'</td>'.
-                  '</tr>';
+          $returnValue .=  '<tr>
+                    <td colspan="2">'.pageLink('viewbug&id='.$bugId.'&action=editBug&actionId='.$bugId, lang('edit')).' '.pageLink('viewbug&id='.$bugId.'&action=delBug&actionId='.$bugId, lang('delete')).'</td>
+                  </tr>';
         }
         
         $bbTags = Database::getBBTags(false, 0);
         
-        $returnValue .=    '<tr>'.
-//                    '<td class="lightgray" width="100">' . lang('reported_by') . ':</td><td>'.htmlSafe($row['userName']) . lang('at') . htmlSafe(timestamp2date($row['submitdate'])).'</td>'.
-                    '<td class="lightgray" width="100">' . lang('reported_by') . ':</td><td>'.htmlSafe($row['userName']) . ', ' . htmlSafe(timestamp2date($row['submitdate'])).'</td>'.
-                  '</tr>'.  
-                  '<tr>'.
-                    '<td class="lightgray" width="100">&nbsp;</td><td>&nbsp;</td>'.
-                  '</tr>'.                          
-                  '<tr>'.
-                    '<td class="lightgray" width="100">'.lang('title').':</td><td>'.$row['title'].'</td>'.
-                  '</tr>'.
-                  '<tr>'.
-                    '<td class="lightgray" width="100">'.lang('description').':</td><td>'.parseWithBBTags($row['description'], $bbTags).'</td>'.
-                  '</tr>'.
-                  '<tr>'.
-                    '<td class="lightgray" width="100">'.lang('project').':</td><td>'.($row['projectName']).'</td>'.
-                  '</tr>'.  
-                  '<tr>'.
-                    '<td class="lightgray" width="100">'.lang('version').':</td><td>'.($row['version']).'</td>'.
-                  '</tr>'.                                              
-                  '<tr>'.
-                    '<td class="lightgray" width="100">'.lang('category1').':</td><td>'.($row['category1Name']).'</td>'.
-                  '</tr>'.  
-                  '<tr>'.
-                    '<td class="lightgray" width="100">'.lang('category2').':</td><td>'.($row['category2Name']).'</td>'.
-                  '</tr>'.                                      
-                  '<tr>'.
-                    '<td class="lightgray" width="100">'.lang('priority').':</td><td>'.($row['priorityName']).'</td>'.
-                  '</tr>'.                  
-                  '<tr>'.
-                    '<td class="lightgray" width="100">'.lang('status').':</td><td>'.($row['statusName']);
+        $returnValue .= '<tr>
+                    <td class="lightgray" width="100">' . lang('reported_by') . ':</td>
+                    <td>'.htmlSafe($row['userName']) . ', ' . htmlSafe(timestamp2date($row['submitdate'])).'</td>
+                  </tr>
+                  <tr>
+                    <td class="lightgray" width="100">&nbsp;</td><td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td class="lightgray" width="100">'.lang('title').':</td>
+                    <td>'.$row['title'].'</td>
+                  </tr>
+                  <tr>
+                    <td class="lightgray" width="100">'.lang('description').':</td>
+                    <td>'.parseWithBBTags($row['description'], $bbTags).'</td>
+                  </tr>
+                  <tr>
+                    <td class="lightgray" width="100">'.lang('project').':</td>
+                    <td>'.($row['projectName']).'</td>
+                  </tr>
+                  <tr>
+                    <td class="lightgray" width="100">'.lang('version').':</td>
+                    <td>'.($row['version']).'</td>
+                  </tr>
+                  <tr>
+                    <td class="lightgray" width="100">'.lang('category1').':</td>
+                    <td>'.($row['category1Name']).'</td>
+                  </tr>
+                  <tr>
+                    <td class="lightgray" width="100">'.lang('category2').':</td>
+                    <td>'.($row['category2Name']).'</td>
+                  </tr>
+                  <tr>
+                    <td class="lightgray" width="100">'.lang('priority').':</td>
+                    <td>'.($row['priorityName']).'</td>
+                  </tr>
+                  <tr>
+                    <td class="lightgray" width="100">'.lang('status').':</td>
+                    <td>'.($row['statusName']);
                     
         if(!empty($row['versionFixed'])) {                  
           $returnValue .=  lang('in_version') . $row['versionFixed'];  
         }
         
-        $returnValue .=      '</td>'.
-                  '</tr>'.
-                '</table>';
+        $returnValue .=  '</td>
+                  </tr>
+                </table>';
       }
       
       $result = Database::getBugComments($bugId);
       if(!empty($result)) {
-        $returnValue .= '<table style="width: 100%;">'.
-                  '<tr>'.
-                    '<td>&nbsp;</td>'.
-                  '</tr>'.
-                  '<tr>'.
-                    '<th>' . lang('messages') . '</th>'.
-                  '</tr>';                  
+        $returnValue .= '<table style="width: 100%;">
+                  <tr>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th>' . lang('messages') . '</th>
+                  </tr>';                  
         
         foreach($result as $row) {
           if (getCurrentUserId() == $row['user_id'] || (isset($permissions['mayadd_viewbug_comment']) && $permissions['mayadd_viewbug_comment'] == 'true')) {
-            $returnValue .=  '<tr>'.
-                      '<td>'.pageLink('viewbug&id='.$bugId.'&action=editComment&actionId='.$row['id'], lang('edit')).' '.pageLink('viewbug&id='.$bugId.'&action=delComment&actionId='.$row['id'], lang('delete') ).'</td>'.
-                    '</tr>';
+            $returnValue .=  '<tr>
+                    <td>'.pageLink('viewbug&id='.$bugId.'&action=editComment&actionId='.$row['id'], lang('edit')).' '.pageLink('viewbug&id='.$bugId.'&action=delComment&actionId='.$row['id'], lang('delete') ).'</td>
+                  </tr>';
             }  
                     
-          $returnValue .= '<tr>'.
-                    '<td>'.htmlSafe($row['userName']). lang('at') . htmlSafe(timestamp2date($row['submitdate'])).'</td>'.
-                  '</tr>'.
-                  '<tr>'.
-                    '<td>'.parseWithBBTags($row['message'], $bbTags).'</td>'.
-                  '</tr>'.
-                  '<tr>'.
-                    '<td><hr /></td>'.
-                  '</tr>';                  
+          $returnValue .= '<tr>
+                    <td>'.htmlSafe($row['userName']). lang('at') . htmlSafe(timestamp2date($row['submitdate'])).'</td>
+                  </tr>
+                  <tr>
+                    <td>'.parseWithBBTags($row['message'], $bbTags).'</td>
+                  </tr>
+                  <tr>
+                    <td><hr /></td>
+                  </tr>';
         }
         
         $returnValue .= '</table>';
@@ -544,26 +588,28 @@ function getCommentSubmitForm($recoverData) {
     $currentUrl = explode("?", $currentUrl);
     $currentUrl = $currentUrl[0];    
     
-    $returnValue .= '<form action="'.$currentUrl.'" method="get" '.(strpos(getCurrentRequestUrl(),'script.php')!== false?'onsubmit="javascriptSubmit(\''.$thisPage.'\', true); return false;"':'').'>'.
-              '<div><input type="hidden" name="page" value="'.$thisPage.'"/></div>'.
-              '<div><input type="hidden" name="js" value="'.(strpos(getCurrentRequestUrl(),'script.php')===false?'no':'yes').'"/></div>'.
-              '<div><input type="hidden" name="submitit" value="true"/></div>'.
-              '<div><input type="hidden" name="id" value="'.$bugId.'"/></div>'.
-              '<table style="width: 100%;">'.
-                '<tr>'.
-                  '<td style="width: 100px;">&nbsp;</td>'.
-                '</tr>'.
-                '<tr>'.
-                  '<th colspan="2">' . lang('message_post') . '</th>'.
-                '</tr>'.                
-                '<tr>'.            
-                  '<td class="registerlabel"><label for="message">' . lang('message') . ':</label></td><td class="registerinput"><textarea class="" id="message" name="message" cols="40" rows="6">'.$message.'</textarea></td>'.
-                '</tr>'.
-                '<tr>'.
-                  '<td class="registerlabel"><label for="verzenden">'. lang('send') .':</label></td><td class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/></td>'.
-                '</tr>'.
-              '</table>'.
-            '</form>';
+    $returnValue .= '<form action="'.$currentUrl.'" method="get" '.(strpos(getCurrentRequestUrl(),'script.php')!== false?'onsubmit="javascriptSubmit(\''.$thisPage.'\', true); return false;"':'').'>
+              <input type="hidden" name="page" value="'.$thisPage.'"/>
+              <input type="hidden" name="js" value="'.(strpos(getCurrentRequestUrl(),'script.php')===false?'no':'yes').'"/>
+              <input type="hidden" name="submitit" value="true"/>
+              <input type="hidden" name="id" value="'.$bugId.'"/>
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 100px;">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th colspan="2">' . lang('message_post') . '</th>
+                </tr>
+                <tr>
+                  <td class="registerlabel"><label for="message">' . lang('message') . ':</label></td>
+                  <td class="registerinput"><textarea class="" id="message" name="message" cols="40" rows="6">'.$message.'</textarea></td>
+                </tr>
+                <tr>
+                  <td class="registerlabel"><label for="verzenden">'. lang('send') .':</label></td>
+                  <td class="registerinput"><input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/></td>
+                </tr>
+              </table>
+            </form>';
   } else {
     $returnValue .= '<h1>' . lang('message_post_no_rights') . '</h1>';
   }

@@ -280,20 +280,6 @@ a:hover {
 	background-color: green;
 }
 
-.forgotpasswordlabel{
-	position:relative;
-	padding: 3px;
-	width: 100px;
-	color: #000000;
-	background-color: inherit;
-	float: left;
-}
-	
-.forgotpasswordinput{
-	position:relative;
-	padding: 2px;
-}
-
 .noborder {
 	border: 0px;
 }

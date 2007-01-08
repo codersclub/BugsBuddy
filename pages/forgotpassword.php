@@ -45,15 +45,21 @@ function getForgotPasswordForm() {
     return $returnValue;
 
   } else {
-    $returnValue = '';
-    $returnValue .=  '<form method="get" target="submitFrame" onsubmit="getNewContent(\'forgotpassword\&email=\'+document.getElementById(\'email\').value); return false;">';
-    $returnValue .=   '<div><input type="hidden" name="page" value="forgotpassword" /></div>';
-    $returnValue .=    '<div class="forgotpasswordlabel"><label for="email">'.lang('email').':</label></div><div class="forgotpasswordinput"><input class="forgotpasswordcontent" type="text" name="email" id="email" value="" /></div>';
-    $returnValue .=    '<div class="registerlabel"><label for="submit">'.lang('password_reset').':</label></div><div class="registerinput"><input class="registerinputcontent" id="submit" type="submit" value="'.lang('send_mail').'" /></div>';
-    $returnValue .=  '</form>';
-    $returnValue .=  '<br />';
-    $returnValue .=  '<div id="forgotPassword">';
-    $returnValue .=  '</div>';
+    $returnValue = '
+     <form method="get" target="submitFrame" onsubmit="getNewContent(\'forgotpassword\&email=\'+document.getElementById(\'email\').value); return false;">
+       <input type="hidden" name="page" value="forgotpassword" />
+       <div class="registerinput">
+         <label class="registerlabel" for="email">'.lang('email').':</label>
+         <input class="forgotpasswordcontent" type="text" name="email" id="email" value="" />
+       </div>
+       <div class="registerinput">
+         <label class="registerlabel" for="submit">'.lang('password_reset').':</label>
+         <input class="registerinputcontent" id="submit" type="submit" value="'.lang('send_mail').'" />
+       </div>
+    </form>
+    <br />
+    <div id="forgotPassword"></div>';
+
     return $returnValue;
   }
 }
