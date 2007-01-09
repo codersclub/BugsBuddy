@@ -29,7 +29,7 @@ function logoutInfo() {
  */
 function logout() {
   $_SESSION['loggedIn'] = false; // just to be sure
-  //unset($_SESSION["username"]);
+  //unset($_SESSION['username']);
   unset($_SESSION);
   setcookie('AUTOLOGIN', ''); // expire in 30 days
 

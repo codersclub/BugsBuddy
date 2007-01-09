@@ -5,10 +5,10 @@
 */
 
 function getsubmitbug() {
-  $returnValue = "<h1>". lang('bug_report') ."</h1>\n";
+  $returnValue = '<h1>'. lang('bug_report') . '</h1>';
   
   if(isLoggedIn()) {
-    if (isset($_GET) && isset($_GET['submitit']) && $_GET['submitit'] == "true") {
+    if (isset($_GET) && isset($_GET['submitit']) && $_GET['submitit'] == 'true') {
       $returnValue .= handleSubmitBug();
     } else {
       $returnValue .= getSubmitBugForm();
@@ -197,16 +197,16 @@ function getSubmitBugForm() {
     $category2 = $_GET['category2'];    
   }  
     
-  $thisPage   = "submitbug";
+  $thisPage   = 'submitbug';
   $currentUrl = getCurrentRequestUrl();
-  $currentUrl = explode("?", $currentUrl);
+  $currentUrl = explode('?', $currentUrl);
   $currentUrl = $currentUrl[0];
   
   //TODO:
   //  registerlabel: vervangen door iets algemeners of een nieuwe
   //  registerinput: vervangen door iets algemeners of een nieuwe
   $returnValue .= '<form action="'.$currentUrl.'" method="get" '.(strpos(getCurrentRequestUrl(),'script.php')!== false?'onsubmit="javascriptSubmit(\''.$thisPage.'\', true); return false;"':'').'>
-            ><input type="hidden" name="page" value="'.$thisPage.'"/>
+            <input type="hidden" name="page" value="'.$thisPage.'"/>
             <input type="hidden" name="js" value="'.(strpos(getCurrentRequestUrl(),'script.php')===false?'no':'yes').'"/>
             <input type="hidden" name="submitit" value="true"/>
             <div class="registerinput">
@@ -224,25 +224,25 @@ function getSubmitBugForm() {
                        <select class="" id="projectandversion" name="projectandversion">'.getProjectsAndVersions($projectId, $versionId).'</select>
                      </div>';
   } else {
-    $returnValue .=  '<div class="registerinput">
-                        <label class="registerlabel" for="projectid">'.lang('project').':</label>
-                        <select class="" id="projectid" name="projectid" onchange="javascriptSubmit(\'submitbug\', false);">'.getProjects($projectId).'</select>
-                      </div>
-                      <div class="registerinput">
-                        <label class="registerlabel" for="versionid">'.lang('version').':</label>
-                        <select class="" id="versionid" name="versionid">'.getVersions($projectId, $versionId).'</select>
-                      </div>';
+    $returnValue .= '<div class="registerinput">
+                       <label class="registerlabel" for="projectid">'.lang('project').':</label>
+                       <select class="" id="projectid" name="projectid" onchange="javascriptSubmit(\'submitbug\', false);">'.getProjects($projectId).'</select>
+                     </div>
+                     <div class="registerinput">
+                       <label class="registerlabel" for="versionid">'.lang('version').':</label>
+                       <select class="" id="versionid" name="versionid">'.getVersions($projectId, $versionId).'</select>
+                     </div>';
   }
   
   if(!isEmptyCategorys()) {
-    $returnValue .=  '<div class="registerinput">
-                        <label class="registerlabel" for="categorie1">'.lang('category1').':</label>
-                        <select class="" id="category1" name="category1">'.getCategorys($category1).'</select>
-                      </div>
-                      <div class="registerinput">
-                        <label class="registerlabel" for="categorie2">'.lang('category2').':</label>
-                        <select class="" id="category2" name="category2">'.getCategorys($category2).'</select>
-                      </div>';
+    $returnValue .= '<div class="registerinput">
+                       <label class="registerlabel" for="categorie1">'.lang('category1').':</label>
+                       <select class="" id="category1" name="category1">'.getCategorys($category1).'</select>
+                     </div>
+                     <div class="registerinput">
+                       <label class="registerlabel" for="categorie2">'.lang('category2').':</label>
+                       <select class="" id="category2" name="category2">'.getCategorys($category2).'</select>
+                     </div>';
   }
             
   $returnValue .=   '<div class="registerinput">

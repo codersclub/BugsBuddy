@@ -81,9 +81,9 @@ function getPermissionsForm($recoverData) {
     }
   }    
   
-  $thisPage   = "permissions";
+  $thisPage   = 'permissions';
   $currentUrl = getCurrentRequestUrl();
-  $currentUrl = explode("?", $currentUrl);
+  $currentUrl = explode('?', $currentUrl);
   $currentUrl = $currentUrl[0];
   
   $result = Database::getPermissionWithClause(true, 0);

@@ -61,17 +61,17 @@ function setLoginSession($htmlUnsafeEmail, $htmlUnsafePassword, $stay, $ip) {
 }
 
 function setLoginSessionByUserArray($user, $stay, $ip) {
-  $_SESSION["loggedIn"] = true;
-  $_SESSION["username"] = $user[0]['name'];
-  $_SESSION["userId"] = $user[0]['id'];
-  $_SESSION["userGroupId"] = $user[0]['group_id'];
+  $_SESSION['loggedIn'] = true;
+  $_SESSION['username'] = $user[0]['name'];
+  $_SESSION['userId'] = $user[0]['id'];
+  $_SESSION['userGroupId'] = $user[0]['group_id'];
   if ($ip===true) {
-    $_SESSION["userIp"] = getUserIp();
+    $_SESSION['userIp'] = getUserIp();
   } else {
-    $_SESSION["userIp"] = false;
+    $_SESSION['userIp'] = false;
   }
   if ($stay) {
-    setcookie('AUTOLOGIN', $_SESSION["username"].'@'.passwordHash($user[0]['name'].$user[0]['id'].getUserIp()), time()+60*60*24); // expire in 30 days
+    setcookie('AUTOLOGIN', $_SESSION['username'].'@'.passwordHash($user[0]['name'].$user[0]['id'].getUserIp()), time()+60*60*24); // expire in 30 days
   } else {
     setcookie('AUTOLOGIN', '', time()+60*60*24); // expire in 1 day
   }
@@ -109,21 +109,21 @@ function getLoginForm() {
     ';
   }
 
-  $returnValue .= "
-      <div class='clear'>
-        <label for='stay' class='registerlabel'>".lang('remember_me')."</label>
-        <div class='registerinput'><input type='checkbox' name='stay' id='stay' /></div>
+  $returnValue .= '
+      <div class="registerinput">
+        <label for="stay" class="registerlabel">'.lang('remember_me').'</label>
+        <input type="checkbox" name="stay" id="stay" />
       </div>
-      <div class='clear'>
-        <label for='ip' class='registerlabel'>".lang('static_ip')."</label>
-        <div class='registerinput'><input type='checkbox' name='ip' id='ip' /></div>
+      <div class="registerinput">
+        <label for="ip" class="registerlabel">'.lang('static_ip').'</label>
+        <input type="checkbox" name="ip" id="ip" />
       </div>
-      <div class='clear'>
-        <div class='registerlabel'></div><input type='submit' value='".lang('login')."' />
-      </div>\n";
-
-  $returnValue .= "    </form>\n";
-  $returnValue .=   "</p>\n";
+      <div class="registerinput">
+        <div class="registerlabel"></div>
+        <input type="submit" value="'.lang('login').'" />
+      </div>
+    </form>
+';
 
   return $returnValue;
 }

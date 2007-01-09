@@ -20,7 +20,7 @@ function isValidPassword2($password) {
 }
 
 function passwordHash2($password) {
-  return md5("passwordprefix" . $password . "passwordpostfix");
+  return md5('passwordprefix' . $password . 'passwordpostfix');
 }
 
 $msg  = '';

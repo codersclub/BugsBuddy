@@ -4,8 +4,8 @@ session_start();
 
 require_once('includes/helperfunctions.php');
 
-if (!isset($_GET["page"])) {
-  $_GET["page"] = "home";
+if (!isset($_GET['page'])) {
+  $_GET['page'] = 'home';
 }
 
 /*
@@ -38,8 +38,8 @@ if (isset($_COOKIE['AUTOLOGIN'])) {
 }
 
 
-if (!isset($_GET) || !isset($_GET["page"]) || $_GET["page"]=="") {
-  $_GET["page"] == "home";
+if (!isset($_GET) || !isset($_GET['page']) || $_GET['page']=='') {
+  $_GET['page'] == 'home';
 }
 // Handle error page differently, because it might concern the disability to connect to the database
 if ($_GET['page'] == 'errorpage') {
@@ -69,7 +69,7 @@ if ($_GET['page'] == 'logout') {
 }
 // If the register-submit page is requested
 if ($_GET['page'] == 'register') {
-  if (isset($_POST) && isset($_POST["name"]) && isset($_POST["password"]) && isset($_POST["email"])) {
+  if (isset($_POST) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email'])) {
     require_once('pages/register.php');
     echo handleRegistry(htmlUnsafe($_POST['name']), htmlUnsafe($_POST['password']), htmlUnsafe($_POST['email']));
     exit;
@@ -108,9 +108,9 @@ $newPage = $_GET['page'];
 $newId = (isset($_GET['id'])?intval($_GET['id']):'null');
 
 // If some other page is requested
-if (!isAllowedPage($_GET["page"])) {
-  $_GET["page"] = "pagenotfound";
+if (!isAllowedPage($_GET['page'])) {
+  $_GET['page'] = 'pagenotfound';
 }
 // Every variabele is checked before it is parsed into php code!
-$phpCode = "require_once('pages/".$_GET["page"].".php'); echo \"updateContent(\\\"\".convertHtmlCodeToJavaScriptString(get".$_GET["page"]."()).\"\\\"); updateGoBackLink(\\\"$newPage\\\", \\\"$newId\\\"); \";";
+$phpCode = "require_once('pages/".$_GET['page'].".php'); echo \"updateContent(\\\"\".convertHtmlCodeToJavaScriptString(get".$_GET['page']."()).\"\\\"); updateGoBackLink(\\\"$newPage\\\", \\\"$newId\\\"); \";";
 eval($phpCode);

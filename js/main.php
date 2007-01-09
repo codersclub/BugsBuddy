@@ -91,7 +91,7 @@ require_once(ROOT_DIR.'/includes/helperfunctions.php');
     getNewContent(page + "&"+string);
   }
   
-  function checkPassWordStrength(object){
+  function checkPassWordStrength(object) {
     var pass   = document.getElementById(object).value;
     var strength = "<?=lang('password_very_very_bad')?>";
     var cUpper    = false;

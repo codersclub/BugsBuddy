@@ -7,7 +7,7 @@
 function getdownload() {
   $returnValue = '';
   $files = Array();
-  $allowedFileTypes = Array(".zip", ".rar", ".tar.gz");
+  $allowedFileTypes = Array('.zip', '.rar', '.tar.gz');
   $hdir = @opendir('downloads/');
   if($hdir) {
     while($file = readdir($hdir)) {

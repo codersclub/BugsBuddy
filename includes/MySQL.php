@@ -12,7 +12,7 @@ class MySQL {
 
   var $databaseConnection = null;
   var $connected = false;
-  var $test = "test";
+  var $test = 'test';
 
   /*
    * The constructor is private and should not be called outside this script!

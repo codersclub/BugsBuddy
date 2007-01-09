@@ -142,12 +142,12 @@ function convertHtmlCodeToJavaScriptString($htmlCode) {
 
 function getCurrentRequestUrl() {
   $currentUrl = $_SERVER['PHP_SELF'];
-  if (isset($_SERVER["QUERY_STRING"]) && $_SERVER["QUERY_STRING"] !="") $currentUrl .= "?" . $_SERVER["QUERY_STRING"];
+  if (isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] !='') $currentUrl .= '?' . $_SERVER['QUERY_STRING'];
   return htmlspecialchars($currentUrl, ENT_QUOTES);
 }
 
 function isLoggedIn() {
-  if (isset($_SESSION) && isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]==true) {
+  if (isset($_SESSION) && isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']==true) {
     return true;
   } else {
     return false;
@@ -155,8 +155,8 @@ function isLoggedIn() {
 }
 
 function getCurrentSafeUsername() {
-  if (isLoggedIn() && isset($_SESSION["username"])) {
-    return htmlSafe($_SESSION["username"]);
+  if (isLoggedIn() && isset($_SESSION['username'])) {
+    return htmlSafe($_SESSION['username']);
   } else {
     return "";
   }
@@ -166,7 +166,7 @@ function getCurrentUserId() {
   if (!isLoggedIn()) {
     return null;
   } else {
-    return $_SESSION["userId"];
+    return $_SESSION['userId'];
   }
 }
 
@@ -174,12 +174,12 @@ function getCurrentGroupId() {
   if (!isLoggedIn()) {
     return null;
   } else {
-    return $_SESSION["userGroupId"];
+    return $_SESSION['userGroupId'];
   }
 }
 
 function passwordHash($password) {
-  return md5("passwordprefix" . $password . "passwordpostfix");
+  return md5('passwordprefix' . $password . 'passwordpostfix');
 }
 
 function isValidUsername($username) {
@@ -218,7 +218,7 @@ function pageLink($page, $text, $class=null) {
 }
 
 function createRandomPassword() {
-  $passwordCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  $passwordCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   $returnValue = '';
   for ($i=0; $i<8; $i++) {
     $returnValue .= $passwordCharacters{mt_rand(0,(strlen($passwordCharacters)-1))};

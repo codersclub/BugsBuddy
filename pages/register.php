@@ -175,35 +175,35 @@ function handleRegistry($name, $password, $email, $groupid=0) {
 
   } else {
     if ($error) {
-      $returnValue =  ''.
-        '<html>'.
-          '<head>'.
-          '</head>'.
-          '<body>'.
-            '<script>'.
-              'window.parent.document.getElementById("registrationPassword").value="";'.
-              'window.parent.document.getElementById("registrationName").focus();'.
-              'window.parent.document.getElementById("registrationName").select();'.
-              'window.parent.document.getElementById("registerError").innerHTML = "'.safenl2br(htmlsafe($errorMessage)).'";'.
-            '</script>'.
-          '</body>'.
-        '</html>';
+      $returnValue = '<html>
+          <head>
+          </head>
+          <body>
+            <script>
+              window.parent.document.getElementById("registrationPassword").value="";
+              window.parent.document.getElementById("registrationName").focus();
+              window.parent.document.getElementById("registrationName").select();
+              window.parent.document.getElementById("registerError").innerHTML = "'.safenl2br(htmlsafe($errorMessage)).'";
+            </script>
+          </body>
+        </html>';
+
       return $returnValue;
 
     } else {
 
       Database::registerUser($name, $password, $email, $groupid);
 
-      $returnValue =  ''.
-        '<html>'.
-          '<head>'.
-          '</head>'.
-          '<body>'.
-            '<script>'.
-              'window.parent.updateContent('.lang('register_success').');'.
-            '</script>'.
-          '</body>'.
-        '</html>';
+      $returnValue = '<html>
+          <head>
+          </head>
+          <body>
+            <script>
+              window.parent.updateContent('.lang('register_success').');
+            </script>
+          </body>
+        </html>';
+
       return $returnValue;
     }
   }

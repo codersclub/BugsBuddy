@@ -51,15 +51,15 @@ function getBbForm($recoverData) {
   
     if(!empty($result)) {
       foreach ($result as $row) {
-        $bbTag    = $row['bbcode'];
-        $htmlTag   = $row['htmlcode'];
+        $bbTag   = $row['bbcode'];
+        $htmlTag = $row['htmlcode'];
       }
     }
   }    
     
-  $thisPage   = "bbtags";
+  $thisPage   = 'bbtags';
   $currentUrl = getCurrentRequestUrl();
-  $currentUrl = explode("?", $currentUrl);
+  $currentUrl = explode('?', $currentUrl);
   $currentUrl = $currentUrl[0];
   
   $result = Database::getBbTags(false, 0);
@@ -67,7 +67,10 @@ function getBbForm($recoverData) {
   if(!empty($result)) {
     $returnValue .= '<table style="width: 100%;">
               <tr>
-                <th>&nbsp;</th><th>&nbsp;</th><th>'.lang('bbcode').'</th><th>'.lang('htmlcode').'</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>'.lang('bbcode').'</th>
+                <th>'.lang('htmlcode').'</th>
               </tr>';
     
     $i = 1;              

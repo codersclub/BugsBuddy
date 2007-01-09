@@ -37,10 +37,10 @@ function htmlSafe($string) {
           ($theDecimalCharacterValue >= 48 && $theDecimalCharacterValue <= 57)) {
         $returnArray[$i] = $chars[$i];
       } else {
-        $returnArray[$i] = "&#" . $theDecimalCharacterValue . ";";
+        $returnArray[$i] = '&#' . $theDecimalCharacterValue . ';';
       }
     }
-    return implode("", $returnArray);
+    return implode('', $returnArray);
   }
 */
 }
@@ -85,7 +85,7 @@ function safenl2br($string) {
     }
     return $returnValue;
   } else {
-    return str_replace("&#10;", "<br>", $string);
+    return str_replace('&#10;', '<br>', $string);
   }
 }
 

@@ -80,9 +80,9 @@ echo "</pre>";
   }
 
   if (isset($_GET['id']) && !isset($_GET['submitit'])) {
-    $thisPage   = "users";
+    $thisPage   = 'users';
     $currentUrl = getCurrentRequestUrl();
-    $currentUrl = explode("?", $currentUrl);
+    $currentUrl = explode('?', $currentUrl);
     $currentUrl = $currentUrl[0];
     $returnValue .= '<table>
               <tr>

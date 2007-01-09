@@ -57,7 +57,7 @@ function getproject() {
       $ret .= '<span class="error">' . $msg . '</span>';
     }
 
-    $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project" method="post">' .
+    $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project" method="post">
                <div class="registerinput">
                  <label class="registerlabel" for="name">'. lang('name'). ' *:</label>
                  <input  type="text" id="name" name="name" />
@@ -74,7 +74,7 @@ function getproject() {
                  <label class="registerlabel" for="verzenden">'. lang('send') .':</label>
                  <input  id="verzenden" name="verzenden" type="submit" value="'.lang('send').'" />
                </div>
-             </form>' .
+             </form>
              <p><span class="graytext">'. lang('required_fields') .'</span></p>';
 
     $ret .= '<h1>'. lang('projects_modify') .'</h1>';

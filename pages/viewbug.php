@@ -7,7 +7,7 @@
 function getviewbug() {
   $returnValue = '<h1>' . lang('bug_info') . '</h1>';
   
-  if (isset($_GET) && isset($_GET['submitit']) && $_GET['submitit'] == "true") {
+  if (isset($_GET) && isset($_GET['submitit']) && $_GET['submitit'] == 'true') {
     $returnValue .= handleSubmit();
   } else {
     if(isset($_GET) && isset($_GET['action']) && isset($_GET['actionId'])) {
@@ -295,9 +295,9 @@ function getEditBugForm($bugId) {
     }
   }
 
-  $thisPage   = "viewbug";
+  $thisPage   = 'viewbug';
   $currentUrl = getCurrentRequestUrl();
-  $currentUrl = explode("?", $currentUrl);
+  $currentUrl = explode('?', $currentUrl);
   $currentUrl = $currentUrl[0];
   
   //TODO:
@@ -407,9 +407,9 @@ function getEditCommentForm($commentId) {
     }
   }
     
-  $thisPage   = "viewbug";
+  $thisPage   = 'viewbug';
   $currentUrl = getCurrentRequestUrl();
-  $currentUrl = explode("?", $currentUrl);
+  $currentUrl = explode('?', $currentUrl);
   $currentUrl = $currentUrl[0];    
   
   $returnValue = '<form action="'.$currentUrl.'" method="get" '.(strpos(getCurrentRequestUrl(),'script.php')!== false?'onsubmit="javascriptSubmit(\''.$thisPage.'\', true); return false;"':'').'>
@@ -583,9 +583,9 @@ function getCommentSubmitForm($recoverData) {
   }
   $returnValue = '';
   if (getCurrentUserId() == $postedById || (isset($permissions['mayadd_viewbug_comment']) && $permissions['mayadd_viewbug_comment'] == 'true')) {
-    $thisPage   = "viewbug";
+    $thisPage   = 'viewbug';
     $currentUrl = getCurrentRequestUrl();
-    $currentUrl = explode("?", $currentUrl);
+    $currentUrl = explode('?', $currentUrl);
     $currentUrl = $currentUrl[0];    
     
     $returnValue .= '<form action="'.$currentUrl.'" method="get" '.(strpos(getCurrentRequestUrl(),'script.php')!== false?'onsubmit="javascriptSubmit(\''.$thisPage.'\', true); return false;"':'').'>
@@ -645,7 +645,7 @@ function handleSubmit() {
       return $returnValue;
     }
     
-    if(isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'editBug'){
+    if(isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'editBug') {
       $title        = '';
       $description  = '';
       $bugId        = 0;
@@ -716,7 +716,7 @@ function handleSubmit() {
       return $returnValue;
     }
     
-    if(isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'editComment'){
+    if(isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'editComment') {
       $message   = '';  
       $CommentId   = 0;
         

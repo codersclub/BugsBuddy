@@ -20,7 +20,7 @@ function getForgotPasswordForm() {
 
   $returnValue = '<h1>'.lang('password_forgot').'</h1>';
 
-  $returnValue .= "<div class='info'>".lang('password_forgot_info').'</div>';
+  $returnValue .= '<div class="info">'.lang('password_forgot_info').'</div>';
 
   if (!isset($_GET['js'])) {
     $returnValue .= '

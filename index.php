@@ -33,10 +33,9 @@ if ($pages == null || $config == null) {
  */
 function showPage() {
 //  echo '        ';
-  if (!isset($_GET["page"]) || $_GET["page"] == "") {
-    $_GET["page"] = "home";
+  if (!isset($_GET['page']) || $_GET['page'] == '') {
+    $_GET['page'] = 'home';
   }
-//vot  if ($_GET['js'] == "no") {
   if (!isset($_GET['js'])) {
     // Handle error page differently, because it might concern the disability to connect to the database
     if ($_GET['page'] == 'errorpage') {
@@ -44,13 +43,13 @@ function showPage() {
       echo geterrorpage();
     } else {
       if (!isAllowedPage($_GET['page'])) {
-        $_GET["page"] = "pagenotfound";
+        $_GET['page'] = 'pagenotfound';
       }
       // Every variabele is checked before it is parsed into php code!
-//      $phpCode = "require_once('pages/".$_GET["page"].".php');  echo get".$_GET["page"]."();";
+//      $phpCode = "require_once('pages/".$_GET['page'].".php');  echo get".$_GET['page']."();";
 //      eval($phpCode);
       require_once(ROOT_DIR.'/pages/'.$_GET['page'].'.php');
-      $f = "get".$_GET['page'];
+      $f = 'get' . $_GET['page'];
       if(function_exists($f)) {
 //echo "function ".$f." exists.<br>";
         echo $f();
@@ -68,13 +67,13 @@ function showPage() {
         echo gethome() . "\n";
       } else {
         if (!isAllowedPage($_POST['page'])) {
-          $_POST["page"] = "pagenotfound";
+          $_POST['page'] = 'pagenotfound';
         }
         // Every variabele is checked before it is parsed into php code!
-//        $phpCode = "require_once('pages/".$_POST["page"].".php');  echo get".$_POST["page"]."();";
+//        $phpCode = "require_once('pages/".$_POST['page'].".php');  echo get".$_POST['page']."();";
 //        eval($phpCode);
-        require_once(ROOT_DIR. '/pages/".$_POST["page"].".php');
-        $f = "get".$_POST["page"];
+        require_once(ROOT_DIR. '/pages/'.$_POST['page'].'.php');
+        $f = 'get'.$_POST['page'];
         echo $f();
       }
     }
@@ -92,8 +91,8 @@ if (!isset($_GET['js'])) {
 /*
  * If user is logged in, check if IP matches with session
  */
-if (isLoggedIn() && isset($_SESSION["userIp"]) && $_SESSION["userIp"] !== false) {
-  if ($_SESSION["userIp"] != getUserIp()) {
+if (isLoggedIn() && isset($_SESSION['userIp']) && $_SESSION['userIp'] !== false) {
+  if ($_SESSION['userIp'] != getUserIp()) {
     require_once('pages/logout.php');
     logout();
   }
@@ -135,8 +134,8 @@ if (isset($_POST) && isset($_POST['email']) && isset($_POST['pass'])) {
  * Handle logout before any other output is generated on non-AJAX pages
  */
 //if (isset($_GET['js']) && $_GET['js'] == "no" && isset($_GET['page']) && $_GET['page'] == "logout") {
-if (isset($_GET['page']) && $_GET['page'] == "logout") {
-//  $_GET["page"] = "changepassword";
+if (isset($_GET['page']) && $_GET['page'] == 'logout') {
+//  $_GET['page'] = 'changepassword';
   require_once('pages/logout.php');
   logout();
 }

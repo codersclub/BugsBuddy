@@ -29,7 +29,7 @@ function project($id=0) {
 //    $id = $_GET['id'];
 
     if (is_numeric($id)) {
-      $msg = '';
+      $msg  = '';
       $msg2 = '';
       $msg3 = '';
 
@@ -37,8 +37,8 @@ function project($id=0) {
 
       if (count($check) == 1) {
         foreach ($check as $row) {
-          $name = $row['name'];
-          $hidden = $row['projectstatus_id'];
+          $name     = $row['name'];
+          $hidden   = $row['projectstatus_id'];
           $checkbox = ($hidden == 2) ? "checked='checked'" : '';
         }
 
@@ -138,14 +138,16 @@ function project($id=0) {
                 $ret .= '<tr>';
               }
 
-              $ret .= '<td>' . $row['name'] . '</td><td>' . $row['email'] . '</td></tr>';
+              $ret .= '<td>' . $row['name'] . '</td>
+                       <td>' . $row['email'] . '</td>
+                     </tr>';
 
               $i++;
             }
             
             $ret .= '</table>';
           } else {
-            $ret .= '<p><i>' . lang('users_no_linked') . '</p></i>';
+            $ret .= '<p><i>' . lang('users_no_linked') . '</i></p>';
           }
         }
         require_once(ROOT_DIR.'/pages/buglist.php');
@@ -171,7 +173,7 @@ function projectEdit($id=0) {
 //    $id = $_GET['id'];
 
     if (is_numeric($id)) {
-      $msg = '';
+      $msg  = '';
       $msg2 = '';
       $msg3 = '';
 
@@ -179,8 +181,8 @@ function projectEdit($id=0) {
 
       if (count($check) == 1) {
         foreach ($check as $row) {
-          $name = $row['name'];
-          $hidden = $row['projectstatus_id'];
+          $name     = $row['name'];
+          $hidden   = $row['projectstatus_id'];
           $checkbox = ($hidden == 2) ? "checked='checked'" : '';
         }
 
@@ -332,18 +334,19 @@ function projectList() {
 
   } else {
 
-    $ret .= "
-<table width='100%'>
-  <tr>
-    <th style='width: 200px;'>". lang('name'). "</th>
-    <th>" . lang('bugs_number') . "</th>
-    <th>". lang('status') ."</th>
-    <th>&nbsp;</th>
-    <th>&nbsp;</th>
-  </tr>\n";
+    $ret .= '
+        <table width="100%">
+          <tr>
+            <th style="width: 200px;">'. lang('name'). '</th>
+            <th>' . lang('bugs_number') . '</th>
+            <th>'. lang('status') .'</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+          </tr>
+';
 
     $js = isset($_GET['js']) ? 'js=yes' : '';
-
+    $i = 1;
     foreach ($projects as $row) {
 
       $status = ($row['projectstatus_id'] == 1) ? lang('public') : lang('private');
@@ -351,30 +354,38 @@ function projectList() {
       $bugs = Database::getCountWithProjectID($row['id']);
               
       if (isset($permissions['mayview_admin_project']) && $permissions['mayview_admin_project'] == 'true') {
-        $edit_link = "<a href='index.php?" . $js . "&page=project&id=" . $row['id'] . "&act=edit'><img src='../images/edit.png' alt='" . lang('edit') . "' title='" . lang('edit') . "' /></a>";
-        $del_link = "<a href='index.php?" . $js . "&page=project&id=" . $row['id'] . "&act=delete'><img src='../images/delete.png' alt='" . lang('delete') . "' title='" . lang('delete') . "' /></a>";
+        $edit_link = '<a href="index.php?' . $js . '&page=project&id=' . $row['id'] . '&act=edit"><img src="../images/edit.png" alt="' . lang('edit') . '" title="' . lang('edit') . '" /></a>';
+        $del_link  = '<a href="index.php?' . $js . '&page=project&id=' . $row['id'] . '&act=delete"><img src="../images/delete.png" alt="' . lang('delete') . '" title="' . lang('delete') . '" /></a>';
       } else {
-        $edit_link = "&nbsp;";
-        $del_link = "&nbsp;";
+        $edit_link = '&nbsp;';
+        $del_link = '&nbsp;';
       }
 
-      $ret .= "
-  <tr>
-    <td>\n";
-      if($row['projectstatus_id'] == 1) { // Public Project
-        $ret .=  "      <a href='?page=project&id=".$row['id']."'>". $row['name'] . "</a>\n";
+      if ($i % 2 == 0) {
+        $ret .= '<tr class="gray">';
       } else {
-        $ret .=  "      ".$row['name']."\n";
+        $ret .= '<tr>';
       }
-      $ret .= "    </td>
-    <td>" . count($bugs) . "</td>
-    <td>" . $status . "</td>
-    <td>".$edit_link."</td>
-    <td>".$del_link."</td>
-  </tr>\n";
+
+      $ret .= '
+            <td>
+              ';
+      if($row['projectstatus_id'] == 1) { // Public Project
+        $ret .= '<a href="?page=project&id='.$row['id'].'">'. $row['name'] . '</a>';
+      } else {
+        $ret .= $row['name'];
+      }
+      $ret .= '</td>
+            <td>' . count($bugs) . '</td>
+            <td>' . $status . '</td>
+            <td>'.$edit_link.'</td>
+            <td>'.$del_link.'</td>
+          </tr>
+';
     }
 
-    $ret .= "</table>\n";
+    $ret .= '          </table>
+';
   }
 
   return $ret;
