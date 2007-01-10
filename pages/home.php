@@ -8,7 +8,7 @@
 
 function gethome() {
 //DEBUG
-//echo "pages/home::gethome started.<br>";
+//echo 'pages/home::gethome started.', "\n";
 
   $returnValue = '<h1>'.lang('last_10_bugs').'</h1>';
   $result = Database::getBugList(10);

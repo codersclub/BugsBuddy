@@ -11,9 +11,9 @@ define('ROOT_DIR', $dir);
 require_once(ROOT_DIR.'/includes/helperfunctions.php');
 
 //DEBUG
-//echo "<pre>";
+//echo '<pre>';
 //print_r($lang);
-//echo "<pre>";
+//echo '</pre>';
 ?>
   function updateContent(newContent) {
     document.getElementById('content').innerHTML = newContent;

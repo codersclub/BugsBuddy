@@ -16,15 +16,15 @@ $url = preg_replace("/\/admin$/",'',$url);
 define('ROOT_URL', $url);
 
 //DEBUG
-//echo "<pre>";
-//echo '__FILE__=', __FILE__, "<br>\n";
-//echo "dir=".$dir."<br>\n";
-//echo "url=".$url."<br>\n";
+//echo '<pre>';
+//echo '__FILE__=', __FILE__, "\n";
+//echo 'dir='.$dir."\n";
+//echo 'url='.$url."\n";
 //print_r($conf);
 //print_r($_SERVER);
-//echo $_SERVER['PHP_SELF']."<br>\n";
-//echo $_SERVER['SCRIPT_NAME']."<br>\n";;
-//echo "</pre>\n";
+//echo $_SERVER['PHP_SELF']."\n";
+//echo $_SERVER['SCRIPT_NAME']."\n";;
+//echo '</pre>';
 
 if(is_file(ROOT_DIR.'/includes/config.php')) {
   require_once(ROOT_DIR.'/includes/config.php');
@@ -247,12 +247,12 @@ function parseWithBBTags($htmlSafeMessage, $bbTags) {
   $arrayReplace = Array();
 
 //DEBUG
-//echo "<pre>";
+//echo '<pre>';
 //$htmlSafeMessage = 'Very [b]Strange[/b] Bug';
-//echo "msg=".$htmlSafeMessage."<br>";
-//echo "bbtags=";
+//echo 'msg='.$htmlSafeMessage."\n";
+//echo 'bbtags=';
 //print_r($bbTags);
-//echo "</pre>";
+//echo '</pre>';
 //exit;
 
   foreach($bbTags as $bbTag) {

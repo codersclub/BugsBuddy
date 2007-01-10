@@ -21,9 +21,9 @@ function outputForm($recoverData) {
 
   $result = Database::getAllUsers();
 /*
-echo "<pre>";
+echo '<pre>';
 print_r($result);
-echo "</pre>";
+echo '</pre>';
 */
   if(!empty($result)) {
     $returnValue .= '<table style="width: 100%;">

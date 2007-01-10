@@ -15,7 +15,7 @@ function getlogout() {
 //    return gethome();
 
 //DEBUG
-//echo "getlogout started.<br>\n";
+//echo 'getlogout started.' "\n";
     return logoutInfo();
   }
 }

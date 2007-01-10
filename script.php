@@ -76,34 +76,6 @@ if ($_GET['page'] == 'register') {
   }
 }
 
-if (isset($_SERVER['HTTP_REFERER'])) {  
-  //die($_SERVER['HTTP_REFERER']);
-/*
-  $js = '?';
-  $page = '';
-  $id = '';
-  $strpos = strpos($_SERVER['HTTP_REFERER'], '?');
-  if ($strpos === false) {
-    $arguments = '';
-  } else {
-    $arguments = substr($_SERVER['HTTP_REFERER'], $strpos+1);
-    $argumentArray = explode('&', $arguments);
-    $arguments = Array();
-    foreach($argumentArray as $argumentValue) {
-      if (strpos($argumentValue, '=') !== false) {
-        $splittedArgumentValue = explode('=', $argumentValue);
-        $arguments[$splittedArgumentValue[0]] = $splittedArgumentValue[1];
-      }
-    }
-    if (isset($arguments['js'])) $js = '?js='.$arguments['js'].'&';
-    else $js = '?js=no&';
-    if (isset($arguments['page'])) $page = 'page='.$arguments['page'].'&';
-    if (isset($arguments['id'])) $id = 'id='.$arguments['id'].'&';
-  }
-  echo '<a href="index.php'.$js.$page.$id.'">'. lang('go_back') .'</a>';
-*/
-}
-
 $newPage = $_GET['page'];
 $newId = (isset($_GET['id'])?intval($_GET['id']):'null');
 

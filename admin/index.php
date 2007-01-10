@@ -38,7 +38,7 @@ if (!isset($permissions['mayview_admin']) || $permissions['mayview_admin'] != 't
 <html>
   <head>
     <title>BugsBuddy</title>
-    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=<? echo CHARSET;?>" />
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
     <link href="../style/default.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="<?=ROOT_URL?>/js/main.php"></script>
   </head>
@@ -114,7 +114,7 @@ if (defined('LOGIN_FAILED') && LOGIN_FAILED) {
 ?>
       </div>
       <div id="footer">
-        <? echo lang('xhtml1_css2_valid');?>
+        <?=lang('xhtml1_css2_valid')?>
       </div>
     </div>
   </body>
