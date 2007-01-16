@@ -5,19 +5,9 @@
 */
 
 function getlogout() {
-  if (isset($_GET['js'])) {
-    require_once(ROOT_DIR.'/pages/home.php');
-    require_once(ROOT_DIR.'/pages/login.php');
-    // logout executes aditional javascript (is parsed in script.php)
-    return Array(gethome(), 'updateLogin("'.addslashes(getLoginHtml()).'");updateLinks("'.str_replace ("\n", "", addslashes(getLinksHtml())).'");');
-  } else {
-//    require_once('pages/home.php');
-//    return gethome();
-
 //DEBUG
 //echo 'getlogout started.' "\n";
-    return logoutInfo();
-  }
+  return logoutInfo();
 }
 
 function logoutInfo() {

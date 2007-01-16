@@ -83,10 +83,10 @@ function getBbForm($recoverData) {
       }      
       
       $returnValue .=   '<td>
-                           <a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=bbtags&id='.$row['id'].'&edit=true">' . lang('edit') . '</a>
+                           <a href="index.php?page=bbtags&id='.$row['id'].'&edit=true">' . lang('edit') . '</a>
                          </td>
                          <td>
-                           <a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=bbtags&id='.$row['id'].'&delete=true">' . lang('delete') . '</a>
+                           <a href="index.php?page=bbtags&id='.$row['id'].'&delete=true">' . lang('delete') . '</a>
                          </td>
                          <td>'.$row['bbcode'].'</td>
                          <td>'.$row['htmlcode'].'</td>
@@ -110,10 +110,6 @@ function getBbForm($recoverData) {
                 <form action="'.$currentUrl.'" method="get">
                   <input type="hidden" name="page" value="'.$thisPage.'"/>
                   <input type="hidden" name="submitit" value="true"/>';
-
-  if (isset($_GET['js'])) {
-    $returnValue .= '<input type="hidden" name="js" value="yes"/>';
-  }      
 
   if(!empty($id)) {
     $returnValue .= '<input type="hidden" name="id" value="'.$id.'"/>';

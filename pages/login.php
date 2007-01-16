@@ -5,36 +5,10 @@ function getlogin() {
   // Check Login Parameters
   if (isset($_POST) && isset($_POST['email']) && isset($_POST['pass'])) {
 
-    if (!isset($_GET['js'])) {
-      //don't do anything.
-      // It is allready been taken care of by 'setLoginSession()' and index.php
-      require_once('pages/home.php');
-      return gethome();
-    } else {
-
-      $returnValue = '';
-
-      $user = Database::getUserByLogin(htmlUnsafe($_POST['email']), htmlUnsafe($_POST['pass']));
-
-      if ($user && count($user)==1) {
-        if (!setLoginSession(htmlUnsafe($_POST['email']), htmlUnsafe($_POST['pass']), ((isset($_POST['stay'])&&$_POST['stay']=='on')?true:false), ((isset($_POST['ip'])&&$_POST['ip']=='on')?true:false))) {
-          $returnValue .= '<script>window.parent.updateLogin("OMFG")</script>';
-        } else {
-          $returnValue .= '<script>';
-          $returnValue .= 'window.parent.updateLogin("'.addslashes(getLogoutHtml()).'");';
-          $returnValue .= 'window.parent.updateLinks("'.str_replace ("\n", "", addslashes(getLinksHtml())).'");';
-          $returnValue .= 'window.parent.getNewContent("home");';
-          $returnValue .= '</script>';
-        }
-      } else {
-        $returnValue .= '<script>';
-        $returnValue .=   'window.parent.updateLogin("'.addslashes(getWrongLoginHtml()).'");';
-        //$returnValue .=   'window.parent.updateLinks("'.str_replace ("\n", "", addslashes(getLinksHtml())).'");';
-        $returnValue .= '</script>';
-      }
-      require_once('pages/home.php');
-      return gethome() . $returnValue;
-    }
+    //don't do anything.
+    // It is allready been taken care of by 'setLoginSession()' and index.php
+    require_once('pages/home.php');
+    return gethome();
 
   } else {
 
@@ -83,46 +57,32 @@ function setLoginSessionByUserArray($user, $stay, $ip) {
  */
 function getLoginForm() {
 
-  $returnValue = '<h1>'.lang('login').'</h1>'."\n";
-
-  $returnValue .=   '<p class="nomargin">';
-
-  if (!isset($_GET['js'])) {
-
-    $returnValue .= '
-    <form action="'.getCurrentRequestUrl().'" method="post">
-      <div class="registerlabel"><label for="email">'.lang('email').':</label></div>
-      <div class="registerinput"><input class="registerinputcontent" type="text" id="email" name="email" value="'.$_POST['email'].'" /></div>
-      <div class="registerlabel"><label for="pass">'.lang('password').':</label></div>
-      <div class="registerinput"><input class="registerinputcontent" type="password" id="pass" name="pass" value="" /></div>'
-      ."\n";
-
-  } else {
-
-    $returnValue .= '
-    <form action="script.php?js=yes&page=login" method="post" target="submitFrame" onsubmit="return loginChecker();">
-      <label for="input_email">'.lang('email').'</label> <input type="text" value="'.$_POST['email'].'" id="input_email" onclick="formClear(\'input_email\', \''.lang('email').'\');" />
-      <br />
-      <label for="input_pass">'.lang('password').'</label> <input type="password" value="" id="input_pass" onclick="formClear(\'input_pass\', \''.lang('password').'\');" />
-      <input type="hidden" name="email" id="email" value="">
-      <input type="hidden" name="pass" id="pass" value="">
-    ';
-  }
-
-  $returnValue .= '
-      <div class="registerinput">
-        <label for="stay" class="registerlabel">'.lang('remember_me').'</label>
-        <input type="checkbox" name="stay" id="stay" />
-      </div>
-      <div class="registerinput">
-        <label for="ip" class="registerlabel">'.lang('static_ip').'</label>
-        <input type="checkbox" name="ip" id="ip" />
-      </div>
-      <div class="registerinput">
-        <div class="registerlabel"></div>
-        <input type="submit" value="'.lang('login').'" />
-      </div>
-    </form>
+  $returnValue = '
+    <h1>'.lang('login').'</h1>
+    <p class="nomargin">
+      <form action="'.getCurrentRequestUrl().'" method="post">
+        <div class="registerinput">
+          <label class="registerlabel" for="email">'.lang('email').':</label>
+          <input class="registerinputcontent" type="text" id="email" name="email" value="'.$_POST['email'].'" />
+        </div>
+        <div class="registerinput">
+          <label class="registerlabel" for="pass">'.lang('password').':</label>
+          <input class="registerinputcontent" type="password" id="pass" name="pass" value="" />
+        </div>
+        <div class="registerinput">
+          <label for="stay" class="registerlabel">'.lang('remember_me').'</label>
+          <input type="checkbox" name="stay" id="stay" />
+        </div>
+        <div class="registerinput">
+          <label for="ip" class="registerlabel">'.lang('static_ip').'</label>
+          <input type="checkbox" name="ip" id="ip" />
+        </div>
+        <div class="registerinput">
+          <div class="registerlabel"></div>
+          <input type="submit" value="'.lang('login').'" />
+        </div>
+      </form>
+    </p>
 ';
 
   return $returnValue;
@@ -133,27 +93,16 @@ function getLoginForm() {
  */
 function getLoginHtml() {
 
-  $returnValue .=   '<p class="nomargin">';
-
-  $returnValue .= lang('welcome') . ' <strong>' . lang('guest') . '</strong><br />';
-
-  if (isset($_GET['js'])) {
-    $returnValue .= '
-      <a href="javascript:getNewContent(\'login\');">' . lang('login') . '</a>
-      |
-      <a href="javascript:getNewContent(\'register\');">' . lang('register') . '</a>
-      |
-      <a href="javascript:getNewContent(\'forgotpassword\');">' . lang('password_forgot') . "</a>\n";
-  } else {
-    $returnValue .= '
-      <a href="index.php?page=login">' . lang('login') . '</a>
-      |
-      <a href="index.php?page=register">' . lang('register') . '</a>
-      |
-      <a href="index.php?page=forgotpassword">' . lang('password_forgot') . "</a>\n";
-  }
-
-  $returnValue .=   "</p>\n";
+  $returnValue =  '
+  <p class="nomargin">
+    '. lang('welcome') . ' <strong>' . lang('guest') . '</strong>
+    <br />
+    <a href="index.php?page=login">' . lang('login') . '</a>
+    |
+    <a href="index.php?page=register">' . lang('register') . '</a>
+    |
+    <a href="index.php?page=forgotpassword">' . lang('password_forgot') . '</a>
+  </p>'."\n";
 
   return $returnValue;
 }
@@ -172,8 +121,7 @@ function getLogoutHtml() {
 }
 
 function getWrongLoginHtml() {
-  $js = isset($_GET['js']) ? 'js=yes' : '';
-  return lang('login_invalid') . '<br/>' . lang('click') . ' <a href="index.php?'.$js.'">' . lang('here') . '</a> ' . lang('to_try_again');
+  return lang('login_invalid') . '<br/>' . lang('click') . ' <a href="index.php">' . lang('here') . '</a> ' . lang('to_try_again');
 }
 
 

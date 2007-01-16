@@ -18,50 +18,29 @@ function getforgotpassword() {
 
 function getForgotPasswordForm() {
 
-  $returnValue = '<h1>'.lang('password_forgot').'</h1>';
-
-  $returnValue .= '<div class="info">'.lang('password_forgot_info').'</div>';
-
-  if (!isset($_GET['js'])) {
-    $returnValue .= '
-<form action="index.php" method="get">
-  <div>
-    <input type="hidden" name="page" value="forgotpassword" />
-  </div>
-  <div class="forgotpasswordlabel">
-    <label style="width: 100;" for="email">'.lang('email').':</label>
-  </div>
-  <div class="forgotpasswordinput">
-    <input class="forgotpasswordinputcontent" type="text" id="email" name="email" value="" />
-  </div>
-  <div class="registerlabel">
-    <label for="submit">'.lang('password_reset').':</label>
-  </div>
-  <div class="registerinput">
-    <input class="registerinputcontent" id="submit" type="submit" value="'.lang('send_mail').'" />
-  </div>
-</form>
+  $returnValue = '
+  <h1>'.lang('password_forgot').'</h1>
+  <div class="info">'.lang('password_forgot_info').'</div>
+  <form action="index.php" method="get">
+    <div>
+      <input type="hidden" name="page" value="forgotpassword" />
+    </div>
+    <div class="forgotpasswordlabel">
+      <label style="width: 100;" for="email">'.lang('email').':</label>
+    </div>
+    <div class="forgotpasswordinput">
+      <input class="forgotpasswordinputcontent" type="text" id="email" name="email" value="" />
+    </div>
+    <div class="registerlabel">
+      <label for="submit">'.lang('password_reset').':</label>
+    </div>
+    <div class="registerinput">
+      <input class="registerinputcontent" id="submit" type="submit" value="'.lang('send_mail').'" />
+    </div>
+  </form>
 ';
-    return $returnValue;
+  return $returnValue;
 
-  } else {
-    $returnValue = '
-     <form method="get" target="submitFrame" onsubmit="getNewContent(\'forgotpassword\&email=\'+document.getElementById(\'email\').value); return false;">
-       <input type="hidden" name="page" value="forgotpassword" />
-       <div class="registerinput">
-         <label class="registerlabel" for="email">'.lang('email').':</label>
-         <input class="forgotpasswordcontent" type="text" name="email" id="email" value="" />
-       </div>
-       <div class="registerinput">
-         <label class="registerlabel" for="submit">'.lang('password_reset').':</label>
-         <input class="registerinputcontent" id="submit" type="submit" value="'.lang('send_mail').'" />
-       </div>
-    </form>
-    <br />
-    <div id="forgotPassword"></div>';
-
-    return $returnValue;
-  }
 }
 
 function handleForgotPassword($email) {

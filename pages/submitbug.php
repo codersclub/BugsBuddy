@@ -181,7 +181,7 @@ function getSubmitBugForm() {
     $title       = $_GET['title'];
     $description = $_GET['description'];
     
-    if(!isset($_GET['js']) && isset($_GET['projectandversion'])) {
+    if(isset($_GET['projectandversion'])) {
       $aProjVersion  = explode(htmlSafe(';'), $_GET['projectandversion']);
         
       $projectId    = $aProjVersion[0];
@@ -218,12 +218,11 @@ function getSubmitBugForm() {
               <textarea class="" id="description" name="description" cols="40" rows="6">'.$description.'</textarea>
             </div>';
       
-  if(!isset($_GET['js'])) {
-    $returnValue .= '<div class="registerinput">
+  $returnValue .= '<div class="registerinput">
                        <label class="registerlabel" for="projectandversion">'.lang('project').':</label>
                        <select class="" id="projectandversion" name="projectandversion">'.getProjectsAndVersions($projectId, $versionId).'</select>
-                     </div>';
-  } else {
+                   </div>';
+/*
     $returnValue .= '<div class="registerinput">
                        <label class="registerlabel" for="projectid">'.lang('project').':</label>
                        <select class="" id="projectid" name="projectid" onchange="javascriptSubmit(\'submitbug\', false);">'.getProjects($projectId).'</select>
@@ -232,7 +231,7 @@ function getSubmitBugForm() {
                        <label class="registerlabel" for="versionid">'.lang('version').':</label>
                        <select class="" id="versionid" name="versionid">'.getVersions($projectId, $versionId).'</select>
                      </div>';
-  }
+*/
   
   if(!isEmptyCategorys()) {
     $returnValue .= '<div class="registerinput">
@@ -275,7 +274,7 @@ function handleSubmitBug() {
     $title       = $_GET['title'];
     $description = $_GET['description'];
     
-    if(!isset($_GET['js']) && isset($_GET['projectandversion'])) {
+    if(isset($_GET['projectandversion'])) {
       $aProjVersion  = explode(htmlSafe(';'), $_GET['projectandversion']);
         
       $projectId    = $aProjVersion[0];

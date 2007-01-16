@@ -14,25 +14,19 @@ function getchangepassword() {
     if (isLoggedIn()) {
       $returnValue = '';
 
-      $js = isset($_GET['js'])?'js=yes':'';
-
       $returnValue .=  '<h1>' . lang('password_modify') . '</h1>
-<form action="index.php?' . $js . '" method="post">
-  <div class="changepasswordlabel">
-    <label for="password">' . lang('password') . ':</label>
-  </div>
-  <div class="forgotpasswordinput">
-    <input class="forgotpasswordcontent" type="password" name="changepassword" id="password" value="" />
-  </div>
-  <div class="changepasswordlabel">
-    <label for="submit">' . lang('password_change') . ':</label>
-  </div>
-  <div class="registerinput">
-    <input class="registerinputcontent" id="submit" type="submit" value="' . lang('change') . '" />
-  </div>
-</form>
-<br />
-<div id="forgotPassword"></div>
+      <form action="index.php" method="post">
+        <div class="registerinput">
+          <label class="registerlabel" for="password">' . lang('password') . ':</label>
+          <input class="forgotpasswordcontent" type="password" name="changepassword" id="password" value="" />
+        </div>
+        <div class="registerinput">
+          <label class="registerlabel" for="submit">' . lang('password_change') . ':</label>
+          <input class="registerinputcontent" id="submit" type="submit" value="' . lang('change') . '" />
+        </div>
+      </form>
+      <br />
+      <div id="forgotPassword"></div>
 ';
 
       return $returnValue;

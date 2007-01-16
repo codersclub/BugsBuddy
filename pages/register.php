@@ -32,94 +32,52 @@ function getregister() {
 
 function getRegistryForm() {
 
-  if (!isset($_GET['js'])) {
-
-    if (isset($_POST) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email'])) {
-      $name     = $_POST['name'];
-      $password = $_POST['password'];
-      $email    = strtolower($_POST['email']);
-      $groupid  = intval(@$_POST['groupid']);
-    } else {
-      $name     = '';
-      $email    = '';
-      $password = '';
-      $groupid  = 0;
-    }
-
-    $returnValue = '
-      <h1>'.lang('register').'</h1>
-      <form action="'.getCurrentRequestUrl().'" method="post">
-        <div class="registerinput">
-          <label for="name" class="registerlabel">'.lang('name').':</label>
-          <input class="registerinputcontent" type="text" id="name" name="name" value="'.$name.'" />
-        </div>
-        <div class="registerinput">
-          <label for="password" class="registerlabel">'.lang('password').':</label>
-          <input class="registerinputcontent" type="password" id="password" name="password" value="" onkeyup="checkPassWordStrength(\'password\');" />
-          <div class="pwdStrength" id="pwdStrength">
-            <div class="pwdBeamGreen" id="pwdBeamGreen"></div>
-          </div>
-          <div class="pwdText" id="pwdText"></div>
-        </div>
-        <div class="registerinput">
-          <label for="email"class="registerlabel">'.lang('email').':</label>
-          <input class="registerinputcontent" type="text" id="email" name="email" value="'.$email.'" />
-        </div>';
-
-    if (getCurrentGroupId() == 3) {
-      $returnValue .= '<div class="registerinput">
-                         <label for="groupid" class="registerlabel">' . lang('group') . ':</label>
-                         <select class="" id="groupid" name="groupid">'.getGroups($groupId).'</select>
-                       </div>';
-    }
-
-    $returnValue .= '
-        <div id="registerError"></div>
-        <div class="registerinput">
-          <label for="submit" class="registerlabel">'.lang('register').':</label>
-          <input class="registerinputcontent" id="submit" name="submit" type="submit" value="'.lang('register').'" />
-        </div>
-      </form>';
-
+  if (isset($_POST) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email'])) {
+    $name     = $_POST['name'];
+    $password = $_POST['password'];
+    $email    = strtolower($_POST['email']);
+    $groupid  = intval(@$_POST['groupid']);
   } else {
-
-    $returnValue = '
-        <form action="script.php?page=register" method="post" target="submitFrame">
-          <div class="registerinput">
-            <label for="registrationName" class="registerlabel">'.lang('name').':</label>
-            <input class="registerinputcontent" type="text" name="name" id="registrationName" value="" />
-          </div>
-          <div class="registerinput">
-            <label for="registrationPassword" class="registerlabel">'.lang('password').':</label>
-            <input class="registerinputcontent" type="password" name="password" id="registrationPassword" value="" onkeyup="checkPassWordStrength(\'registrationPassword\');"/>
-            <br /><br />
-            <div class="pwdStrength" id="pwdStrength">
-              <div class="pwdBeamGreen" id="pwdBeamGreen"></div>
-            </div>
-            <div class="pwdText" id="pwdText"></div>
-          </div>
-          <br /><br />
-          <div class="registerinput">
-            <label for="email" class="registerlabel">'.lang('email').':</label>
-            <input class="registerinputcontent" type="text" id="email" name="email" value="" />
-          </div>';
-
-    if (getCurrentGroupId() == 3) {
-      $returnValue .= '<div class="registerinput">
-                         <label for="groupid" class="registerlabel">' . lang('group') . ':</label>
-                         <select class="" id="groupid" name="groupid">'.getGroups($groupId).'</select>
-                       </div>';
-    }
-
-    $returnValue .= '
-          <div class="registerinput">
-            <label for="submit" class="registerlabel">'.lang('register').':</label>
-            <input class="registerinputcontent" id="submit" name="submit" type="submit" value="'.lang('register').'" />
-         </div>
-       </form>
-       <br />
-       <div id="registerError"></div>';
+    $name     = '';
+    $email    = '';
+    $password = '';
+    $groupid  = 0;
   }
+
+  $returnValue = '
+    <h1>'.lang('register').'</h1>
+    <form action="'.getCurrentRequestUrl().'" method="post">
+      <div class="registerinput">
+        <label for="name" class="registerlabel">'.lang('name').':</label>
+        <input class="registerinputcontent" type="text" id="name" name="name" value="'.$name.'" />
+      </div>
+      <div class="registerinput">
+        <label for="password" class="registerlabel">'.lang('password').':</label>
+        <input class="registerinputcontent" type="password" id="password" name="password" value="" onkeyup="checkPassWordStrength(\'password\');" />
+        <div class="pwdStrength" id="pwdStrength">
+          <div class="pwdBeamGreen" id="pwdBeamGreen"></div>
+        </div>
+        <div class="pwdText" id="pwdText"></div>
+      </div>
+      <div class="registerinput">
+        <label for="email"class="registerlabel">'.lang('email').':</label>
+        <input class="registerinputcontent" type="text" id="email" name="email" value="'.$email.'" />
+      </div>';
+
+  if (getCurrentGroupId() == 3) {
+    $returnValue .= '<div class="registerinput">
+                       <label for="groupid" class="registerlabel">' . lang('group') . ':</label>
+                       <select class="" id="groupid" name="groupid">'.getGroups($groupId).'</select>
+                     </div>';
+  }
+
+  $returnValue .= '
+      <div id="registerError"></div>
+      <div class="registerinput">
+        <label for="submit" class="registerlabel">'.lang('register').':</label>
+        <input class="registerinputcontent" id="submit" name="submit" type="submit" value="'.lang('register').'" />
+      </div>
+    </form>';
 
   return $returnValue;
 
@@ -161,50 +119,16 @@ function handleRegistry($name, $password, $email, $groupid=0) {
     $error = true;
   }
 
-  if (!isset($_GET['js'])) {
-    if ($error) {
-      return getRegistryForm() . '<div class="errormessage">' . nl2br($errorMessage) . '</div>';
-    }
-    Database::registerUser($name, $password, $email, $groupid);
-
-    $emailMessage = new Mail(lang('register_subject'), '<html><head><title>'.lang('welcome').' '.$_POST['name'].'</title></head><body>'.lang('register_body').'</body></html>');
-    $emailMessage->send($email);
-
-    $registerMessage = lang('register_ok');
-    return $registerMessage;
-
-  } else {
-    if ($error) {
-      $returnValue = '<html>
-          <head>
-          </head>
-          <body>
-            <script>
-              window.parent.document.getElementById("registrationPassword").value="";
-              window.parent.document.getElementById("registrationName").focus();
-              window.parent.document.getElementById("registrationName").select();
-              window.parent.document.getElementById("registerError").innerHTML = "'.safenl2br(htmlsafe($errorMessage)).'";
-            </script>
-          </body>
-        </html>';
-
-      return $returnValue;
-
-    } else {
-
-      Database::registerUser($name, $password, $email, $groupid);
-
-      $returnValue = '<html>
-          <head>
-          </head>
-          <body>
-            <script>
-              window.parent.updateContent('.lang('register_success').');
-            </script>
-          </body>
-        </html>';
-
-      return $returnValue;
-    }
+  if ($error) {
+    return getRegistryForm() . '<div class="errormessage">' . nl2br($errorMessage) . '</div>';
   }
+
+  Database::registerUser($name, $password, $email, $groupid);
+
+  $emailMessage = new Mail(lang('register_subject'), '<html><head><title>'.lang('welcome').' '.$_POST['name'].'</title></head><body>'.lang('register_body').'</body></html>');
+  $emailMessage->send($email);
+
+  $registerMessage = lang('register_ok');
+  return $registerMessage;
+
 }

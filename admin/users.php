@@ -16,7 +16,7 @@ function outputForm($recoverData) {
   $returnValue = '';
   $returnValue .= '<h1>'.lang('users').'</h1>';
   $returnValue .= '<div class="right">
-                     <a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=register">'. lang('user_add') .'</a>
+                     <a href="index.php?page=register">'. lang('user_add') .'</a>
                    </div>';
 
   $result = Database::getAllUsers();
@@ -41,8 +41,8 @@ echo '</pre>';
       } else {
         $returnValue .= '<tr>';
       }      
-      $returnValue .=   '<td><a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=users&id='.$row['id'].'">' . lang('edit') . '</a></td>
-                <td><a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=users&id='.$row['id'].'&delete=true">' . lang('delete') . '</a></td>
+      $returnValue .=   '<td><a href="index.php?page=users&id='.$row['id'].'">' . lang('edit') . '</a></td>
+                <td><a href="index.php?page=users&id='.$row['id'].'&delete=true">' . lang('delete') . '</a></td>
                 <td>'.htmlSafe($row['name']).'</td><td>'.htmlSafe($row['email']).'</td>
                 <td>'.htmlSafe($row['groupname']).'</td>
               </tr>';
@@ -91,9 +91,6 @@ echo '</pre>';
                     <input type="hidden" name="submitit" value="true"/>
                     <input type="hidden" name="page" value="'.$thisPage.'"/>
                     <input type="hidden" name="submitit" value="true"/>';
-    if (isset($_GET['js'])) {
-      $returnValue .= '<input type="hidden" name="js" value="yes"/>';
-    }      
     if(!empty($id)) {
       $returnValue .= '<input type="hidden" name="id" value="'.$id.'"/>';
     }

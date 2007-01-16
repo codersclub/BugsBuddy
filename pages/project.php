@@ -190,7 +190,7 @@ function projectEdit($id=0) {
           $ret .= '<p><span class="error">' . $msg . '</span></p>';
         }
 
-        $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&id=' . $id . '&act=edit" method="post">
+        $ret .= '<form action="index.php?page=project&id=' . $id . '&act=edit" method="post">
                    <input type="hidden" name="act" value="project" />
                    <div class="registerinput">
                      <label for="name" class="registerlabel">'. lang('name'). ' *:</label>
@@ -216,7 +216,7 @@ function projectEdit($id=0) {
         $versions = Database::getVersions($id);
 
         if (count($versions) > 0) {        
-          $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&id=' . $id . '&act=versionDelete" method="post">
+          $ret .= '<form action="index.php?page=project&id=' . $id . '&act=versionDelete" method="post">
                      <div class="registerinput">
                        <label class="registerlabel" for="name">'. lang('version') .':</label>
                        <select name="version">';
@@ -246,7 +246,7 @@ function projectEdit($id=0) {
           $users = Database::getNormalUserList();
           
           if (count($users) > 0) {
-            $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&id=' . $id . '&act=edit" method="post" name="users">
+            $ret .= '<form action="index.php?page=project&id=' . $id . '&act=edit" method="post" name="users">
                 <input type="hidden" name="act" value="users" />
                   <table>
                     <tr>
@@ -345,7 +345,6 @@ function projectList() {
           </tr>
 ';
 
-    $js = isset($_GET['js']) ? 'js=yes' : '';
     $i = 1;
     foreach ($projects as $row) {
 
@@ -354,8 +353,8 @@ function projectList() {
       $bugs = Database::getCountWithProjectID($row['id']);
               
       if (isset($permissions['mayview_admin_project']) && $permissions['mayview_admin_project'] == 'true') {
-        $edit_link = '<a href="index.php?' . $js . '&page=project&id=' . $row['id'] . '&act=edit"><img src="../images/edit.png" alt="' . lang('edit') . '" title="' . lang('edit') . '" /></a>';
-        $del_link  = '<a href="index.php?' . $js . '&page=project&id=' . $row['id'] . '&act=delete"><img src="../images/delete.png" alt="' . lang('delete') . '" title="' . lang('delete') . '" /></a>';
+        $edit_link = '<a href="index.php?page=project&id=' . $row['id'] . '&act=edit"><img src="../images/edit.png" alt="' . lang('edit') . '" title="' . lang('edit') . '" /></a>';
+        $del_link  = '<a href="index.php?page=project&id=' . $row['id'] . '&act=delete"><img src="../images/delete.png" alt="' . lang('delete') . '" title="' . lang('delete') . '" /></a>';
       } else {
         $edit_link = '&nbsp;';
         $del_link = '&nbsp;';
@@ -378,8 +377,8 @@ function projectList() {
       $ret .= '</td>
             <td>' . count($bugs) . '</td>
             <td>' . $status . '</td>
-            <td>'.$edit_link.'</td>
-            <td>'.$del_link.'</td>
+            <td>' . $edit_link . '</td>
+            <td>' . $del_link . '</td>
           </tr>
 ';
     }

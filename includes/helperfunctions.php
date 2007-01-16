@@ -96,7 +96,7 @@ function getLinksHtml() {
 
     if (isset($permissions['mayview_admin']) && $permissions['mayview_admin'] == 'true') {
       $returnValue .= '&nbsp;&nbsp;|&nbsp;&nbsp;'
-                    . '<a class="m" href="./admin/?'.(isset($_GET['js'])?'js=yes':'').'">'.lang('menu_admin').'</a>';
+                    . '<a class="m" href="./admin/">'.lang('menu_admin').'</a>';
     }
 
   } else {
@@ -209,12 +209,8 @@ function isValidEmailAddress($email) {
  * Create HTML code for an text-link that works for both AJAX as non-AJAX
  */
 function pageLink($page, $text, $class=null) {
-  if (isset($_GET['js'])) {
-    return '<a'.($class!=null?' class="'.$class.'"':' ').' href="javascript:getNewContent(\''.$page.'\');">'.$text.'</a>';
-  } else {
-    $pg = $page=='home'?'':'page='.$page;
-    return '<a'.($class!=null?' class="'.$class.'"':' ').' href="'.ROOT_URL.'/index.php?'.$pg.'">'.$text.'</a>';
-  }
+  $pg = $page=='home'?'':'page='.$page;
+  return '<a'.($class!=null?' class="'.$class.'"':' ').' href="'.ROOT_URL.'/index.php?'.$pg.'">'.$text.'</a>';
 }
 
 function createRandomPassword() {

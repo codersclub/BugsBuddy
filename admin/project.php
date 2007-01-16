@@ -57,7 +57,7 @@ function getproject() {
       $ret .= '<span class="error">' . $msg . '</span>';
     }
 
-    $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project" method="post">
+    $ret .= '<form action="index.php?page=project" method="post">
                <div class="registerinput">
                  <label class="registerlabel" for="name">'. lang('name'). ' *:</label>
                  <input  type="text" id="name" name="name" />
@@ -105,8 +105,8 @@ function getproject() {
                    <td>' . $row['name'] . '</td>
                    <td>' . count($bugs) . '</td>
                    <td>' . $status . '</td>
-                   <td><a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&act=edit&id=' . $row['id'] . '"><img src="../images/edit.png" alt="' . lang('edit') . '" title="' . lang('edit') . '" /></a></td>
-                   <td><a href="index.php?' . (isset($_GET['js'])?'js=yes':'') . '&page=project&act=delete&id=' . $row['id'] . '"><img src="../images/delete.png" alt="' . lang('delete') . '" title="' . lang('delete') . '" /></a></td>
+                   <td><a href="index.php?page=project&act=edit&id=' . $row['id'] . '"><img src="../images/edit.png" alt="' . lang('edit') . '" title="' . lang('edit') . '" /></a></td>
+                   <td><a href="index.php?page=project&act=delete&id=' . $row['id'] . '"><img src="../images/delete.png" alt="' . lang('delete') . '" title="' . lang('delete') . '" /></a></td>
                  </tr>';
       }
 
@@ -128,7 +128,10 @@ function getproject() {
           $ret .= '<p>' . lang('are_you_sure') . '</p>';
         }
         
-        $ret .= '<p><a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project">' . lang('no') . '</a> <a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&act=deleteConfirm&id=' . $id . '">' . lang('yes') . '</a></p>';
+        $ret .= '<p>
+                   <a href="index.php?page=project">' . lang('no') . '</a>
+                   <a href="index.php?page=project&act=deleteConfirm&id=' . $id . '">' . lang('yes') . '</a>
+                 </p>';
       } else {
         $ret .= '<p><i>' . lang('project_unknown') . '</i></p>';
       }
@@ -210,7 +213,7 @@ function getproject() {
           $ret .= '<p><span class="error">' . $msg . '</span></p>';
         }
 
-        $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&act=edit&id=' . $id . '" method="post">
+        $ret .= '<form action="index.php?page=project&act=edit&id=' . $id . '" method="post">
                    <input type="hidden" name="act" value="project" />
                    <div class="registerinput">
                      <label class="registerlabel" for="name">'. lang('name'). ' *:</label>
@@ -234,7 +237,7 @@ function getproject() {
           $ret .= '<p><span class="error">' . $msg3 . '</span></p>';
         }
       
-        $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&act=edit&id=' . $id . '" method="post">
+        $ret .= '<form action="index.php?page=project&act=edit&id=' . $id . '" method="post">
                    <input type="hidden" name="act" value="versionnew" />
                    <div class="registerinput">
                      <label class="registerlabel" for="name">'. lang('name'). ':</label>
@@ -255,7 +258,7 @@ function getproject() {
         $versions = Database::getVersions($id);
 
         if (count($versions) > 0) {        
-          $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&act=versionDelete&id=' . $id . '" method="post">
+          $ret .= '<form action="index.php?page=project&act=versionDelete&id=' . $id . '" method="post">
                      <div class="registerinput">
                        <label class="registerlabel" for="name">'. lang('version') .':</label>
                        <select name="version">';
@@ -285,7 +288,7 @@ function getproject() {
           $users = Database::getNormalUserList();
           
           if (count($users) > 0) {
-            $ret .= '<form action="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&act=edit&id=' . $id . '" method="post" name="users">
+            $ret .= '<form action="index.php?page=project&act=edit&id=' . $id . '" method="post" name="users">
                 <input type="hidden" name="act" value="users" />
                   <table>
                   <tr>
@@ -376,7 +379,10 @@ function getproject() {
           $ret .= '<p>' . lang('are_you_sure') . '</p>';
         }
         
-        $ret .= '<p><a href="index.php?'.(isset($_GET['js'])?'js=yes':'').'&page=project&act=edit&id=' . $_GET['id'] . '">' . lang('no') . '</a> <a href="index.php?' . (isset($_GET['js'])?'js=yes':'') . '&page=project&act=edit&id=' . $_GET['id'] . '&version=' . $id . '">' . lang('yes') . '</a></p>';
+        $ret .= '<p>
+                   <a href="index.php?page=project&act=edit&id=' . $_GET['id'] . '">' . lang('no') . '</a>
+                   <a href="index.php?page=project&act=edit&id=' . $_GET['id'] . '&version=' . $id . '">' . lang('yes') . '</a>
+                 </p>';
       } else {
         $ret .= '<p><i>' . lang('version_unknown') . '</i></p>';
       }
