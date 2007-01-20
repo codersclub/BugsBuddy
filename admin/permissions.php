@@ -66,7 +66,7 @@ function getPermissionsForm($recoverData) {
     $description = $_GET['description'];  
   }
 
-  if(isset($_GET['id']) {
+  if(isset($_GET['id'])) {
     $id = intval($_GET['id']);
     
     $result = Database::getPermissionWithClause(false, $id);
