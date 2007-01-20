@@ -8,7 +8,7 @@ function getsubmitbug() {
   $returnValue = '<h1>'. lang('bug_report') . '</h1>';
   
   if(isLoggedIn()) {
-    if (isset($_GET) && isset($_GET['submitit']) && $_GET['submitit'] == 'true') {
+    if (@$_GET['submitit'] == 'true') {
       $returnValue .= handleSubmitBug();
     } else {
       $returnValue .= getSubmitBugForm();
@@ -177,7 +177,7 @@ function getSubmitBugForm() {
   $category1    = 0;
   $category2    = 0;
   
-  if (isset($_GET) && isset($_GET['title']) && isset($_GET['description'])) {
+  if (isset($_GET['title']) && isset($_GET['description'])) {
     $title       = $_GET['title'];
     $description = $_GET['description'];
     
@@ -192,7 +192,7 @@ function getSubmitBugForm() {
     }
   }    
 
-  if(!isEmptyCategorys() && isset($_GET) && isset($_GET['category1']) && isset($_GET['category2'])) {
+  if(!isEmptyCategorys() && isset($_GET['category1']) && isset($_GET['category2'])) {
     $category1 = $_GET['category1'];
     $category2 = $_GET['category2'];    
   }  
@@ -270,7 +270,7 @@ function handleSubmitBug() {
   $category1    = 0;
   $category2    = 0;
   
-  if (isset($_GET) && isset($_GET['title']) && isset($_GET['description'])) {
+  if (isset($_GET['title']) && isset($_GET['description'])) {
     $title       = $_GET['title'];
     $description = $_GET['description'];
     
@@ -285,7 +285,7 @@ function handleSubmitBug() {
     }
   }  
   
-  if(!isEmptyCategorys() && isset($_GET) && isset($_GET['category1']) && isset($_GET['category2'])) {
+  if(!isEmptyCategorys() && isset($_GET['category1']) && isset($_GET['category2'])) {
     $category1  = $_GET['category1'];
     $category2  = $_GET['category2'];    
   }

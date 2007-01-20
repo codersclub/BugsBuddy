@@ -4,7 +4,7 @@
   View and edit users
 */
 function getusers() {
-  if (isset($_GET) && (isset($_GET['delete']) && $_GET['delete'] == 'true') || (isset($_GET['submitit']) && $_GET['submitit'] == 'true')) {
+  if (@$_GET['delete'] == 'true' || @$_GET['submitit'] == 'true') {
     $returnValue = handleForm();
   } else {
     $returnValue = outputForm(true); 
@@ -59,13 +59,13 @@ echo '</pre>';
   $name    = '';
   $email   = '';
   $description  = '';
-  if ($recoverData && isset($_GET) && isset($_GET['groupid']) && isset($_GET['name']) && isset($_GET['email']) && isset($_GET['description'])) {
+  if ($recoverData && isset($_GET['groupid']) && isset($_GET['name']) && isset($_GET['email']) && isset($_GET['description'])) {
     $groupId = intval($_GET['groupid']);
     $name    = $_GET['name'];
     $email   = $_GET['email'];
   }
   
-  if(isset($_GET) && isset($_GET['id'])) {
+  if(isset($_GET['id'])) {
     $id = intval($_GET['id']);
     
     $result = Database::getUserById($id);

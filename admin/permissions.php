@@ -17,7 +17,7 @@ function getpermissions() {
     }
     
     if (isset($permissions['mayview_admin_permissions']) && $permissions['mayview_admin_permissions'] == 'true') {    
-      if (isset($_GET) && (isset($_GET['delete']) && $_GET['delete'] == 'true') || (isset($_GET['submitit']) && $_GET['submitit'] == 'true')) {
+      if (@$_GET['delete'] == 'true' || @$_GET['submitit'] == 'true') {
         $returnValue .= handlePermissionsForm();
       } else {
         $returnValue .= getPermissionsForm(true); 
@@ -59,15 +59,15 @@ function getPermissionsForm($recoverData) {
   $value      = '';
   $description  = '';
   
-  if ($recoverData && isset($_GET) && isset($_GET['groupid']) && isset($_GET['setting']) && isset($_GET['value']) && isset($_GET['description'])) {
-    $groupId     = $_GET['groupid'];
+  if ($recoverData && isset($_GET['groupid']) && isset($_GET['setting']) && isset($_GET['value']) && isset($_GET['description'])) {
+    $groupId     = intval($_GET['groupid']);
     $setting     = $_GET['setting'];
     $value       = $_GET['value'];
     $description = $_GET['description'];  
   }
 
-  if(isset($_GET) && isset($_GET['id'])) {
-    $id = $_GET['id'];
+  if(isset($_GET['id']) {
+    $id = intval($_GET['id']);
     
     $result = Database::getPermissionWithClause(false, $id);
     
@@ -170,18 +170,18 @@ function handlePermissionsForm() {
   $value      = '';
   $description  = '';
   
-  if (isset($_GET) && isset($_GET['groupid']) && isset($_GET['setting']) && isset($_GET['value']) && isset($_GET['description'])) {
-    $groupId     = $_GET['groupid'];
+  if (isset($_GET['groupid']) && isset($_GET['setting']) && isset($_GET['value']) && isset($_GET['description'])) {
+    $groupId     = intval($_GET['groupid']);
     $setting     = $_GET['setting'];
     $value       = $_GET['value'];
     $description = $_GET['description'];  
   }  
   
-  if(isset($_GET) && isset($_GET['id'])) {
-    $id = $_GET['id'];
+  if(isset($_GET['id'])) {
+    $id = intval($_GET['id']);
   }  
 
-  if(isset($_GET) && isset($_GET['delete']) && $_GET['delete'] == 'true') {    
+  if(@$_GET['delete'] == 'true') {
     Database::delPermission($id);  
   } else {
     $errorMessage   = '';

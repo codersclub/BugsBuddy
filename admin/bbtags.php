@@ -17,7 +17,7 @@ function getbbtags() {
     }
     
     if (isset($permissions['mayview_admin_bbtags']) && $permissions['mayview_admin_bbtags'] == 'true') {    
-      if (isset($_GET) && (isset($_GET['delete']) && $_GET['delete'] == 'true') || (isset($_GET['submitit']) && $_GET['submitit'] == 'true')) {
+      if (@$_GET['delete'] == 'true' || @$_GET['submitit'] == 'true') {
         $returnValue .= handleBbForm();
       } else {
         $returnValue .= getBbForm(true); 
@@ -39,13 +39,13 @@ function getBbForm($recoverData) {
   $bbTag     = '';
   $htmlTag   = '';
 
-  if ($recoverData && isset($_GET) && isset($_GET['bbtag']) && isset($_GET['htmltag'])) {
-    $bbTag    = $_GET['bbtag'];
-    $htmlTag   = $_GET['htmltag'];  
+  if ($recoverData && isset($_GET['bbtag']) && isset($_GET['htmltag'])) {
+    $bbTag   = $_GET['bbtag'];
+    $htmlTag = $_GET['htmltag'];  
   }
   
-  if(isset($_GET) && isset($_GET['id'])) {
-    $id = $_GET['id'];
+  if(isset($_GET['id'])) {
+    $id = intval($_GET['id']);
     
     $result = Database::getBbTags(true, $id);
   
@@ -142,11 +142,11 @@ function handleBbForm() {
   $bbTag   = '';
   $htmlTag = '';
   
-  if(isset($_GET) && isset($_GET['id'])) {
-    $id = $_GET['id'];
+  if(isset($_GET['id'])) {
+    $id = intval($_GET['id']);
   }  
 
-  if(isset($_GET) && isset($_GET['delete']) && $_GET['delete'] == 'true') {    
+  if(@$_GET['delete'] == 'true') {    
     if(!is_numeric($id)) {
       $error = true;
     }    
@@ -156,7 +156,7 @@ function handleBbForm() {
     $errorMessage   = '';
     $error       = false;  
 
-    if (isset($_GET) && isset($_GET['bbtag']) && isset($_GET['htmltag'])) {
+    if (isset($_GET['bbtag']) && isset($_GET['htmltag'])) {
       $bbTag    = $_GET['bbtag'];
       $htmlTag  = $_GET['htmltag'];
     }      

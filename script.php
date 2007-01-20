@@ -38,7 +38,7 @@ if (isset($_COOKIE['AUTOLOGIN'])) {
 }
 
 
-if (!isset($_GET) || !isset($_GET['page']) || $_GET['page']=='') {
+if (empty(@$_GET['page'])) {
   $_GET['page'] == 'home';
 }
 // Handle error page differently, because it might concern the disability to connect to the database

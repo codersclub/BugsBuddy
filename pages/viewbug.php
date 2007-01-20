@@ -7,10 +7,10 @@
 function getviewbug() {
   $returnValue = '<h1>' . lang('bug_info') . '</h1>';
   
-  if (isset($_GET) && isset($_GET['submitit']) && $_GET['submitit'] == 'true') {
+  if (@$_GET['submitit'] == 'true') {
     $returnValue .= handleSubmit();
   } else {
-    if(isset($_GET) && isset($_GET['action']) && isset($_GET['actionId'])) {
+    if(isset($_GET['action']) && isset($_GET['actionId'])) {
       if($_GET['action'] == 'delBug') {
         Database::deleteBug($_GET['actionId']);
         $returnValue .= lang('bug_removed');
@@ -254,12 +254,12 @@ function getEditBugForm($bugId) {
   $category2    = 0;
   $fixedInId    = 0;
 
-  if(!isEmptyCategorys() && isset($_GET) && isset($_GET['category1']) && isset($_GET['category2'])) {
+  if(!isEmptyCategorys() && isset($_GET['category1']) && isset($_GET['category2'])) {
     $category1  = $_GET['category1'];
     $category2  = $_GET['category2'];    
   }    
       
-  if (isset($_GET) && isset($_GET['title']) && isset($_GET['description'])) {
+  if (isset($_GET['title']) && isset($_GET['description'])) {
     $title       = $_GET['title'];
     $description = $_GET['description'];
     $fixedInId   = $_GET['fixedin'];
@@ -391,7 +391,7 @@ function getEditBugForm($bugId) {
 function getEditCommentForm($commentId) {
   $message  = '';
 
-  if (isset($_GET) && isset($_GET['message'])) {
+  if (isset($_GET['message'])) {
     $message   = $_GET['message'];
     $bugId     = $_GET['bugId'];
     $commentId = $_GET['actionId'];
@@ -437,7 +437,7 @@ function getEditCommentForm($commentId) {
 function getViewBugForm() {
   $returnValue = '';
   
-  if(isset($_GET) && isset($_GET['id'])) {
+  if(isset($_GET['id'])) {
     $bugId = intval($_GET['id']);
 
     $userGroup = getCurrentGroupId();
@@ -553,13 +553,13 @@ function getViewBugForm() {
 function getCommentSubmitForm($recoverData) {
   $message  = '';
   
-  if(isset($_GET) && isset($_GET['id']) && isLoggedIn()) {
-    $bugId = $_GET['id'];
+  if(isset($_GET['id']) && isLoggedIn()) {
+    $bugId = intval($_GET['id']);
   } else {
     return '';
   }
 
-  if ($recoverData && isset($_GET) && isset($_GET['message'])) {
+  if ($recoverData && isset($_GET['message'])) {
     $message = $_GET['message'];
   }
     
@@ -617,130 +617,128 @@ function getCommentSubmitForm($recoverData) {
 }
 
 function handleSubmit() {
-  if(isset($_GET)) {
-    if (isset($_GET) && isset($_GET['message']) && isset($_GET['id']) && !isset($_GET['action'])) {
-      $message = $_GET['message'];
-      $bugId   = $_GET['id'];
+  if (isset($_GET['message']) && isset($_GET['id']) && !isset($_GET['action'])) {
+    $message = $_GET['message'];
+    $bugId   = $_GET['id'];
+
+    $errorMessage = '';
+    $error = false;  
+    
+    if(empty($message)) {
+      $error = true;
+    }
+          
+    if ($error) {
+      $returnValue  = getViewBugForm();
+      $returnValue .= getCommentSubmitForm(true) . nl2br($errorMessage);
+      
+      return $returnValue;
+    }  
+    
+    Database::submitBugComment($bugId, $message);
+      
+    $returnValue  = getViewBugForm();
+    $returnValue .= getCommentSubmitForm(false);
+    
+    return $returnValue;
+  }
   
-      $errorMessage = '';
-      $error = false;  
-      
-      if(empty($message)) {
-        $error = true;
+  if(isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'editBug') {
+    $title        = '';
+    $description  = '';
+    $bugId        = 0;
+    $projectId    = 0;
+    $versionId    = 0;  
+    $category1    = 0;
+    $category2    = 0;
+    $priorityId   = 0;
+    $bugStatusId  = 0;
+    $fixedInId    = 0;
+    
+    if (isset($_GET['id']) && isset($_GET['title']) && isset($_GET['description']) && isset($_GET['priorityid']) && isset($_GET['bugstatusid'])) {
+      $bugId        = intval($_GET['id']);
+      $title        = $_GET['title'];
+      $description  = $_GET['description'];
+      $priorityId   = $_GET['priorityid'];
+      $bugStatusId  = $_GET['bugstatusid'];
+      $fixedInId    = $_GET['fixedin'];
+              
+      if(isset($_GET['projectandversion'])) {
+        $aProjVersion = explode(htmlSafe(';'), $_GET['projectandversion']);
+          
+        $projectId    = $aProjVersion[0];
+        $versionId    = $aProjVersion[1];
+      } else if(isset($_GET['projectid']) && isset($_GET['versionid'])) {
+        $projectId    = $_GET['projectid'];
+        $versionId    = $_GET['versionid'];      
       }
-            
-      if ($error) {
-        $returnValue  = getViewBugForm();
-        $returnValue .= getCommentSubmitForm(true) . nl2br($errorMessage);
-        
-        return $returnValue;
-      }  
-      
-      Database::submitBugComment($bugId, $message);
-        
-      $returnValue  = getViewBugForm();
-      $returnValue .= getCommentSubmitForm(false);
-      
-      return $returnValue;
+    }  
+    
+    if(!isEmptyCategorys() && isset($_GET['category1']) && isset($_GET['category2'])) {
+      $category1  = $_GET['category1'];
+      $category2  = $_GET['category2'];    
     }
     
-    if(isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'editBug') {
-      $title        = '';
-      $description  = '';
-      $bugId        = 0;
-      $projectId    = 0;
-      $versionId    = 0;  
-      $category1    = 0;
-      $category2    = 0;
-      $priorityId   = 0;
-      $bugStatusId  = 0;
-      $fixedInId    = 0;
-      
-      if (isset($_GET) && isset($_GET['id']) && isset($_GET['title']) && isset($_GET['description']) && isset($_GET['priorityid']) && isset($_GET['bugstatusid'])) {
-        $bugId        = $_GET['id'];
-        $title        = $_GET['title'];
-        $description  = $_GET['description'];
-        $priorityId   = $_GET['priorityid'];
-        $bugStatusId  = $_GET['bugstatusid'];
-        $fixedInId    = $_GET['fixedin'];
-                
-        if(isset($_GET['projectandversion'])) {
-          $aProjVersion = explode(htmlSafe(';'), $_GET['projectandversion']);
-            
-          $projectId    = $aProjVersion[0];
-          $versionId    = $aProjVersion[1];
-        } else if(isset($_GET['projectid']) && isset($_GET['versionid'])) {
-          $projectId    = $_GET['projectid'];
-          $versionId    = $_GET['versionid'];      
-        }
-      }  
-      
-      if(!isEmptyCategorys() && isset($_GET) && isset($_GET['category1']) && isset($_GET['category2'])) {
-        $category1  = $_GET['category1'];
-        $category2  = $_GET['category2'];    
-      }
-      
-      $errorMessage = '';
-      $error = false;  
-      
-      if(empty($title) && $error == false) {
-        $error        = true;
-        $errorMessage .= lang('title_empty');
-      }
-      
-      if(empty($description) && $error == false) {
-        $error        = true;
-        $errorMessage .= lang('description_empty');
-      }  
-      
-      if(empty($projectId) && $error == false) {
-        $error        = true;
-        $errorMessage .= lang('project_not_selected');    
-      }
-      
-      if(empty($versionId) && $error == false) {
-        $error        = true;
-        $errorMessage .= lang('version_empty');
-      }    
+    $errorMessage = '';
+    $error = false;  
     
-      if ($error) {
-        return getEditBugForm($bugId) . nl2br($errorMessage);
-      }  
-      
-      Database::updateBug($bugId, $title, $description, $versionId, $category1, $category2, $priorityId, $bugStatusId, $fixedInId);
-        
-      $returnValue  = getViewBugForm();
-      $returnValue .= getCommentSubmitForm(false);
-      
-      return $returnValue;
+    if(empty($title) && $error == false) {
+      $error        = true;
+      $errorMessage .= lang('title_empty');
     }
     
-    if(isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'editComment') {
-      $message   = '';  
-      $CommentId   = 0;
-        
-      if (isset($_GET) && isset($_GET['message']) && isset($_GET['actionId'])) {
-        $message   = $_GET['message'];
-        $CommentId = $_GET['actionId'];
-      }  
-      
-      $errorMessage = '';
-      $error = false;  
-      
-      if(empty($message)) {
-        $error = true;
-      }
-            
-      if ($error) {
-        return editCommentForm();
-      }  
-      
-      Database::updateComment($CommentId, $message);
-        
-      $returnValue  = getViewBugForm();
-      $returnValue .= getCommentSubmitForm(false);
-      
-      return $returnValue;      
+    if(empty($description) && $error == false) {
+      $error        = true;
+      $errorMessage .= lang('description_empty');
+    }  
+    
+    if(empty($projectId) && $error == false) {
+      $error        = true;
+      $errorMessage .= lang('project_not_selected');    
     }
+    
+    if(empty($versionId) && $error == false) {
+      $error        = true;
+      $errorMessage .= lang('version_empty');
+    }    
+  
+    if ($error) {
+      return getEditBugForm($bugId) . nl2br($errorMessage);
+    }  
+    
+    Database::updateBug($bugId, $title, $description, $versionId, $category1, $category2, $priorityId, $bugStatusId, $fixedInId);
+      
+    $returnValue  = getViewBugForm();
+    $returnValue .= getCommentSubmitForm(false);
+    
+    return $returnValue;
+  }
+  
+  if(isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'editComment') {
+    $message   = '';  
+    $CommentId   = 0;
+      
+    if (isset($_GET['message']) && isset($_GET['actionId'])) {
+      $message   = $_GET['message'];
+      $CommentId = $_GET['actionId'];
+    }  
+    
+    $errorMessage = '';
+    $error = false;  
+    
+    if(empty($message)) {
+      $error = true;
+    }
+          
+    if ($error) {
+      return editCommentForm();
+    }  
+    
+    Database::updateComment($CommentId, $message);
+      
+    $returnValue  = getViewBugForm();
+    $returnValue .= getCommentSubmitForm(false);
+    
+    return $returnValue;      
   }
 }

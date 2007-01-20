@@ -7,7 +7,7 @@
 require_once(ROOT_DIR.'/includes/Mail.php');
 
 function getforgotpassword() {
-  if (isset($_GET) && isset($_GET['email'])) {
+  if (isset($_GET['email'])) {
     $email = strtolower(htmlUnsafe($_GET['email']));
     return handleForgotPassword($email);
   } else {
