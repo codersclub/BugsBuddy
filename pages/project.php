@@ -353,8 +353,8 @@ function projectList() {
       $bugs = Database::getCountWithProjectID($row['id']);
               
       if (isset($permissions['mayview_admin_project']) && $permissions['mayview_admin_project'] == 'true') {
-        $edit_link = '<a href="index.php?page=project&id=' . $row['id'] . '&act=edit"><img src="../images/edit.png" alt="' . lang('edit') . '" title="' . lang('edit') . '" /></a>';
-        $del_link  = '<a href="index.php?page=project&id=' . $row['id'] . '&act=delete"><img src="../images/delete.png" alt="' . lang('delete') . '" title="' . lang('delete') . '" /></a>';
+        $edit_link = pageLink('project&id=' . $row['id'] . '&act=edit', '<img src="../images/edit.png" alt="' . lang('edit') . '" title="' . lang('edit') . '" />');
+        $del_link  = pageLink('project&id=' . $row['id'] . '&act=delete', '<img src="../images/delete.png" alt="' . lang('delete') . '" title="' . lang('delete') . '" />');
       } else {
         $edit_link = '&nbsp;';
         $del_link = '&nbsp;';

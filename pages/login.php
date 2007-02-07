@@ -97,12 +97,12 @@ function getLoginHtml() {
   <p class="nomargin">
     '. lang('welcome') . ' <strong>' . lang('guest') . '</strong>
     <br />
-    <a href="index.php?page=login">' . lang('login') . '</a>
+    '. pageLink('login', lang('login')) . '
     |
-    <a href="index.php?page=register">' . lang('register') . '</a>
+    '. pageLink('register', lang('register')) . '
     |
-    <a href="index.php?page=forgotpassword">' . lang('password_forgot') . '</a>
-  </p>'."\n";
+    '. pageLink('forgotpassword', lang('password_forgot')) . '
+  </p>' . "\n";
 
   return $returnValue;
 }

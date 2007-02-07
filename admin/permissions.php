@@ -108,8 +108,8 @@ function getPermissionsForm($recoverData) {
       }      
       
       $returnValue .= '
-                <td><a href="index.php?page=permissions&id='.$row['id'].'">' . lang('edit') . '</a></td>
-                <td><a href="index.php?page=permissions&id='.$row['id'].'&delete=true">' . lang('delete') . '</a></td>
+                <td>'.pageLink('permissions&id='.$row['id'], lang('edit')) . '</td>
+                <td>'.pageLink('permissions&id='.$row['id'].'&delete=true', lang('delete') ). '</td>
                 <td>'.$row['groupName'].'</td>
                 <td>'.$row['setting'].'</td>
                 <td>'.$row['value'].'</td>

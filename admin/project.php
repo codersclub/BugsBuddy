@@ -105,8 +105,8 @@ function getproject() {
                    <td>' . $row['name'] . '</td>
                    <td>' . count($bugs) . '</td>
                    <td>' . $status . '</td>
-                   <td><a href="index.php?page=project&act=edit&id=' . $row['id'] . '"><img src="../images/edit.png" alt="' . lang('edit') . '" title="' . lang('edit') . '" /></a></td>
-                   <td><a href="index.php?page=project&act=delete&id=' . $row['id'] . '"><img src="../images/delete.png" alt="' . lang('delete') . '" title="' . lang('delete') . '" /></a></td>
+                   <td>' . pageLink('project&act=edit&id=' . $row['id'], '<img src="../images/edit.png" alt="' . lang('edit') . '" title="' . lang('edit') . '" />') . '</td>
+                   <td>' . pageLink('project&act=delete&id=' . $row['id'], '<img src="../images/delete.png" alt="' . lang('delete') . '" title="' . lang('delete') . '" />') . '</td>
                  </tr>';
       }
 
@@ -129,8 +129,8 @@ function getproject() {
         }
         
         $ret .= '<p>
-                   <a href="index.php?page=project">' . lang('no') . '</a>
-                   <a href="index.php?page=project&act=deleteConfirm&id=' . $id . '">' . lang('yes') . '</a>
+                   '.pageLink('project', lang('no')) . '
+                   '.pageLink('project&act=deleteConfirm&id=' . $id, lang('yes')) . '
                  </p>';
       } else {
         $ret .= '<p><i>' . lang('project_unknown') . '</i></p>';
@@ -380,8 +380,8 @@ function getproject() {
         }
         
         $ret .= '<p>
-                   <a href="index.php?page=project&act=edit&id=' . $_GET['id'] . '">' . lang('no') . '</a>
-                   <a href="index.php?page=project&act=edit&id=' . $_GET['id'] . '&version=' . $id . '">' . lang('yes') . '</a>
+                   '.pageLink('project&act=edit&id=' . $_GET['id'], lang('no')) . '
+                   '.pageLink('project&act=edit&id=' . $_GET['id'] . '&version=' . $id, lang('yes')) . '
                  </p>';
       } else {
         $ret .= '<p><i>' . lang('version_unknown') . '</i></p>';

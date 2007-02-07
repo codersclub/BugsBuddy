@@ -209,8 +209,15 @@ function isValidEmailAddress($email) {
  * Create HTML code for an text-link that works for both AJAX as non-AJAX
  */
 function pageLink($page, $text, $class=null) {
-  $pg = $page=='home'?'':'page='.$page;
-  return '<a'.($class!=null?' class="'.$class.'"':' ').' href="'.ROOT_URL.'/index.php?'.$pg.'">'.$text.'</a>';
+  $first = substr($page,0,1);
+  if($first=='.' || $first=='/') {
+    $pg = $page;
+    return '<a'.($class!=null?' class="'.$class.'"':' ').' href="'.$pg.'">'.$text.'</a>';
+  } else {
+    $pg = $page=='home'?'':'page='.$page;
+    $admindir = @$_SESSION['admin'] ? '/admin' : '';
+    return '<a'.($class!=null?' class="'.$class.'"':' ').' href="'.ROOT_URL.$admindir.'/index.php?'.$pg.'">'.$text.'</a>';
+  }
 }
 
 function createRandomPassword() {

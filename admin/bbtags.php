@@ -83,10 +83,10 @@ function getBbForm($recoverData) {
       }      
       
       $returnValue .=   '<td>
-                           <a href="index.php?page=bbtags&id='.$row['id'].'&edit=true">' . lang('edit') . '</a>
+                           '.pageLink('bbtags&id='.$row['id'].'&edit=true', lang('edit')).'
                          </td>
                          <td>
-                           <a href="index.php?page=bbtags&id='.$row['id'].'&delete=true">' . lang('delete') . '</a>
+                           '.pageLink('bbtags&id='.$row['id'].'&delete=true', lang('delete')).'
                          </td>
                          <td>'.$row['bbcode'].'</td>
                          <td>'.$row['htmlcode'].'</td>

@@ -14,7 +14,7 @@ function getbugstatus() {
     if (is_numeric($_GET['id']) && intval($_GET['id']) != 1) {
       Database::delbugstatus($_GET['id']);
       $returnValue .= '<p>' . lang('status_removed') . '</p><br />';
-      $returnValue .= '<a href="index.php?page=bugstatus">'. lang('back') .'</a>';
+      $returnValue .= pageLink('bugstatus', lang('back'));
     } else {
       $returnValue .= '<p><i>' . lang('id_invalid') . '</i></p>';
     }
@@ -33,16 +33,16 @@ function getbugstatus() {
             $returnValue .= '<p>' . lang('status_has_bugs') . '.<br />';
             $returnValue .= lang('status_bugs_number') . ': ' . $bugnamecount . '</p>';
             $returnValue .= '<p>' . lang('continue_sure') . '</p>';
-            $returnValue .= '<a href="index.php?page=bugstatus&id=' . $_POST['delthis'] . '">' . lang('yes') . '</a>&nbsp;';
-            $returnValue .= '&nbsp;<a href="index.php?page=bugstatus">' . lang('no') . '</a>';
+            $returnValue .= pageLink('bugstatus&id=' . $_POST['delthis'], lang('yes')) . '&nbsp;';
+            $returnValue .= pageLink('bugstatus', lang('no'));
           } else {
             Database::delbugstatus($_POST['delthis']);
             $returnValue .= '<p>' . lang('status_x_removed',$bugstatusname) . '</p><br />';
-            $returnValue .= '<a href="index.php?page=bugstatus">'. lang('back') .'</a>';
+            $returnValue .= pageLink('bugstatus', lang('back'));
           }
         } else {
           $returnValue .= '<p>' . lang('status_not_removable') . '</p><br />';
-          $returnValue .= '<a href="index.php?page=bugstatus">'. lang('back') .'</a>';
+          $returnValue .= pageLink('bugstatus', lang('back'));
         }
       } else {
         $returnValue .= '<p><i>' . lang('id_invalid') . '</i></p>';
@@ -50,7 +50,7 @@ function getbugstatus() {
     } elseif (!empty($_POST['bugaddname'])) {
         Database::insbugstatus($_POST['bugaddname']);
         $returnValue .= '<p>' . lang('status_x_added',$_POST['bugaddname']) . '</p><br />';
-        $returnValue .= '<div><a href="index.php?page=bugstatus">'. lang('back') .'</a></div>';
+        $returnValue .= '<div>'.pageLink('bugstatus', lang('back')).'</div>';
         $returnValue .= '<meta http-equiv="refresh" content="3;URL=index.php?page=bugstatus" />';
     } else {
       //return "Admin Bug Status Page";

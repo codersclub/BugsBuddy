@@ -16,7 +16,7 @@ function outputForm($recoverData) {
   $returnValue = '';
   $returnValue .= '<h1>'.lang('users').'</h1>';
   $returnValue .= '<div class="right">
-                     <a href="index.php?page=register">'. lang('user_add') .'</a>
+                     '.pageLink('page=register', lang('user_add')) .'
                    </div>';
 
   $result = Database::getAllUsers();
@@ -41,8 +41,8 @@ echo '</pre>';
       } else {
         $returnValue .= '<tr>';
       }      
-      $returnValue .=   '<td><a href="index.php?page=users&id='.$row['id'].'">' . lang('edit') . '</a></td>
-                <td><a href="index.php?page=users&id='.$row['id'].'&delete=true">' . lang('delete') . '</a></td>
+      $returnValue .=   '<td>'.pageLink('users&id='.$row['id'], lang('edit')) . '</td>
+                <td>'.pageLink('users&id='.$row['id'].'&delete=true', lang('delete')) . '</td>
                 <td>'.htmlSafe($row['name']).'</td><td>'.htmlSafe($row['email']).'</td>
                 <td>'.htmlSafe($row['groupname']).'</td>
               </tr>';

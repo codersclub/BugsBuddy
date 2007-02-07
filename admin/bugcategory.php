@@ -14,7 +14,7 @@ function getbugcategory() {
     if (is_numeric($_GET['id'])) {
       Database::delBugCategory($_GET['id']);
       $returnValue .= '<p>' . lang('category_removed') . '</p><br />';
-      $returnValue .= '<a href="index.php?page=bugcategory">'. lang('back') .'</a>';
+      $returnValue .= pageLink('bugcategory', lang('back'));
     } else {
       $returnValue .= '<p><i>' . lang('id_invalid') . '</i></p>';
     }
@@ -32,12 +32,12 @@ function getbugcategory() {
           $returnValue .= '<p>' . lang('category_has_bugs') . '<br />';
           $returnValue .= lang('category_bugs_number') . ': ' . $bugnamecount . '</p>';
           $returnValue .= '<p>' . lang('continue_sure') . '</p>';
-          $returnValue .= '<a href="index.php?page=bugcategory&id=' . $_POST['delthis'] . '">' . lang('yes') . '</a>&nbsp;';
-          $returnValue .= '&nbsp;<a href="index.php?page=bugcategory">' . lang('no') . '</a>';
+          $returnValue .= pageLink('bugcategory&id=' . $_POST['delthis'], lang('yes')) . '&nbsp;';
+          $returnValue .= pageLink('bugcategory', lang('no'));
         } else {
           Database::delBugCategory($_POST['delthis']);
           $returnValue .= '<p>' . lang('category_x_removed',$bugstatusname) . '</p><br />';
-          $returnValue .= '<a href="index.php?page=bugcategory">'. lang('back') .'</a>';
+          $returnValue .= pageLink('bugcategory', lang('back'));
         }
       } else {
         $returnValue .= '<p><i>' . lang('id_invalid') . '</i></p>';
@@ -45,7 +45,7 @@ function getbugcategory() {
     } elseif (!empty($_POST['bugaddname'])) {
         Database::insBugCategory($_POST['bugaddname']);
         $returnValue .= '<p>' . lang('category_x_added',$_POST['bugaddname']) . '</p><br />';
-        $returnValue .= '<div><a href="index.php?page=bugcategory">'. lang('back') .'</a></div>';
+        $returnValue .= '<div>'.pageLink('bugcategory', lang('back')) .'</div>';
         $returnValue .= '<meta http-equiv="refresh" content="3;URL=index.php?page=bugcategory" />';
     } else {
       //return lang('admin_statuses');

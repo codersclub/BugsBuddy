@@ -18,7 +18,7 @@ function getbugpriority() {
     {
       Database::remBugPriority($_GET['remBugPriorityID']);
       $returnValue .= '<p>' . lang('priority_deleted') . '</p><br />';
-      $returnValue .= '<a href="index.php?page=bugpriority">'. lang('back') .'</a>';
+      $returnValue .= pageLink('bugpriority', lang('back'));
     }
     else 
     {
@@ -46,18 +46,18 @@ function getbugpriority() {
             $returnValue .= '<p>' . lang('priority_has_bugs') . '<br />';
             $returnValue .= lang('priority_bugs_number') . ': ' . $bugprioritynamecount . '</p>';
             $returnValue .= '<p>' . lang('continue_sure') . '</p>';
-            $returnValue .= '<a href="index.php?page=bugpriority&remBugPriorityID=' . $_POST['delBugPriority'] . '">' . lang('yes') . '</a>&nbsp;';
-            $returnValue .= '&nbsp;<a href="index.php?page=bugpriority">' . lang('no') . '</a>';
+            $returnValue .= pageLink('bugpriority&remBugPriorityID=' . $_POST['delBugPriority'], lang('yes')) . '&nbsp;';
+            $returnValue .= pageLink('bugpriority', lang('no'));
           } 
           else 
           {
             Database::remBugPriority($_POST['delBugPriority']);
             $returnValue .= '<p>' . lang('priority_x_deleted',$bugprioritystatusname) . '</p><br />';
-            $returnValue .= '<a href="index.php?page=bugpriority">'. lang('back') .'</a>';
+            $returnValue .= pageLink('bugpriority', lang('back'));
           }
         } else {
           $returnValue .= '<p>' . lang('priority_not_removable') . '</p><br />';
-          $returnValue .= '<a href="index.php?page=bugpriority">'. lang('back') .'</a>';
+          $returnValue .= pageLink('bugpriority', lang('back'));
         }
       } 
       else 
@@ -70,7 +70,7 @@ function getbugpriority() {
       Database::insBugPriority($_POST['addBugPriority']);
         
       $returnValue .= '<p>' . lang('priority_x_added',$_POST['addBugPriority']) . '</p><br />';
-      $returnValue .= '<div><a href="index.php?page=bugpriority">'. lang('back') .'</a></div>';
+      $returnValue .= '<div>'.pageLink('bugpriority', lang('back')) .'</div>';
       $returnValue .= '<meta http-equiv="refresh" content="3;URL=index.php?page=bugpriority" />';
     } 
     else 
