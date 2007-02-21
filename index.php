@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+$_SESSION['admin'] = 0;
+
 require_once('includes/helperfunctions.php');
 
 //DEBUG
