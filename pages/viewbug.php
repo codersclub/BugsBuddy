@@ -339,35 +339,36 @@ function getEditBugForm($bugId) {
                         <label class="registerlabel" for="categorie1">'.lang('category1').':</label>
                         <select class="" id="category1" name="category1">'.getCategorys($category1).'</select>
                       </div>
-                      <div>
-                        <label class="registerlabel" for="categorie2">'.lang('category2').':</label>
                       <div class="registerinput">
+                        <label class="registerlabel" for="categorie2">'.lang('category2').':</label>
                         <select class="" id="category2" name="category2">'.getCategorys($category2).'</select>
                       </div>';
   }
 
   if (getCurrentGroupId() == 2 || getCurrentGroupId() == 3) {
-    $returnValue .=   '<div class="registerinput">
-                         <label class="registerlabel" for="priorityid">'.lang('priority').':</label>
-                         <select class="" id="priorityid" name="priorityid">'.getPrioritys($priorityId).'</select>
-                       </div>
-                       <div class="registerinput">
-                         <label class="registerlabel" for="bugstatusid">'.lang('status').':</label>
-                       <select class="" id="bugstatusid" name="bugstatusid">'.getBugstatus($bugStatusId).'</select>
-                       '.lang('in').'
-                       <select class="" id="fixedin" name="fixedin">'.getVersions($projectId, $fixedInId).'</select>
-                     </div>';
+    $returnValue .=  '<div class="registerinput">
+                        <label class="registerlabel" for="priorityid">'.lang('priority').':</label>
+                        <select class="" id="priorityid" name="priorityid">'.getPrioritys($priorityId).'</select>
+                      </div>
+                      <div class="registerinput">
+                        <label class="registerlabel" for="bugstatusid">'.lang('status').':</label>
+                        <select class="" id="bugstatusid" name="bugstatusid">'.getBugstatus($bugStatusId).'</select>
+                      </div>
+                      <div class="registerinput">
+                        <label class="registerlabel" for="fixedin">'.lang('in_version').':</label>
+                        <select class="" id="fixedin" name="fixedin">'.getVersions($projectId, $fixedInId).'</select>
+                      </div>';
   } else {
     $returnValue .= '<input type="hidden" name="priorityid" value="'.$priorityId.'" />
                      <input type="hidden" name="bugstatusid" value="'.$bugStatusId.'" />
                      <input type="hidden" name="fixedin" value="'.$fixedInId.'" />';
   }
 
-  $returnValue .=    '<div class="registerinput">
-                        <label class="registerlabel" for="verzenden">'. lang('send') .':</label>
-                        <input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/>
-                      </div>
-                    </form>';
+  $returnValue .=   '<div class="registerinput">
+                       <label class="registerlabel" for="verzenden">'. lang('send') .':</label>
+                       <input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/>
+                     </div>
+                   </form>';
 
   if(!empty($projectId) && isEmptyProjects()) {
     $returnValue .= lang('bug_no_projects');
