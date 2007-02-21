@@ -139,7 +139,7 @@ if (isLoggedIn() && isset($_POST['changepassword']) && isValidPassword(htmlUnsaf
 <html>
   <head>
     <title>BugsBuddy</title>
-    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=<?=CHARSET;?>" />
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
     <link href="style/default.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="<?=ROOT_URL?>/js/main.php"></script>
 

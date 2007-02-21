@@ -36,9 +36,6 @@ if(is_file(ROOT_DIR.'/includes/config.php')) {
   define('DATABASE_USER_PASSWORD', '');
   define('DATABASE_DATABASENAME' , '');
   define('LANG',                   'en');
-  define('CHARSET',                'UTF-8');
-  define('MAIL_CHARSET',           'UTF-8');
-  define('DATABASE_CHARSET',       'utf8');
 }
 
 require_once(ROOT_DIR.'/lang/'.LANG.'.php');

@@ -52,9 +52,6 @@ if (!empty($_POST)) {
                     define('DATABASE_USER_PASSWORD', '$_POST[dpassword]');\n
                     define('DATABASE_DATABASENAME' , '$_POST[ddatabase]');\n
                     define('LANG',                   'en');\n
-                    define('CHARSET',                'UTF-8');\n
-                    define('MAIL_CHARSET',           'UTF-8');\n
-                    define('DATABASE_CHARSET',       'utf8');\n
                     \n";  
 
               if ($file_handle = fopen($file, 'a')) {
@@ -95,7 +92,7 @@ if (!empty($_POST)) {
 <html>
 <head>
   <title><?=lang('bugsbuddy_install')?></title>
-  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
   <link href="./style.css" rel="stylesheet" type="text/css">
 </head>
 <body>

@@ -1,5 +1,7 @@
 <?php
 
+define('MAIL_CHARSET', 'UTF-8');
+
 class Mail {
 
   var $htmlMessage;
@@ -23,4 +25,3 @@ class Mail {
   }
 
 }
-

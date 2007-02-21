@@ -13,9 +13,3 @@ define('DATABASE_USER_PASSWORD', 'password');
 define('DATABASE_DATABASENAME' , 'bugsbuddy');
 
 define('LANG',          'en');
-
-define('CHARSET',          'UTF-8');
-
-define('MAIL_CHARSET',          'UTF-8');
-
-define('DATABASE_CHARSET',          'utf8');
