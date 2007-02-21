@@ -79,9 +79,9 @@ function getbuglist() {
   }
 
   $returnValue .= '</div>';
-    $returnValue .= '<table>' .
+    $returnValue .= '<table width="100%">' .
               '<tr>' .
-                '<th style="width: 200px;">'.pageLink('buglist&buglistpage=1&sort=description&order=asc', lang('description')).'</th>' .
+                '<th>'.pageLink('buglist&buglistpage=1&sort=description&order=asc', lang('description')).'</th>' .
                 '<th style="width: 100px;">'.pageLink('buglist&buglistpage=1&sort=poster&order=asc', lang('poster')).'</th>' .
                 '<th style="width: 120px;">'.pageLink('buglist&buglistpage=1&sort=date&order=desc', lang('date')).'</th>' .
                 '<th style="width: 100px;">'.pageLink('buglist&buglistpage=1&sort=status&order=asc', lang('status')).'</th>' .

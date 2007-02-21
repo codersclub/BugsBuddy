@@ -104,7 +104,7 @@ function getBbForm($recoverData) {
   //TODO:
   //  registerlabel: replaced by something more general, or a new
   //  registerinput: replaced by something more general, or a new
-  $returnValue .= '<table>
+  $returnValue .= '<table width="100%">
             <tr>
               <td>
                 <form action="'.$currentUrl.'" method="get">

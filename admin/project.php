@@ -88,7 +88,7 @@ function getproject() {
     if (count($projects) == 0) {
       $ret .= '<p><i>'. lang('projects_no') .'</i></p>';
     } else {
-      $ret .= '<table>
+      $ret .= '<table width="100%">
                  <tr>
                    <th style="width: 200px;">'. lang('name'). '</th>
                    <th>' . lang('bugs_number') . '</th>

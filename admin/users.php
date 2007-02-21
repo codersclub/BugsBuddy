@@ -26,7 +26,8 @@ print_r($result);
 echo '</pre>';
 */
   if(!empty($result)) {
-    $returnValue .= '<table style="width: 100%;">
+    $returnValue .= '
+            <table style="width: 100%;">
               <tr>
                 <th>&nbsp;</th>
                 <th>&nbsp;</th>
@@ -84,9 +85,7 @@ echo '</pre>';
     $currentUrl = getCurrentRequestUrl();
     $currentUrl = explode('?', $currentUrl);
     $currentUrl = $currentUrl[0];
-    $returnValue .= '<table>
-              <tr>
-                <td>
+    $returnValue .= '
                   <form action="'.$currentUrl.'" method="get">
                     <input type="hidden" name="submitit" value="true"/>
                     <input type="hidden" name="page" value="'.$thisPage.'"/>
@@ -113,10 +112,7 @@ echo '</pre>';
                         <label for="verzenden" class="registerlabel">'. lang('send') .':</label>
                         <input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/>
                       </div>
-                    </form>
-                  </td>
-                </tr>
-              </table>';
+                    </form>';
   }
   
   return $returnValue;
