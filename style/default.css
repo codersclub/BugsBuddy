@@ -4,13 +4,15 @@
  * Version:     1.0
  * Description: stylesheet for bugsbuddy
  */
-
+html, body {
+	height: 100%;
+}
 body {
 	margin: 0px;
 	padding: 0px;
 	font: 10px verdana, tahoma, arial, serif;
 	color: #000000;
-	background: url('../images/background.gif') repeat-y;
+/*	background: url('../images/background.gif') repeat-y;*/
 	background-position: center;
 	background-color: #dfdfdf;
 	text-align: center;
@@ -109,13 +111,14 @@ a:hover {
 
 #container {
 	width: 750px;
+	min-height: 100%;
 	margin: 0px auto 0px auto;
 	padding: 0px;
 	text-align: left;
+	background: #fff;
 }
 
 #header {
-	float: left;
 	width: 730px;
 	height: 40px;
 	padding: 5px 10px;
@@ -123,7 +126,6 @@ a:hover {
 
 #balk {
 	clear: both;
-	float: left;
 	width: 750px;
 	padding: 2px 0px;
 	text-align: center;
@@ -148,14 +150,12 @@ a:hover {
 
 #content {
 	clear: both;
-	float: left;
 	width: 730px;
 	padding: 10px;
 }
 
 #footer {
 	clear: both;
-	float: left;
 	width: 730px;
 	padding: 5px 10px;
 	text-align: right;
