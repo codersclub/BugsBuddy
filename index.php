@@ -20,7 +20,7 @@ $config = Database::getConfig();
 
 if ($pages == null || $config == null) {
   // We where unable to get the pages from the database, something is seriously wrong with the database
-  $_GET['page'] = 'errorpage';
+  $_GET['page']    = 'errorpage';
   $_GET['message'] = 'database';
 }
 
@@ -35,7 +35,7 @@ if ($pages == null || $config == null) {
  */
 function showPage() {
 
-  if (!isset($_GET['page']) || $_GET['page'] == '') {
+  if (!isset($_GET['page']) || empty($_GET['page'])) {
     $_GET['page'] = 'home';
   }
   // Handle error page differently, because it might concern the disability to connect to the database
@@ -106,7 +106,7 @@ if (isset($_POST) && isset($_POST['email']) && isset($_POST['pass'])) {
 /*
  * Handle logout before any other output is generated on non-AJAX pages
  */
-if (isset($_GET['page']) && $_GET['page'] == 'logout') {
+if ($_GET['page'] == 'logout') {
 //  $_GET['page'] = 'changepassword';
   require_once('pages/logout.php');
   logout();
@@ -121,13 +121,11 @@ if (isLoggedIn() && isset($_POST['changepassword']) && isValidPassword(htmlUnsaf
 
   define('PASSWORD_CHANGED', true);
 
-  $_GET['page'] = 'changepassword';
-  $_POST['page'] = 'changepassword';
+  $_GET['page'] = $_POST['page'] = 'changepassword';
   logout();
 } else if (isLoggedIn() && isset($_POST['changepassword'])) {
   define('PASSWORD_NOT_CHANGED', true);
-  $_GET['page'] = 'changepassword';
-  $_POST['page'] = 'changepassword';
+  $_GET['page'] = $_POST['page'] = 'changepassword';
 }
 
 /*

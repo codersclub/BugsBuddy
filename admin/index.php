@@ -52,7 +52,7 @@ $_SESSION['admin'] = 1;
         <a href="<?=ROOT_URL?>/"><img src="<?=ROOT_URL?>/images/logo.gif" alt="Bugsbuddy" /></a>
 
         <div id="login">
-<?php
+<?
 
 require_once('pages/login.php');
 

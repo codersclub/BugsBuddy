@@ -9,7 +9,8 @@
 function geteditconfig() {
   $msg = '';
 
-  if (!empty($_POST)) {
+  if ($_SERVER['REQUEST_METHOD']=='POST') {
+
     Database::updateConfig($_POST['email'], $_POST['from']);
 
     $msg = lang('config_changed');
@@ -34,12 +35,11 @@ function geteditconfig() {
   $ret .= '<form action="index.php?page=editconfig" method="post">
              <div class="registerinput">
                <label for="email" class="registerlabel">' . lang('email_site') . ':</label>
-               <input  type="text" id="email" name="email" value="' . $email . '" />
+               <input  type="text" id="email" name="email" value="' . $email . '" style="width:600px;" />
              </div>
-             <div>
              <div class="registerinput">
                <label for="from" class="registerlabel">' . lang('email_sender') . ':</label>
-               <input  type="text" id="from" name="from" value="' . $from . '" />
+               <input  type="text" id="from" name="from" value="' . $from . '" style="width:600px;" />
              </div>
              <div class="registerinput">
                <label for="verzenden" class="registerlabel">'. lang('send') .':</label>

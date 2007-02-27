@@ -6,7 +6,7 @@
 
 function getsubmitbug() {
   $returnValue = '<h1>'. lang('bug_report') . '</h1>';
-  
+
   if(isLoggedIn()) {
     if (@$_GET['submitit'] == 'true') {
       $returnValue .= handleSubmitBug();
@@ -16,7 +16,7 @@ function getsubmitbug() {
   } else {
     $returnValue .= lang('login_required_for_this');
   }
-  
+
   return $returnValue;
 }
 
@@ -46,7 +46,7 @@ function getProjectsAndVersions($projectId, $versionId) {
     }
   } elseif ($group == 2 || $group == 3) {
     $result = Database::getProjectsAndVersions();
-        
+
     if (!empty($result)) {
       foreach ($result as $row) {
         if ($row['projectId'] == $projectId && $row['versionId'] == $versionId) {
@@ -91,7 +91,7 @@ function getProjects($projectId) {
       }
     }
   }
-  
+
   return $projects;
 }
 
@@ -101,7 +101,7 @@ function getVersions($projectId, $versionId) {
   $versions = '<option value="0">&nbsp;</option>';
 
   $result = Database::getVersions($projectId);
-        
+
   if (!empty($result)) {
     foreach ($result as $row) {
       if ($row['id'] == $versionId) {
@@ -111,7 +111,7 @@ function getVersions($projectId, $versionId) {
       }
     }
   }
-  
+
   return $versions;
 }
 
@@ -119,7 +119,7 @@ function getCategorys($category) {
   $categorys = '<option value="0">&nbsp;</option>';
 
   $result = Database::getCategorys();
-      
+
   if (!empty($result)) {
     foreach ($result as $row) {
       if ($row['id'] == $category) {
@@ -130,24 +130,24 @@ function getCategorys($category) {
     }
   }
 
-  return $categorys;  
+  return $categorys;
 }
 
 //Check if there are category's
 function isEmptyCategorys() {
   $result = Database::getCategorys();
-  
+
   if (empty($result)) {
     return true;
   } else {
     return false;
-  }  
+  }
 }
 
 //Check if there are projects
 function isEmptyProjects() {
   $result = Database::getVisibleProjects(getCurrentUserId());
-  
+
   if (empty($result)) {
     return true;
   } else {
@@ -158,56 +158,54 @@ function isEmptyProjects() {
 //Check if there are any related versions to a project
 function isEmptyVersions($projectId) {
   $result = Database::getVersions($projectId);
-  
+
   if (empty($result)) {
     return true;
   } else {
     return false;
-  }  
+  }
 }
 
 //Build the HTML
 function getSubmitBugForm() {
   $returnValue = '';
-  
+
   $title        = '';
   $description  = '';
   $projectId    = 0;
   $versionId    = 0;
   $category1    = 0;
   $category2    = 0;
-  
-  if (isset($_GET['title']) && isset($_GET['description'])) {
-    $title       = $_GET['title'];
-    $description = $_GET['description'];
-    
-    if(isset($_GET['projectandversion'])) {
-      $aProjVersion  = explode(htmlSafe(';'), $_GET['projectandversion']);
-        
+
+  if (isset($_POST['title']) && isset($_POST['description'])) {
+    $title       = $_POST['title'];
+    $description = $_POST['description'];
+
+    if(isset($_POST['projectandversion'])) {
+      $aProjVersion = explode(htmlSafe(';'), $_POST['projectandversion']);
       $projectId    = $aProjVersion[0];
       $versionId    = $aProjVersion[1];
-    } else if(isset($_GET['projectid']) && isset($_GET['versionid'])) {
-      $projectId    = $_GET['projectid'];
-      $versionId    = $_GET['versionid'];      
+    } else if(isset($_POST['projectid']) && isset($_POST['versionid'])) {
+      $projectId    = $_POST['projectid'];
+      $versionId    = $_POST['versionid'];
     }
-  }    
+  }
 
-  if(!isEmptyCategorys() && isset($_GET['category1']) && isset($_GET['category2'])) {
-    $category1 = $_GET['category1'];
-    $category2 = $_GET['category2'];    
-  }  
-    
+  if(!isEmptyCategorys() && isset($_POST['category1']) && isset($_POST['category2'])) {
+    $category1 = $_POST['category1'];
+    $category2 = $_POST['category2'];
+  }
+
   $thisPage   = 'submitbug';
   $currentUrl = getCurrentRequestUrl();
   $currentUrl = explode('?', $currentUrl);
   $currentUrl = $currentUrl[0];
-  
+
   //TODO:
   //  registerlabel: vervangen door iets algemeners of een nieuwe
   //  registerinput: vervangen door iets algemeners of een nieuwe
-  $returnValue .= '<form action="'.$currentUrl.'" method="get" '.(strpos(getCurrentRequestUrl(),'script.php')!== false?'onsubmit="javascriptSubmit(\''.$thisPage.'\', true); return false;"':'').'>
+  $returnValue .= '<form action="'.$currentUrl.'" method="POST" id="SubmitBugForm">
             <input type="hidden" name="page" value="'.$thisPage.'"/>
-            <input type="hidden" name="js" value="'.(strpos(getCurrentRequestUrl(),'script.php')===false?'no':'yes').'"/>
             <input type="hidden" name="submitit" value="true"/>
             <div class="registerinput">
               <label class="registerlabel" for="title">'.lang('title').'</label>
@@ -217,12 +215,12 @@ function getSubmitBugForm() {
               <label class="registerlabel" for="description">'.lang('description').':</label>
               <textarea class="" id="description" name="description" cols="40" rows="6">'.$description.'</textarea>
             </div>';
-      
+/*
   $returnValue .= '<div class="registerinput">
                        <label class="registerlabel" for="projectandversion">'.lang('project').':</label>
                        <select class="" id="projectandversion" name="projectandversion">'.getProjectsAndVersions($projectId, $versionId).'</select>
                    </div>';
-/*
+*/
     $returnValue .= '<div class="registerinput">
                        <label class="registerlabel" for="projectid">'.lang('project').':</label>
                        <select class="" id="projectid" name="projectid" onchange="javascriptSubmit(\'submitbug\', false);">'.getProjects($projectId).'</select>
@@ -231,8 +229,7 @@ function getSubmitBugForm() {
                        <label class="registerlabel" for="versionid">'.lang('version').':</label>
                        <select class="" id="versionid" name="versionid">'.getVersions($projectId, $versionId).'</select>
                      </div>';
-*/
-  
+
   if(!isEmptyCategorys()) {
     $returnValue .= '<div class="registerinput">
                        <label class="registerlabel" for="categorie1">'.lang('category1').':</label>
@@ -243,7 +240,7 @@ function getSubmitBugForm() {
                        <select class="" id="category2" name="category2">'.getCategorys($category2).'</select>
                      </div>';
   }
-            
+
   $returnValue .=   '<div class="registerinput">
                        <label class="registerlabel" for="verzenden">'. lang('send') .':</label>
                        <input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/>
@@ -253,11 +250,11 @@ function getSubmitBugForm() {
   if(!empty($projectId) && isEmptyProjects()) {
     $returnValue .= lang('bug_no_projects')."\n";
   }
-  
+
   if(!empty($projectId) && isEmptyVersions($projectId)) {
     $returnValue .= lang('bug_no_versions')."\n";
-  }          
-              
+  }
+
   return $returnValue;
 }
 
@@ -266,63 +263,54 @@ function handleSubmitBug() {
   $title        = '';
   $description  = '';
   $projectId    = 0;
-  $versionId    = 0;  
+  $versionId    = 0;
   $category1    = 0;
   $category2    = 0;
-  
-  if (isset($_GET['title']) && isset($_GET['description'])) {
-    $title       = $_GET['title'];
-    $description = $_GET['description'];
-    
-    if(isset($_GET['projectandversion'])) {
-      $aProjVersion  = explode(htmlSafe(';'), $_GET['projectandversion']);
-        
-      $projectId    = $aProjVersion[0];
-      $versionId    = $aProjVersion[1];
-    } else if(isset($_GET['projectid']) && isset($_GET['versionid'])) {
-      $projectId    = $_GET['projectid'];
-      $versionId    = $_GET['versionid'];      
-    }
-  }  
-  
-  if(!isEmptyCategorys() && isset($_GET['category1']) && isset($_GET['category2'])) {
-    $category1  = $_GET['category1'];
-    $category2  = $_GET['category2'];    
+
+  $title       = $_POST['title'];
+  $description = $_POST['description'];
+
+  $projectId   = $_POST['projectid'];
+  $versionId   = $_POST['versionid'];
+
+  if(!isEmptyCategorys() && isset($_POST['category1']) && isset($_POST['category2'])) {
+    $category1  = $_POST['category1'];
+    $category2  = $_POST['category2'];
   }
-  
+
   $errorMessage = '';
-  $error = false;  
-  
+  $error = false;
+
   if(empty($title) && $error == false) {
     $error        = true;
     $errorMessage .= lang('title_empty');
   }
-  
+
   if(empty($description) && $error == false) {
     $error        = true;
     $errorMessage .= lang('description_empty');
-  }  
-  
+  }
+
   if(empty($projectId) && $error == false) {
     $error        = true;
-    $errorMessage .= lang('project_not_selected');    
+    $errorMessage .= lang('project_not_selected');
   }
-  
+
   if(empty($versionId) && $error == false) {
     $error        = true;
     $errorMessage .= lang('version_empty');
-  }    
+  }
 
   if ($error) {
     return getSubmitBugForm() . nl2br($errorMessage);
-  }  
-  
+  }
+
   Database::submitBug($title, $description, $versionId, $category1, $category2);
   $result = Database::getProjectUser($projectId, getCurrentUserId());
-    
+
   if(empty($result)) {
-    Database::setProjectUser($projectId, getCurrentUserId());  
+    Database::setProjectUser($projectId, getCurrentUserId());
   }
-    
-  return lang('thax_for_bug_report');  
+
+  return lang('thax_for_bug_report');
 }

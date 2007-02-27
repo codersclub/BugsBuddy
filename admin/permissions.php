@@ -127,7 +127,7 @@ function getPermissionsForm($recoverData) {
 
   $returnValue .= '
                 <h2>'.lang('permission_add').'</h2>
-                <form action="'.$currentUrl.'" method="get">
+                <form action="'.$currentUrl.'" method="POST">
                   <input type="hidden" name="page" value="'.$thisPage.'"/>
                   <input type="hidden" name="submitit" value="true"/>';
   if(!empty($id)) {

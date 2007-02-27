@@ -82,8 +82,7 @@ function getLoginForm() {
           <input type="submit" value="'.lang('login').'" />
         </div>
       </form>
-    </p>
-';
+    </p>';
 
   return $returnValue;
 }
@@ -97,11 +96,11 @@ function getLoginHtml() {
   <p class="nomargin">
     '. lang('welcome') . ' <strong>' . lang('guest') . '</strong>
     <br />
-    '. pageLink('login', lang('login')) . '
+    <a href="'. ROOT_URL.'/index.php?page=login">'. lang('login') . '</a>
     |
-    '. pageLink('register', lang('register')) . '
+    <a href="'. ROOT_URL.'/index.php?page=register">'. lang('register') . '</a>
     |
-    '. pageLink('forgotpassword', lang('password_forgot')) . '
+    <a href="'. ROOT_URL.'/index.php?page=forgotpassword">'. lang('password_forgot') . '</a>
   </p>' . "\n";
 
   return $returnValue;
@@ -111,17 +110,22 @@ function getLoginHtml() {
  * Do 'NOT' use newlines in the sourcecode below!
  */
 function getLogoutHtml() {
-    $returnValue = '';
-    $returnValue .= lang('welcome').' <strong>'.getCurrentSafeUsername().'</strong><br />';
-    $returnValue .= pageLink('logout', lang('logout')) . '&nbsp;|&nbsp;';
-    $returnValue .= pageLink('changepassword', lang('password_modify'));
+    $returnValue = '
+      ' .lang('welcome').' <strong>'.getCurrentSafeUsername().'</strong>
+      <br />
+      <a href="'. ROOT_URL.'/index.php?page=logout">'. lang('logout') . '</a>
+      &nbsp;|&nbsp;
+      <a href="'. ROOT_URL.'/index.php?page=changepassword">'. lang('password_modify') . '</a>';
 
     //pageLink('changepassword', lang('menu_password_change'), 'm') . '&nbsp;&nbsp;|&nbsp;&nbsp;'.
     return $returnValue;
 }
 
 function getWrongLoginHtml() {
-  return lang('login_invalid') . '<br/>' . lang('click') . ' <a href="index.php">' . lang('here') . '</a> ' . lang('to_try_again');
+  return lang('login_invalid') . '
+     <br/>
+     ' . lang('click') . ' <a href="index.php">' . lang('here') . '</a>
+     ' . lang('to_try_again');
 }
 
 

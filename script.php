@@ -4,7 +4,7 @@ session_start();
 
 require_once('includes/helperfunctions.php');
 
-if (!isset($_GET['page'])) {
+if (!isset($_GET['page']) || empty($_GET['page'])) {
   $_GET['page'] = 'home';
 }
 
@@ -15,7 +15,7 @@ $pages = Database::getPages();
 $config = Database::getConfig();
 if ($pages == null || $config == null) {
   // We where unable to get the pages from the database, something is seriously wrong with the database
-  $_GET['page'] = 'errorpage';
+  $_GET['page']    = 'errorpage';
   $_GET['message'] = 'database';
 }
 
@@ -37,10 +37,6 @@ if (isset($_COOKIE['AUTOLOGIN'])) {
   }
 }
 
-
-if (empty(@$_GET['page'])) {
-  $_GET['page'] == 'home';
-}
 // Handle error page differently, because it might concern the disability to connect to the database
 if ($_GET['page'] == 'errorpage') {
   require_once('pages/errorpage.php');

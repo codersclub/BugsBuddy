@@ -5,19 +5,22 @@
 */
 
 function getbbtags() {
-  $returnValue = '';
-  $returnValue .= '<h1>' .lang('bbtags'). '</h1>';
+
+  $action = trim(@$_GET['action']);
+
+  $returnValue = '<h1>' .lang('bbtags'). '</h1>';
 
   if(isLoggedIn()) {
     $results     = Database::getPermissions(intval(getCurrentGroupId()));
-    $permissions   = Array();
+    $permissions = Array();
 
     foreach($results as $result) {
       $permissions[$result['setting']] = $result['value'];
     }
 
-    if (isset($permissions['mayview_admin_bbtags']) && $permissions['mayview_admin_bbtags'] == 'true') {
-      if (@$_GET['delete'] == 'true' || @$_GET['submitit'] == 'true') {
+//    if (isset($permissions['mayview_admin_bbtags']) && $permissions['mayview_admin_bbtags'] == 'true') {
+    if (@$permissions['mayview_admin_bbtags'] == 'true') {
+      if ($action=='delete' || /*$action=='edit' ||*/ $_SERVER['REQUEST_METHOD']=='POST') {
         $returnValue .= handleBbForm();
       } else {
         $returnValue .= getBbForm(true);
@@ -32,35 +35,29 @@ function getbbtags() {
   return $returnValue;
 }
 
-function getBbForm($recoverData) {
+function getBbForm($recoverData=false) {
+
+  $id     = intval($_GET['id']);
+  $action = trim(@$_GET['action']);
+
+  $bbTag   = '';
+  $htmlTag = '';
   $returnValue = '';
 
-  $id      = 0;
-  $bbTag     = '';
-  $htmlTag   = '';
-
-  if ($recoverData && isset($_GET['bbtag']) && isset($_GET['htmltag'])) {
-    $bbTag   = $_GET['bbtag'];
-    $htmlTag = $_GET['htmltag'];
+  if($recoverData) {
+//    $id      = intval($_POST['id']);
+    $bbTag   = isset($_POST['bbtag']) ? $_POST['bbtag'] : '';
+    $htmlTag = isset($_POST['htmltag']) ? $_POST['htmltag'] : '';
   }
 
   if(isset($_GET['id'])) {
-    $id = intval($_GET['id']);
+    $result  = Database::getBbTags(true, $id);
 
-    $result = Database::getBbTags(true, $id);
-
-    if(!empty($result)) {
-      foreach ($result as $row) {
-        $bbTag   = $row['bbcode'];
-        $htmlTag = $row['htmlcode'];
-      }
+    foreach ($result as $row) {
+      $bbTag   = $row['bbcode'];
+      $htmlTag = $row['htmlcode'];
     }
   }
-
-  $thisPage   = 'bbtags';
-  $currentUrl = getCurrentRequestUrl();
-  $currentUrl = explode('?', $currentUrl);
-  $currentUrl = $currentUrl[0];
 
   $result = Database::getBbTags(false, 0);
 
@@ -83,13 +80,13 @@ function getBbForm($recoverData) {
       }
 
       $returnValue .=   '<td>
-                           '.pageLink('bbtags&id='.$row['id'].'&edit=true', lang('edit')).'
+                           '.pageLink('bbtags&id='.$row['id'].'&action=edit', lang('edit')).'
                          </td>
                          <td>
-                           '.pageLink('bbtags&id='.$row['id'].'&delete=true', lang('delete')).'
+                           '.pageLink('bbtags&id='.$row['id'].'&action=delete', lang('delete')).'
                          </td>
-                         <td>'.$row['bbcode'].'</td>
-                         <td>'.$row['htmlcode'].'</td>
+                         <td>'.htmlspecialchars($row['bbcode']).'</td>
+                         <td>'.htmlspecialchars($row['htmlcode']).'</td>
                        </tr>';
 
       $i++;
@@ -101,17 +98,19 @@ function getBbForm($recoverData) {
                 </table>';
   }
 
+  $thisPage   = 'bbtags';
+  $currentUrl = getCurrentRequestUrl();
+  $currentUrl = explode('&amp;id=', $currentUrl);
+  $currentUrl = $currentUrl[0];
+
   //TODO:
   //  registerlabel: replaced by something more general, or a new
   //  registerinput: replaced by something more general, or a new
-  $returnValue .= '<table width="100%">
-            <tr>
-              <td>
-                <form action="'.$currentUrl.'" method="get">
-                  <input type="hidden" name="page" value="'.$thisPage.'"/>
-                  <input type="hidden" name="submitit" value="true"/>';
+  $returnValue .= '
+                <form action="'.$currentUrl.'" method="POST">
+                  <input type="hidden" name="page" value="'.$thisPage.'"/>';
 
-  if(!empty($id)) {
+  if($id) {
     $returnValue .= '<input type="hidden" name="id" value="'.$id.'"/>';
   }
 
@@ -127,38 +126,34 @@ function getBbForm($recoverData) {
                      <label for="verzenden" class="registerlabel">'. lang('send') .':</label>
                      <input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send'). '!"/>
                    </div>
-                 </form>
-               </td>
-             </tr>
-           </table>';
+                 </form>';
 
   return $returnValue;
 }
 
 function handleBbForm() {
-  $returnValue = '';
 
-  $id      = 0;
-  $bbTag   = '';
-  $htmlTag = '';
+  $id      = intval(@$_GET['id']);
+  $action  = trim(@$_GET['action']);
 
-  if(isset($_GET['id'])) {
-    $id = intval($_GET['id']);
-  }
+  $returnValue  = '';
+  $errorMessage = '';
+  $error        = false;
 
-  if(@$_GET['delete'] == 'true') {
-    if(!is_numeric($id)) {
+  if($action=='delete') {
+
+    if(!is_numeric($_GET['id'])) {
       $error = true;
     }
 
     Database::delBbTag($id);
-  } else {
-    $errorMessage   = '';
-    $error       = false;
 
-    if (isset($_GET['bbtag']) && isset($_GET['htmltag'])) {
-      $bbTag    = $_GET['bbtag'];
-      $htmlTag  = $_GET['htmltag'];
+  } else { // Edit
+
+    if($_SERVER['REQUEST_METHOD']=='POST') {
+      $id      = intval($_POST['id']);
+      $bbTag   = isset($_POST['bbtag']) ? trim($_POST['bbtag']) : '';
+      $htmlTag = isset($_POST['htmltag']) ? trim($_POST['htmltag']) : '';
     }
 
     if(!is_numeric($id) || empty($bbTag) || empty($htmlTag)) {
@@ -178,6 +173,3 @@ function handleBbForm() {
 
   return getBbForm(false);
 }
-
-
-

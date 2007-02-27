@@ -4,7 +4,7 @@
   View and edit users
 */
 function getusers() {
-  if (@$_GET['delete'] == 'true' || @$_GET['submitit'] == 'true') {
+  if (@$_GET['action'] == 'delete' || $_SERVER['REQUEST_METHOD'] == 'POST') {
     $returnValue = handleForm();
   } else {
     $returnValue = outputForm(true);
@@ -16,7 +16,7 @@ function outputForm($recoverData) {
   $returnValue = '';
   $returnValue .= '<h1>'.lang('users').'</h1>';
   $returnValue .= '<div class="right">
-                     '.pageLink('page=register', lang('user_add')) .'
+                     '.pageLink('register', lang('user_add')) .'
                    </div>';
 
   $result = Database::getAllUsers();
@@ -60,10 +60,11 @@ echo '</pre>';
   $name    = '';
   $email   = '';
   $description  = '';
-  if ($recoverData && isset($_GET['groupid']) && isset($_GET['name']) && isset($_GET['email']) && isset($_GET['description'])) {
-    $groupId = intval($_GET['groupid']);
-    $name    = $_GET['name'];
-    $email   = $_GET['email'];
+
+  if ($recoverData && isset($_POST['groupid']) && isset($_POST['name']) && isset($_POST['email']) && isset($_POST['description'])) {
+    $groupId = intval($_POST['groupid']);
+    $name    = $_POST['name'];
+    $email   = $_POST['email'];
   }
 
   if(isset($_GET['id'])) {
@@ -80,16 +81,15 @@ echo '</pre>';
     }
   }
 
-  if (isset($_GET['id']) && !isset($_GET['submitit'])) {
+  if (isset($_GET['id']) && $_SERVER['REQUEST_METHOD']=='GET') {
     $thisPage   = 'users';
     $currentUrl = getCurrentRequestUrl();
-    $currentUrl = explode('?', $currentUrl);
+    $currentUrl = explode('&amp;id=', $currentUrl);
     $currentUrl = $currentUrl[0];
     $returnValue .= '
-                  <form action="'.$currentUrl.'" method="get">
+                  <form action="'.$currentUrl.'" method="POST">
                     <input type="hidden" name="submitit" value="true"/>
-                    <input type="hidden" name="page" value="'.$thisPage.'"/>
-                    <input type="hidden" name="submitit" value="true"/>';
+                    <input type="hidden" name="page" value="'.$thisPage.'"/>';
     if(!empty($id)) {
       $returnValue .= '<input type="hidden" name="id" value="'.$id.'"/>';
     }
@@ -102,12 +102,14 @@ echo '</pre>';
                        <label for="email" class="registerlabel">'. lang('email'). ':</label>
                        <input type="text" class="" id="email" name="email" size="40" value="'.$email.'"/>
                      </div>';
+
     if (getCurrentGroupId() == 3) {
       $returnValue .= '<div class="registerinput">
                          <label for="groupid" class="registerlabel">' . lang('group') . ':</label>
                          <select class="" id="groupid" name="groupid">'.getGroups($groupId).'</select>
                        </div>';
     }
+
     $returnValue .=  '<div class="registerinput">
                         <label for="verzenden" class="registerlabel">'. lang('send') .':</label>
                         <input class="" id="verzenden" name="verzenden" type="submit" value="'. lang('send') .'!"/>
@@ -120,25 +122,24 @@ echo '</pre>';
 
 function handleForm() {
   // Delete
-  if (isset($_GET['delete']) && $_GET['delete']=='true' && isset($_GET['id'])) {
-    $id=intval($_GET['id']);
+  if (@$_GET['delete']=='true' && isset($_GET['id'])) {
+
     if (getCurrentGroupId() == 3) {
       Database::deleteUserById(intval($_GET['id']));
     }
 
   // Edit
-  } elseif (isset($_GET['name']) && isset($_GET['email']) && isset($_GET['groupid']) && isset($_GET['id'])) {
-    $name    = $_GET['name'];
-    $email   = $_GET['email'];
-    $groupid = intval($_GET['groupid']);
-    $id      = intval($_GET['id']);
+  } elseif (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['groupid']) && isset($_POST['id'])) {
+    $name    = $_POST['name'];
+    $email   = $_POST['email'];
+    $groupid = intval($_POST['groupid']);
+    $id      = intval($_POST['id']);
 
     Database::updateUser($id, $name, $email, ((getCurrentGroupId()!=3)?null:$groupid));
 
   } else {
-  }
+ }
   return outputForm(false);
-
 }
 
 function getGroups($groupId) {

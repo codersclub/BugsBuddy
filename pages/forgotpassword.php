@@ -7,8 +7,8 @@
 require_once(ROOT_DIR.'/includes/Mail.php');
 
 function getforgotpassword() {
-  if (isset($_GET['email'])) {
-    $email = strtolower(htmlUnsafe($_GET['email']));
+  if (isset($_POST['email'])) {
+    $email = strtolower(htmlUnsafe($_POST['email']));
     return handleForgotPassword($email);
   } else {
     return getForgotPasswordForm();
@@ -19,26 +19,26 @@ function getforgotpassword() {
 function getForgotPasswordForm() {
 
   $returnValue = '
-  <h1>'.lang('password_forgot').'</h1>
-  <div class="info">'.lang('password_forgot_info').'</div>
-  <form action="index.php" method="get">
-    <div>
-      <input type="hidden" name="page" value="forgotpassword" />
-    </div>
-    <div class="forgotpasswordlabel">
-      <label style="width: 100;" for="email">'.lang('email').':</label>
-    </div>
-    <div class="forgotpasswordinput">
-      <input class="forgotpasswordinputcontent" type="text" id="email" name="email" value="" />
-    </div>
-    <div class="registerlabel">
-      <label for="submit">'.lang('password_reset').':</label>
-    </div>
-    <div class="registerinput">
-      <input class="registerinputcontent" id="submit" type="submit" value="'.lang('send_mail').'" />
-    </div>
-  </form>
-';
+    <h1>'.lang('password_forgot').'</h1>
+    <div class="info">'.lang('password_forgot_info').'</div>
+    <form action="index.php" method="POST" id="ForgotPasswordForm">
+      <div>
+        <input type="hidden" name="page" value="forgotpassword" />
+      </div>
+      <div class="forgotpasswordlabel">
+        <label style="width: 100;" for="email">'.lang('email').':</label>
+      </div>
+      <div class="forgotpasswordinput">
+        <input class="forgotpasswordinputcontent" type="text" id="email" name="email" value="" />
+      </div>
+      <div class="registerlabel">
+        <label for="submit">'.lang('password_reset').':</label>
+      </div>
+      <div class="registerinput">
+        <input class="registerinputcontent" id="submit" type="submit" value="'.lang('send_mail').'" />
+      </div>
+    </form>';
+
   return $returnValue;
 
 }
