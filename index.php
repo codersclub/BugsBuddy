@@ -161,9 +161,9 @@ if (defined('LOGIN_FAILED') && LOGIN_FAILED) {
   echo getWrongLoginHtml();
 } else {
   if (!isLoggedIn()) {
-    echo getLoginHtml(); 
+    echo getLoginHtml();
   } else {
-    echo getLogoutHtml(); 
+    echo getLogoutHtml();
   }
 }
 ?>

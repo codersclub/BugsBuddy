@@ -131,7 +131,7 @@ a:hover {
 	text-align: center;
 	color: #ffffff;
 	background-color: #377dec;
-	
+
 }
 
 #login {
@@ -248,7 +248,7 @@ a:hover {
 	background-color: inherit;
 */
 }
-	
+
 .registerinput{
 	position:relative;
 	padding: 2px;
@@ -265,7 +265,7 @@ a:hover {
 .pwdStrength {
 	display: inline-block;
 	padding: 0px;
-	width: 100px; 
+	width: 100px;
 	height: 8px;
 	border: 1px solid;
 	color: #000000;
@@ -274,7 +274,7 @@ a:hover {
 }
 
 .pwdBeamGreen {
-	width: 0px; 
+	width: 0px;
 	height: 8px;
 	color: #000000;
 	background-color: green;

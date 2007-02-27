@@ -58,7 +58,7 @@ function project($id=0) {
 
         $versions = Database::getVersions($id);
 
-        if (count($versions) > 0) {        
+        if (count($versions) > 0) {
           $ret .= '<div class="registerinput">
                      <label class="registerlabel">'. lang('version') .':</label>
                      ';
@@ -66,7 +66,7 @@ function project($id=0) {
           foreach ($versions as $row) {
             $ret .= '<span class="version">' . $row['version'] . '</span>';
           }
-                 
+
           $ret .= '</div>';
         } else {
           $ret .= '<p><i>' . lang('versions_not_found') . '</i></p>';
@@ -82,7 +82,7 @@ function project($id=0) {
           }
 
           $users = Database::getNormalUserList();
-          
+
           if (count($users) > 0) {
             $ret .= '
                 <input type="hidden" name="act" value="users" />
@@ -92,7 +92,7 @@ function project($id=0) {
                     <th>'. lang('email'). '</th>
                     <th>' . lang('access') . '</th>
                   </tr>';
-            
+
             $i = 0;
             foreach ($users as $row) {
               if ($i % 2 != 0) {
@@ -110,7 +110,7 @@ function project($id=0) {
 
               $i++;
             }
-            
+
             $ret .= '<tr>
                        <td colspan="3" class="right"><input type="submit" value="' . lang('edit') . '" /></td>
                      </tr>
@@ -122,14 +122,14 @@ function project($id=0) {
           $ret .= '<h1>' . lang('users_linked') . '</h1>';
 
           $users = Database::getUsersFromProject($id);
-          
+
           if (count($users) > 0) {
             $ret .= '<table>
                   <tr>
                     <th>'. lang('name'). '</th>
                     <th>'. lang('email'). '</th>
                   </tr>';
-            
+
             $i = 0;
             foreach ($users as $row) {
               if ($i % 2 != 0) {
@@ -144,7 +144,7 @@ function project($id=0) {
 
               $i++;
             }
-            
+
             $ret .= '</table>';
           } else {
             $ret .= '<p><i>' . lang('users_no_linked') . '</i></p>';
@@ -206,7 +206,7 @@ function projectEdit($id=0) {
                    </div>
                    <p><span class="graytext">'. lang('required_fields') .'</span></p>
                  </form>';
-        
+
         $ret .= '<h1>' . lang('versions_delete') . '</h1>';
 
         if (!empty($msg4)) {
@@ -215,7 +215,7 @@ function projectEdit($id=0) {
 
         $versions = Database::getVersions($id);
 
-        if (count($versions) > 0) {        
+        if (count($versions) > 0) {
           $ret .= '<form action="index.php?page=project&id=' . $id . '&act=versionDelete" method="post">
                      <div class="registerinput">
                        <label class="registerlabel" for="name">'. lang('version') .':</label>
@@ -224,7 +224,7 @@ function projectEdit($id=0) {
           foreach ($versions as $row) {
             $ret .= '<option value="' . $row['id'] . '">' . $row['version'] . '</option>';
           }
-                 
+
           $ret .= '</select>
                      </div>
                      <div class="registerinput">
@@ -244,7 +244,7 @@ function projectEdit($id=0) {
           }
 
           $users = Database::getNormalUserList();
-          
+
           if (count($users) > 0) {
             $ret .= '<form action="index.php?page=project&id=' . $id . '&act=edit" method="post" name="users">
                 <input type="hidden" name="act" value="users" />
@@ -254,7 +254,7 @@ function projectEdit($id=0) {
                       <th style="width: 200px;">'. lang('email'). '</th>
                       <th style="width: 50px;">' . lang('access') . '</th>
                     </tr>';
-            
+
             $i = 0;
             foreach ($users as $row) {
               if ($i % 2 != 0) {
@@ -271,7 +271,7 @@ function projectEdit($id=0) {
 
               $i++;
             }
-            
+
             $ret .= '<tr>
                        <td colspan="3" class="right"><input type="submit" value="' . lang('edit') . '" /></td>
                      </tr>
@@ -284,14 +284,14 @@ function projectEdit($id=0) {
           $ret .= '<h1>' . lang('users_linked') . '</h1>';
 
           $users = Database::getUsersFromProject($id);
-          
+
           if (count($users) > 0) {
             $ret .= '<table>
                   <tr>
                     <th style="width: 200px;">'. lang('name'). '</th>
                     <th style="width: 200px;">'. lang('email'). '</th>
                   </tr>';
-            
+
             $i = 0;
             foreach ($users as $row) {
               if ($i % 2 != 0) {
@@ -306,7 +306,7 @@ function projectEdit($id=0) {
 
               $i++;
             }
-            
+
             $ret .= '</table>';
           } else {
             $ret .= '<p><i>' . lang('users_no_linked') . '</p></i>';
@@ -349,7 +349,7 @@ function projectList() {
       $status = ($row['projectstatus_id'] == 1) ? lang('public') : lang('private');
 
       $bugs = Database::getCountWithProjectID($row['id']);
-              
+
       if (isset($permissions['mayview_admin_project']) && $permissions['mayview_admin_project'] == 'true') {
         $edit_link = pageLink('project&id=' . $row['id'] . '&act=edit', '<img src="../images/edit.png" alt="' . lang('edit') . '" title="' . lang('edit') . '" />');
         $del_link  = pageLink('project&id=' . $row['id'] . '&act=delete', '<img src="../images/delete.png" alt="' . lang('delete') . '" title="' . lang('delete') . '" />');

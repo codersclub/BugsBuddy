@@ -50,25 +50,23 @@ function getbugcategory() {
     } else {
       //return lang('admin_statuses');
 
-      
-      
       $returnValue .= '<form action="index.php?page=bugcategory" id="add" method="post">';
       $returnValue .= '<div>' . lang('category_add') . ': <input type="text" name="bugaddname" />';
       $returnValue .= '&nbsp;<input type="submit" value="' . lang('add') . '" /></div>';
       $returnValue .= '</form>';
-      
+
       $returnValue .= '<form id="delete" method="post" action="index.php?&page=bugcategory">';
       $returnValue .= '<div>' . lang('category_delete') . ': <input type="hidden" name="page" value="bugcategory" />';
       $returnValue .= '<select name="delthis">';
-      
-      $getbugs = Database::getBugCategory();    
+
+      $getbugs = Database::getBugCategory();
       if(!empty($getbugs)) {
         foreach  ($getbugs as $bugstatus) {
           $returnValue .= '<option value="' . $bugstatus['id'] . '">' . $bugstatus['category'] . '</option>';
         }
       } else {
         $returnValue .= '<option value="0"></option>';
-      }          
+      }
 
       $returnValue .= '</select>';
       $returnValue .= '&nbsp;<input type="submit" value="' . lang('delete') . '" /></div>';

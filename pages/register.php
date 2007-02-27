@@ -12,7 +12,7 @@ function getregister() {
     $password = htmlUnsafe($_POST['password']);
     $email    = strtolower(htmlUnsafe($_POST['email']));
     $groupid  = intval(@$_POST['groupid']);
-    
+
 //DEBUG
 //echo '<pre>';
 //echo 'getRegister', "\n";
@@ -108,7 +108,7 @@ function handleRegistry($name, $password, $email, $groupid=0) {
   }
   if (!isValidEmailAddress($email)) {
     $errorMessage .= lang('email_error');
-    $error = true;    
+    $error = true;
   }
   if (count(Database::getUserByName($name)) != 0) {
     $errorMessage .= lang('name_exists');

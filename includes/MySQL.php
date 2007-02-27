@@ -36,7 +36,7 @@ class MySQL {
     }
     $this->connected = true;
   }
-  
+
   /*
    * Returns the only instance of the MySQL object. If the object does not yet exists, a new one will
    * be created
@@ -58,7 +58,7 @@ class MySQL {
       return;
     }
   }
-  
+
   /*
    * Returns the only instance of the MySQL object. If the object does not yet exists, a new one will
    * be created
@@ -74,7 +74,7 @@ class MySQL {
     }
     return $MySQLInstance;
   }
-  
+
   /*
    * Executes a query and returns an Array with the result. If there was an error while executing the
    * query, the value 'null' is returned
@@ -101,7 +101,7 @@ class MySQL {
       return $returnValue;
     }
   }
-  
+
   /*
    * Static function that closes the mySQL connection if is is still open
    */
@@ -111,7 +111,7 @@ class MySQL {
       @mysql_close($MySQLInstance->databaseConnection);
       $MySQLInstance->databaseConnection = null;
       $MySQLInstance->connected = false;
-      
+
     }
   }
 

@@ -8,7 +8,7 @@
 
 function geteditconfig() {
   $msg = '';
-  
+
   if (!empty($_POST)) {
     Database::updateConfig($_POST['email'], $_POST['from']);
 
@@ -16,11 +16,11 @@ function geteditconfig() {
   }
 
   $ret = '<h1>' . lang('config_edit') . '</h1>';
-  
+
   if (!empty($msg)) {
     $ret .= '<p><span class="error">' . $msg . '</span></p>';
   }
-  
+
   $config = Database::getAllConfig();
 
   foreach ($config as $row) {
@@ -47,7 +47,7 @@ function geteditconfig() {
              </div>
            </form>';
 
-  return $ret;  
+  return $ret;
 }
 
 

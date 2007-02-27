@@ -60,9 +60,9 @@ if (defined('LOGIN_FAILED') && LOGIN_FAILED) {
   echo getWrongLoginHtml();
 } else {
   if (!isLoggedIn()) {
-    echo getLoginHtml(); 
+    echo getLoginHtml();
   } else {
-    echo getLogoutHtml(); 
+    echo getLogoutHtml();
   }
 }
 ?>
@@ -84,31 +84,31 @@ if (defined('LOGIN_FAILED') && LOGIN_FAILED) {
       require_once('./admin/bbtags.php');
       echo getbbtags();
     } else if ($_GET['page']=='bugpriority' && isset($permissions['mayview_admin_bugpriority']) && $permissions['mayview_admin_bugpriority'] == 'true') {
-      require_once('./admin/bugpriority.php');    
+      require_once('./admin/bugpriority.php');
       echo getbugpriority();
     } else if ($_GET['page']=='bugstatus' && isset($permissions['mayview_admin_bugstatus']) && $permissions['mayview_admin_bugstatus'] == 'true') {
-      require_once('./admin/bugstatus.php');    
+      require_once('./admin/bugstatus.php');
       echo getbugstatus();
     } else if ($_GET['page']=='editconfig' && isset($permissions['mayview_admin_editconfig']) && $permissions['mayview_admin_editconfig'] == 'true') {
-      require_once('./admin/editconfig.php');    
+      require_once('./admin/editconfig.php');
       echo geteditconfig();
     } else if ($_GET['page']=='permissions' && isset($permissions['mayview_admin_permissions']) && $permissions['mayview_admin_permissions'] == 'true') {
-      require_once('./admin/permissions.php');    
+      require_once('./admin/permissions.php');
       echo getpermissions();
     } else if ($_GET['page']=='project' && isset($permissions['mayview_admin_project']) && $permissions['mayview_admin_project'] == 'true') {
-      require_once('./admin/project.php');    
+      require_once('./admin/project.php');
       echo getproject();
     } else if ($_GET['page']=='users' && isset($permissions['mayview_admin_users']) && $permissions['mayview_admin_users'] == 'true') {
-      require_once('./admin/users.php');    
+      require_once('./admin/users.php');
       echo getusers();
     } else if ($_GET['page']=='projectstatus' && isset($permissions['mayview_admin_projectstatus']) && $permissions['mayview_admin_projectstatus'] == 'true') {
-      require_once('./admin/projectstatus.php');    
+      require_once('./admin/projectstatus.php');
       echo getprojectstatus();
     } else if($_GET['page']=='bugcategory' && isset($permissions['mayview_admin_categories']) && $permissions['mayview_admin_categories'] == 'true') {
       require_once('./admin/bugcategory.php');
       echo getbugcategory();
     } else if ($_GET['page']=='register' && isset($permissions['mayview_admin_register']) && $permissions['mayview_admin_register'] == 'true') {
-      require_once('./admin/register.php');    
+      require_once('./admin/register.php');
       echo getregister();
     } else {
       echo lang('page_no_permission');

@@ -28,7 +28,7 @@ $msg2 = '';
 $install_complete = false;
 
 if (!empty($_POST)) {
-  $file = ROOT_DIR.'/includes/config.php'; 
+  $file = ROOT_DIR.'/includes/config.php';
   $_POST['email']=html_entity_decode($_POST['email']);
 
 //DEBUG
@@ -52,11 +52,11 @@ if (!empty($_POST)) {
                     define('DATABASE_USER_PASSWORD', '$_POST[dpassword]');\n
                     define('DATABASE_DATABASENAME' , '$_POST[ddatabase]');\n
                     define('LANG',                   'en');\n
-                    \n";  
+                    \n";
 
               if ($file_handle = fopen($file, 'a')) {
                 if (fwrite($file_handle, $data)) {
-                    
+
                   if (Database::install($_POST['ddatabase'], $_POST['aname'], $_POST['email'], passwordHash2($_POST['apassword']))) {
                     $install_complete = true;
                   }
@@ -66,7 +66,7 @@ if (!empty($_POST)) {
               } else {
                 $msg = lang('config_open_error');
               }
-              
+
               fclose($file_handle);
             } else {
               $msg = lang('config_exists');
@@ -105,7 +105,7 @@ if (!empty($_POST)) {
 
     <div id="content">
       <h1><?=lang('bugsbuddy_install')?></h1>
-      
+
 <?php
       if (!empty($msg)) {
         echo '<p><span class="error">' . $msg . '</span></p>';
@@ -128,7 +128,7 @@ if (!empty($_POST)) {
               <option value="MySQL">MySQL 4.x/5.x</option>
             </select>
           </div>
-          
+
           <div class="registerlabel">
             <label for="dhost"><?=lang('database_host')?>:</label>
           </div>
@@ -156,10 +156,10 @@ if (!empty($_POST)) {
           <div class="registerinput">
             <input  type="password" id="ppassword" name="dpassword" />
           </div>
-          
+
           <h3><?=lang('admin_settings')?></h3>
-          
-<?php
+
+<?
           if (!empty($msg2)) {
             echo '<p><span class="error">' . $msg2 . '</span></p>';
           }

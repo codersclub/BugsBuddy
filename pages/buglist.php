@@ -6,7 +6,7 @@ function getbuglist() {
   $bugcount = intval($bugcount[0]['count(b.id)'])-1;
   //if ($bugcount <= 0) $bugcount = 1;
   $totalPages = ceil(($bugcount+1) / $maximum);
-  
+
   $page      = isset($_GET['page']) ? $_GET['page'] : 'buglist';
   $projectid = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
@@ -32,9 +32,9 @@ function getbuglist() {
   if (!isset($_GET['buglistpage'])) {
     $_GET['buglistpage'] = 1;
   }
-  
+
   $page = intval($_GET['buglistpage']);
-  
+
   $result = Database::getBugAll($projectid, getCurrentUserId(), ($page-1)*$maximum, $maximum, $_GET['sort'], $_GET['order']);
 
   $returnValue = '<h1>' . lang('bugs_total', $bugcount+1) . '</h1>';
@@ -88,7 +88,7 @@ function getbuglist() {
                 '<th style="width: 140px;">'.pageLink('buglist&buglistpage=1&sort=projectversion&order=asc', lang('project_version')).'</th>' .
               '</tr>';
     $i = 1;
-    
+
     foreach ($result as $row) {
       if ($i % 2 == 0) {
         $returnValue .= '<tr class="gray">';
@@ -103,14 +103,14 @@ function getbuglist() {
               '<td>' . timestamp2date($row['submitdate']) . '</td>' .
               '<td>' . $row['status'] . '</td>' .
               '<td>' . $row['projectname'] . ' ' . $row['projectversion'] . '</td>' .
-              '</tr>';      
+              '</tr>';
       $i++;
     }
-    
-    $returnValue .= '</table>';    
+
+    $returnValue .= '</table>';
 
   }
-  
+
   return $returnValue;
 }
 

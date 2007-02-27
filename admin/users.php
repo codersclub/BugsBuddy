@@ -7,7 +7,7 @@ function getusers() {
   if (@$_GET['delete'] == 'true' || @$_GET['submitit'] == 'true') {
     $returnValue = handleForm();
   } else {
-    $returnValue = outputForm(true); 
+    $returnValue = outputForm(true);
   }
   return $returnValue;
 }
@@ -35,13 +35,13 @@ echo '</pre>';
                 <th>'. lang('email'). '</th>
                 <th>' . lang('group') . '</th>
               </tr>';
-    $i = 1;              
+    $i = 1;
     foreach ($result as $row) {
       if ($i % 2 == 0) {
         $returnValue .= '<tr class="gray">';
       } else {
         $returnValue .= '<tr>';
-      }      
+      }
       $returnValue .=   '<td>'.pageLink('users&id='.$row['id'], lang('edit')) . '</td>
                 <td>'.pageLink('users&id='.$row['id'].'&delete=true', lang('delete')) . '</td>
                 <td>'.htmlSafe($row['name']).'</td><td>'.htmlSafe($row['email']).'</td>
@@ -54,7 +54,7 @@ echo '</pre>';
               </tr>
             </table>';
   }
-  
+
   $id      = 0;
   $groupId = 0;
   $name    = '';
@@ -65,12 +65,12 @@ echo '</pre>';
     $name    = $_GET['name'];
     $email   = $_GET['email'];
   }
-  
+
   if(isset($_GET['id'])) {
     $id = intval($_GET['id']);
-    
+
     $result = Database::getUserById($id);
-    
+
     if(!empty($result)) {
       foreach ($result as $row) {
         $groupId = $row['group_id'];
@@ -93,7 +93,7 @@ echo '</pre>';
     if(!empty($id)) {
       $returnValue .= '<input type="hidden" name="id" value="'.$id.'"/>';
     }
-                  
+
     $returnValue .=  '<div class="registerinput">
                        <label for="name" class="registerlabel">'. lang('name'). ':</label>
                        <input type="text" class="" id="name" name="name" size="40" value="'.$name.'"/>
@@ -114,7 +114,7 @@ echo '</pre>';
                       </div>
                     </form>';
   }
-  
+
   return $returnValue;
 }
 
@@ -134,18 +134,18 @@ function handleForm() {
     $id      = intval($_GET['id']);
 
     Database::updateUser($id, $name, $email, ((getCurrentGroupId()!=3)?null:$groupid));
-  
+
   } else {
   }
   return outputForm(false);
-  
+
 }
 
 function getGroups($groupId) {
   $returnValue = '';
-  
+
   $result = Database::getGroups();
-        
+
   if (!empty($result)) {
     foreach ($result as $row) {
       if ($row['id'] == $groupId) {
@@ -154,8 +154,7 @@ function getGroups($groupId) {
         $returnValue .= '<option value="'.$row['id'].'">'.htmlSafe($row['name']).'</option>';
       }
     }
-  }  
-  
+  }
+
   return $returnValue;
 }
-

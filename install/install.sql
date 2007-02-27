@@ -1,20 +1,20 @@
 -- phpMyAdmin SQL Dump
 -- version 2.8.0.3
 -- http://www.phpmyadmin.net
--- 
+--
 -- Host: localhost:21212
 -- Generation Time: Jun 26, 2006 at 03:16 PM
 -- Server version: 5.0.21
 -- PHP Version: 5.1.4
--- 
+--
 -- Database: `bugsbuddy`
--- 
+--
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `bbtags`
--- 
+--
 
 CREATE TABLE `bbtags` (
   `id` int(11) NOT NULL auto_increment,
@@ -23,16 +23,16 @@ CREATE TABLE `bbtags` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `bbtags`
--- 
+--
 
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `bugcategory`
--- 
+--
 
 CREATE TABLE `bugcategory` (
   `id` int(11) NOT NULL auto_increment,
@@ -40,16 +40,16 @@ CREATE TABLE `bugcategory` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `bugcategory`
--- 
+--
 
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `bugpriority`
--- 
+--
 
 CREATE TABLE `bugpriority` (
   `id` int(11) NOT NULL auto_increment,
@@ -57,17 +57,17 @@ CREATE TABLE `bugpriority` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `bugpriority`
--- 
+--
 
 INSERT INTO `bugpriority` (`id`, `name`) VALUES (1, 'default');
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `bugs`
--- 
+--
 
 CREATE TABLE `bugs` (
   `id` int(11) NOT NULL auto_increment,
@@ -84,16 +84,16 @@ CREATE TABLE `bugs` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `bugs`
--- 
+--
 
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `bugstatus`
--- 
+--
 
 CREATE TABLE `bugstatus` (
   `id` int(11) NOT NULL auto_increment,
@@ -101,17 +101,17 @@ CREATE TABLE `bugstatus` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `bugstatus`
--- 
+--
 
 INSERT INTO `bugstatus` (`id`, `name`) VALUES (1, 'default');
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `config`
--- 
+--
 
 CREATE TABLE `config` (
   `id` int(11) NOT NULL auto_increment,
@@ -120,9 +120,9 @@ CREATE TABLE `config` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `config`
--- 
+--
 
 INSERT INTO `config` (`id`, `setting`, `value`) VALUES
 (1, 'mailfrom', 'Bug&#32;Tracker&#32;&#60;bugtracker&#64;example&#46;com&#62;'),
@@ -130,9 +130,9 @@ INSERT INTO `config` (`id`, `setting`, `value`) VALUES
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `message`
--- 
+--
 
 CREATE TABLE `message` (
   `id` int(11) NOT NULL auto_increment,
@@ -143,16 +143,16 @@ CREATE TABLE `message` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `message`
--- 
+--
 
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `pages`
--- 
+--
 
 CREATE TABLE `pages` (
   `id` int(11) NOT NULL auto_increment,
@@ -160,9 +160,9 @@ CREATE TABLE `pages` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `pages`
--- 
+--
 
 INSERT INTO `pages` (`id`, `page`) VALUES
 (1, 'buglist'),
@@ -181,9 +181,9 @@ INSERT INTO `pages` (`id`, `page`) VALUES
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `permissions`
--- 
+--
 
 CREATE TABLE `permissions` (
   `id` int(11) NOT NULL auto_increment,
@@ -194,9 +194,9 @@ CREATE TABLE `permissions` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `permissions`
--- 
+--
 
 INSERT INTO `permissions` (`id`, `level_id`, `setting`, `value`, `description`) VALUES
 (1, 3, 'mayview_admin', 'true', 'This user group can view the admin page'),
@@ -213,9 +213,9 @@ INSERT INTO `permissions` (`id`, `level_id`, `setting`, `value`, `description`) 
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `project`
--- 
+--
 
 CREATE TABLE `project` (
   `id` int(11) NOT NULL auto_increment,
@@ -224,16 +224,16 @@ CREATE TABLE `project` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `project`
--- 
+--
 
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `projectstatus`
--- 
+--
 
 CREATE TABLE `projectstatus` (
   `id` int(11) NOT NULL auto_increment,
@@ -242,9 +242,9 @@ CREATE TABLE `projectstatus` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `projectstatus`
--- 
+--
 
 INSERT INTO `projectstatus` (`id`, `name`) VALUES
 (1, 'public'),
@@ -252,25 +252,25 @@ INSERT INTO `projectstatus` (`id`, `name`) VALUES
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `projectusers`
--- 
+--
 
 CREATE TABLE `projectusers` (
   `project_id` int(11) NOT NULL default '0',
   `user_id` int(11) NOT NULL default '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `projectusers`
--- 
+--
 
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `projectversion`
--- 
+--
 
 CREATE TABLE `projectversion` (
   `id` int(11) NOT NULL auto_increment,
@@ -280,16 +280,16 @@ CREATE TABLE `projectversion` (
   KEY `project_id` (`project_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `projectversion`
--- 
+--
 
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `usergroups`
--- 
+--
 
 CREATE TABLE `usergroups` (
   `id` int(11) NOT NULL auto_increment,
@@ -297,9 +297,9 @@ CREATE TABLE `usergroups` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `usergroups`
--- 
+--
 
 INSERT INTO `usergroups` (`id`, `name`) VALUES
 (1, 'User'),
@@ -309,9 +309,9 @@ INSERT INTO `usergroups` (`id`, `name`) VALUES
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `users`
--- 
+--
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL auto_increment,
@@ -324,7 +324,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
+--
 -- Dumping data for table `users`
--- 
+--
 

@@ -55,17 +55,17 @@ function getbugstatus() {
     } else {
       //return "Admin Bug Status Page";
 
-      
-      
+
+
       $returnValue .= '<form action="index.php?page=bugstatus" id="add" method="post">';
       $returnValue .= '<div>' . lang('status_add') . ': <input type="text" name="bugaddname" />';
       $returnValue .= '&nbsp;<input type="submit" value="' . lang('add') . '"/></div>';
       $returnValue .= '</form>';
-      
+
       $returnValue .= '<form id="delete" method="post" action="index.php?page=bugstatus">';
       $returnValue .= '<div>' . lang('status_delete') . ': <input type="hidden" name="page" value="bugstatus" />';
       $returnValue .= '<select name="delthis">';
-          
+
       $getbugs = Database::getbugstatus();
       if(!empty($getbugs)) {
         foreach  ($getbugs as $bugstatus) {

@@ -13,7 +13,7 @@ function getforgotpassword() {
   } else {
     return getForgotPasswordForm();
   }
-  
+
 }
 
 function getForgotPasswordForm() {

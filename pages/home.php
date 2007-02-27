@@ -12,7 +12,7 @@ function gethome() {
 
   $returnValue = '<h1>'.lang('last_10_bugs').'</h1>';
   $result = Database::getBugList(10);
-  
+
   if (empty($result)) {
     $returnValue .= '<p><i>'.lang('bugs_no').'</i></p>';
   } else {
@@ -25,26 +25,26 @@ function gethome() {
                 '<th>'.lang('project_version').'</th>' .
               '</tr>';
     $i = 1;
-    
+
     foreach ($result as $row) {
       if ($i % 2 == 0) {
         $returnValue .= '<tr class="gray">';
       } else {
         $returnValue .= '<tr>';
       }
-      
+
       $returnValue .= '<td>'.pageLink('viewbug&id='.$row['id'], $row['title']).'</td>' .
                 '<td>' . $row['username'] . '</td>' .
                 '<td>' . timestamp2date($row['submitdate']) . '</td>' .
                 '<td>' . $row['status'] . '</td>'.
                 '<td>' . $row['projectname'] . ' ' . $row['projectversion'] . '</td>'.
-              '</tr>';      
+              '</tr>';
       $i++;
     }
-    
-    $returnValue .= '</table>';    
+
+    $returnValue .= '</table>';
   }
-  
+
   return $returnValue;
 }
 

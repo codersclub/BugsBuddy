@@ -1,4 +1,4 @@
-<?
+<?php
 /*
  * Make every 'Post', 'Get' and 'Cookie' value html safe.
  * Be warned: $_SESSION does not becomes htmlsafe

@@ -18,9 +18,9 @@ function getbuglist() {
   if (!isset($_GET['buglistpage'])) {
     $_GET['buglistpage'] = 1;
   }
-  
+
   $page = intval($_GET['buglistpage']);
-  
+
   $result = Database::getBugAll(($page-1)*$maximum, $maximum);
 
 
@@ -63,25 +63,25 @@ function getbuglist() {
                 '<th style="width: 140px;">'. lang('status') .'</th>' .
               '</tr>';
     $i = 1;
-    
+
     foreach ($result as $row) {
       if ($i % 2 == 0) {
         $returnValue .= '<tr class="gray">';
       } else {
         $returnValue .= '<tr>';
       }
-      
+
       $returnValue .= '<td><a href="index.php?p=bugs&id=' . $row['id'] . '">' . $row['title'] . '</a></td>' .
               '<td>' . $row['username'] . '</td>' .
               '<td>' . timestamp2date($row['submitdate']) . '</td>' .
-              '<td>' . $row['status'] . '</td></tr>';      
+              '<td>' . $row['status'] . '</td></tr>';
       $i++;
     }
-    
-    $returnValue .= '</table>';    
+
+    $returnValue .= '</table>';
 
   }
-  
+
   return $returnValue;
 }
 

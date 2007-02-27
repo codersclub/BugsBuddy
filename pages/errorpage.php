@@ -5,7 +5,7 @@
  * Version:     1.0
  * Description: display an error message
  */
- 
+
 function geterrorpage() {
 
   if (isset($_GET['message'])) {

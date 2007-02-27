@@ -21,7 +21,7 @@ function showAdminPages($permissions) {
     }
     if (isset($permissions['mayview_admin_categories']) && $permissions['mayview_admin_categories'] == 'true') {
       echo '&nbsp;|&nbsp;'.pageLink('bugcategory', lang('menu_category'), 'm') ."\n";
-    }      
+    }
     if (isset($permissions['mayview_admin_permissions']) && $permissions['mayview_admin_permissions'] == 'true') {
       echo '&nbsp;|&nbsp;'.pageLink('permissions', lang('menu_permission'), 'm') ."\n";
     }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  * Author:      Daan Keuper
  * Date:        22 May 2006
@@ -10,4 +10,3 @@ function getpagenotfound() {
   $content = '<p>' . lang('page_not_exists') . '</p>';
   return $content;
 }
-

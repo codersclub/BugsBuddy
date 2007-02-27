@@ -11,7 +11,7 @@ class Mail {
     $this->subject = $subject;
     $this->htmlMessage = $htmlMessage;
   }
-  
+
   function send($to, $cc=null, $bcc=null) {
     $mailfrom = htmlUnsafe(getConfigurationValue('mailfrom'));
     if ($mailfrom == null) {

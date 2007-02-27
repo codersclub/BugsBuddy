@@ -19,4 +19,3 @@
 //require_once(ROOT_DIR.'/includes/Mail.php');
 require_once(ROOT_DIR.'/admin/users.php');
 require_once(ROOT_DIR.'/pages/register.php');
-

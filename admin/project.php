@@ -21,7 +21,7 @@ function getproject() {
 
       if (is_numeric($id)) {
         $check = Database::projectWithID($id);
-        
+
         if (count($check) == 1) {
           Database::deleteProjectVersions($id);
           Database::deleteProject($id);
@@ -100,7 +100,7 @@ function getproject() {
       foreach ($projects as $row) {
         $status = ($row['projectstatus_id'] == 1) ? lang('public') : lang('private');
         $bugs = Database::getCountWithProjectID($row['id']);
-                
+
         $ret .= '<tr>
                    <td>' . $row['name'] . '</td>
                    <td>' . count($bugs) . '</td>
@@ -119,7 +119,7 @@ function getproject() {
       $check = Database::projectWithID($id);
       if (count($check) == 1) {
         $ret = '<h1>' . lang('project_delete') . '</h1>';
-        
+
         $bugs = Database::getCountWithProjectID($id);
 
         if (count($bugs) > 0) {
@@ -127,7 +127,7 @@ function getproject() {
         } else {
           $ret .= '<p>' . lang('are_you_sure') . '</p>';
         }
-        
+
         $ret .= '<p>
                    '.pageLink('project', lang('no')) . '
                    '.pageLink('project&act=deleteConfirm&id=' . $id, lang('yes')) . '
@@ -147,7 +147,7 @@ function getproject() {
       $msg = '';
       $msg2 = '';
       $msg3 = '';
-      
+
       if (!empty($_POST)) {
         if ($_POST['act'] == 'project') {
           echo 'test';
@@ -229,14 +229,14 @@ function getproject() {
                    </div>
                 </form>
                 <p><span class="graytext">'. lang('required_fields') .'</span></p>';
-        
-        
+
+
         $ret .= '<h1>' . lang('version_new') . '</h1>';
-                
+
         if (!empty($msg3)) {
           $ret .= '<p><span class="error">' . $msg3 . '</span></p>';
         }
-      
+
         $ret .= '<form action="index.php?page=project&act=edit&id=' . $id . '" method="post">
                    <input type="hidden" name="act" value="versionnew" />
                    <div class="registerinput">
@@ -257,7 +257,7 @@ function getproject() {
 
         $versions = Database::getVersions($id);
 
-        if (count($versions) > 0) {        
+        if (count($versions) > 0) {
           $ret .= '<form action="index.php?page=project&act=versionDelete&id=' . $id . '" method="post">
                      <div class="registerinput">
                        <label class="registerlabel" for="name">'. lang('version') .':</label>
@@ -266,7 +266,7 @@ function getproject() {
           foreach ($versions as $row) {
             $ret .= '<option value="' . $row['id'] . '">' . $row['version'] . '</option>';
           }
-                 
+
           $ret .= '</select>
                      </div>
                      <div class="registerinput">
@@ -286,7 +286,7 @@ function getproject() {
           }
 
           $users = Database::getNormalUserList();
-          
+
           if (count($users) > 0) {
             $ret .= '<form action="index.php?page=project&act=edit&id=' . $id . '" method="post" name="users">
                 <input type="hidden" name="act" value="users" />
@@ -296,7 +296,7 @@ function getproject() {
                     <th style="width: 200px;">'. lang('email'). '</th>
                     <th style="width: 50px;">' . lang('access') . '</th>
                   </tr>';
-            
+
             $i = 0;
             foreach ($users as $row) {
               if ($i % 2 != 0) {
@@ -314,7 +314,7 @@ function getproject() {
 
               $i++;
             }
-            
+
             $ret .= '<tr>
                        <td colspan="3" class="right"><input type="submit" value="' . lang('edit') . '" /></td>
                      </tr>
@@ -328,14 +328,14 @@ function getproject() {
           $ret .= '<h1>' . lang('users_linked') . '</h1>';
 
           $users = Database::getUsersFromProject($id);
-          
+
           if (count($users) > 0) {
             $ret .= '<table>
                   <tr>
                     <th style="width: 200px;">'. lang('name'). '</th>
                     <th style="width: 200px;">'. lang('email'). '</th>
                   </tr>';
-            
+
             $i = 0;
             foreach ($users as $row) {
               if ($i % 2 != 0) {
@@ -350,7 +350,7 @@ function getproject() {
 
               $i++;
             }
-            
+
             $ret .= '</table>';
           } else {
             $ret .= '<p><i>' . lang('users_no_linked') . '</p></i>';
@@ -370,7 +370,7 @@ function getproject() {
       $check = Database::versionWithID($id);
       if (count($check) == 1) {
         $ret .= '<h1>' . lang('version_delete') . '</h1>';
-        
+
         $bugs = Database::getCountWithVersionID($id);
 
         if (count($bugs) > 0) {
@@ -378,7 +378,7 @@ function getproject() {
         } else {
           $ret .= '<p>' . lang('are_you_sure') . '</p>';
         }
-        
+
         $ret .= '<p>
                    '.pageLink('project&act=edit&id=' . $_GET['id'], lang('no')) . '
                    '.pageLink('project&act=edit&id=' . $_GET['id'] . '&version=' . $id, lang('yes')) . '

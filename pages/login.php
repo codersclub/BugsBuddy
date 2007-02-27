@@ -111,11 +111,11 @@ function getLoginHtml() {
  * Do 'NOT' use newlines in the sourcecode below!
  */
 function getLogoutHtml() {
-    $returnValue = ''; 
+    $returnValue = '';
     $returnValue .= lang('welcome').' <strong>'.getCurrentSafeUsername().'</strong><br />';
     $returnValue .= pageLink('logout', lang('logout')) . '&nbsp;|&nbsp;';
     $returnValue .= pageLink('changepassword', lang('password_modify'));
-    
+
     //pageLink('changepassword', lang('menu_password_change'), 'm') . '&nbsp;&nbsp;|&nbsp;&nbsp;'.
     return $returnValue;
 }
