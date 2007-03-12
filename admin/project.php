@@ -96,12 +96,14 @@ function getproject() {
                    <th>&nbsp;</th>
                    <th>&nbsp;</th>
                  </tr>';
-
+      $i = 1;
       foreach ($projects as $row) {
         $status = ($row['projectstatus_id'] == 1) ? lang('public') : lang('private');
         $bugs = Database::getCountWithProjectID($row['id']);
 
-        $ret .= '<tr>
+        $class = ($i++ % 2 == 0) ? ' class="gray"' : '';
+
+        $ret .= '<tr'.$class.'>
                    <td>' . $row['name'] . '</td>
                    <td>' . count($bugs) . '</td>
                    <td>' . $status . '</td>
