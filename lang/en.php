@@ -135,6 +135,7 @@ $lang = array(
 'register_subject'	=> 'Welcome to bugtracker',//'Welkom op bugtracker',
 'register_body'		=> 'Welcome to the bugtracker site http://bugsbuddy.hostname.tld/. You can now log in using your email address and password.<br /><br />Sincerelly yours, BugsBuddy.',//'Welkom op de bugtracker site http://bugsbunny.slapware.eu/. U kunt nu inloggen met uw email adres en wachtwoord.<br /><br />Met vriendelijke groet, Alex de Vries.',
 'register_ok'		=> 'Thanks for registering, you can now log into the site',//'Bedank voor het registreren, u kunt nu inloggen op de site',
+'register_by_admin_ok'	=> 'New user successfully registered. He/she can now log into the site.',//'Bedank voor het registreren, u kunt nu inloggen op de site',
 'register_success'	=> 'Have successfully registered',//'Successvol geregistreerd',
 
 'login_required_for_this'	=> 'You must be logged in for use this functionality.',//'Voor deze functionaliteit moet u ingelogd zijn.',

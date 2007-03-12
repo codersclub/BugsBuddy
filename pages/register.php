@@ -7,7 +7,7 @@
 require_once(ROOT_DIR.'/includes/Mail.php');
 
 function getregister() {
-  if (isset($_POST) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email'])) {
+  if (isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email'])) {
     $name     = htmlUnsafe($_POST['name']);
     $password = htmlUnsafe($_POST['password']);
     $email    = strtolower(htmlUnsafe($_POST['email']));
@@ -32,7 +32,7 @@ function getregister() {
 
 function getRegistryForm() {
 
-  if (isset($_POST) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email'])) {
+  if (isset($_POST['name']) && isset($_POST['password']) && isset($_POST['email'])) {
     $name     = $_POST['name'];
     $password = $_POST['password'];
     $email    = strtolower($_POST['email']);
@@ -128,7 +128,7 @@ function handleRegistry($name, $password, $email, $groupid=0) {
   $emailMessage = new Mail(lang('register_subject'), '<html><head><title>'.lang('welcome').' '.$_POST['name'].'</title></head><body>'.lang('register_body').'</body></html>');
   $emailMessage->send($email);
 
-  $registerMessage = lang('register_ok');
+  $registerMessage = @$_SESSION['admin'] ? lang('register_by_admin_ok') : lang('register_ok') ;
   return $registerMessage;
 
 }

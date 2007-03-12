@@ -134,6 +134,7 @@ $lang = array(
 'register_subject'	=> 'Welkom op bugtracker',
 'register_body'		=> 'Welkom op de bugtracker site http://bugsbunny.slapware.eu/. U kunt nu inloggen met uw email adres en wachtwoord.<br /><br />Met vriendelijke groet, Alex de Vries.',
 'register_ok'		=> 'Bedank voor het registreren, u kunt nu inloggen op de site',
+'register_by_admin_ok'	=> 'New user successfully registered. He/she can now log into the site.',//'Bedank voor het registreren, u kunt nu inloggen op de site',
 'register_success'	=> 'Successvol geregistreerd',
 
 'login_required_for_this'	=> 'Voor deze functionaliteit moet u ingelogd zijn.',
