@@ -16,8 +16,6 @@ require_once('includes/helperfunctions.php');
 
 $pages = Database::getPages();
 
-$config = Database::getConfig();
-
 if ($pages == null || $config == null) {
   // We where unable to get the pages from the database, something is seriously wrong with the database
   $_GET['page']    = 'errorpage';

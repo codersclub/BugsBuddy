@@ -42,6 +42,8 @@ require_once(ROOT_DIR.'/lang/'.LANG.'.php');
 require_once(ROOT_DIR.'/includes/Database.php');
 include(ROOT_DIR.'/includes/htmlsafe.php');
 
+$config = Database::getConfig();
+
 //----------------------------------------------
 //vot: Unix Style Dir Name
 function u($file = '') {
