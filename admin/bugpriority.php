@@ -12,11 +12,11 @@
 function getbugpriority() {
   $returnValue = '<h1>' . lang('priority_add_remove') . '</h1>';
 
-  if (!empty($_GET['remBugPriorityID']))
+  if (!empty($_POST['remBugPriorityID']))
   {
-    if (is_numeric($_GET['remBugPriorityID']) && intval($_GET['remBugPriorityID']) != 1)
+    if (is_numeric($_POST['remBugPriorityID']) && intval($_POST['remBugPriorityID']) != 1)
     {
-      Database::remBugPriority($_GET['remBugPriorityID']);
+      Database::remBugPriority($_POST['remBugPriorityID']);
       $returnValue .= '<p>' . lang('priority_deleted') . '</p><br />';
       $returnValue .= pageLink('bugpriority', lang('back'));
     }

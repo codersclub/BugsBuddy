@@ -5,19 +5,18 @@
 */
 
 function getpermissions() {
-  $returnValue = '';
-  $returnValue .= '<h1>' . lang('permissions') . '</h1>';
+  $returnValue = '<h1>' . lang('permissions') . '</h1>';
 
   if(isLoggedIn()) {
     $results     = Database::getPermissions(intval(getCurrentGroupId()));
-    $permissions   = Array();
+    $permissions = Array();
 
     foreach($results as $result) {
       $permissions[$result['setting']] = $result['value'];
     }
 
     if (isset($permissions['mayview_admin_permissions']) && $permissions['mayview_admin_permissions'] == 'true') {
-      if (@$_GET['delete'] == 'true' || @$_GET['submitit'] == 'true') {
+      if (@$_GET['delete'] == 'true' || @$_POST['submitit'] == 'true') {
         $returnValue .= handlePermissionsForm();
       } else {
         $returnValue .= getPermissionsForm(true);
@@ -51,19 +50,19 @@ function getGroups($groupId) {
 }
 
 function getPermissionsForm($recoverData) {
+
+  $id          = 0;
+  $groupId     = 0;
+  $setting     = '';
+  $value       = '';
+  $description = '';
   $returnValue = '';
 
-  $id        = 0;
-  $groupId    = 0;
-  $setting    = '';
-  $value      = '';
-  $description  = '';
-
-  if ($recoverData && isset($_GET['groupid']) && isset($_GET['setting']) && isset($_GET['value']) && isset($_GET['description'])) {
-    $groupId     = intval($_GET['groupid']);
-    $setting     = $_GET['setting'];
-    $value       = $_GET['value'];
-    $description = $_GET['description'];
+  if ($recoverData && isset($_POST['groupid']) && isset($_POST['setting']) && isset($_POST['value']) && isset($_POST['description'])) {
+    $groupId     = intval($_POST['groupid']);
+    $setting     = $_POST['setting'];
+    $value       = $_POST['value'];
+    $description = $_POST['description'];
   }
 
   if(isset($_GET['id'])) {
@@ -83,13 +82,13 @@ function getPermissionsForm($recoverData) {
 
   $thisPage   = 'permissions';
   $currentUrl = getCurrentRequestUrl();
-  $currentUrl = explode('?', $currentUrl);
+  $currentUrl = explode('&amp;id=', $currentUrl);
   $currentUrl = $currentUrl[0];
 
   $result = Database::getPermissionWithClause(true, 0);
 
   if(!empty($result)) {
-    $returnValue .= '<table style="width: 100%;">
+    $returnValue .= '<table width="100%">
               <tr>
                 <th>&nbsp;</th>
                 <th>&nbsp;</th>
@@ -125,8 +124,10 @@ function getPermissionsForm($recoverData) {
             </table>';
   }
 
+  $subTitle = $id ? lang('permission_edit') : lang('permission_add');
+
   $returnValue .= '
-                <h2>'.lang('permission_add').'</h2>
+                <h2>'.$subTitle.'</h2>
                 <form action="'.$currentUrl.'" method="POST">
                   <input type="hidden" name="page" value="'.$thisPage.'"/>
                   <input type="hidden" name="submitit" value="true"/>';
@@ -170,11 +171,12 @@ function handlePermissionsForm() {
   $value      = '';
   $description  = '';
 
-  if (isset($_GET['groupid']) && isset($_GET['setting']) && isset($_GET['value']) && isset($_GET['description'])) {
-    $groupId     = intval($_GET['groupid']);
-    $setting     = $_GET['setting'];
-    $value       = $_GET['value'];
-    $description = $_GET['description'];
+  if (isset($_POST['groupid']) && isset($_POST['setting']) && isset($_POST['value']) && isset($_POST['description'])) {
+    $groupId     = intval($_POST['groupid']);
+    $setting     = $_POST['setting'];
+    $value       = $_POST['value'];
+    $description = $_POST['description'];
+    $pId         = intval($_POST['id']);
   }
 
   if(isset($_GET['id'])) {
@@ -184,8 +186,8 @@ function handlePermissionsForm() {
   if(@$_GET['delete'] == 'true') {
     Database::delPermission($id);
   } else {
-    $errorMessage   = '';
-    $error       = false;
+    $errorMessage = '';
+    $error        = false;
 
     if(!is_numeric($groupId) || empty($setting) || empty($value) || empty($description)) {
       $error = true;
@@ -195,10 +197,10 @@ function handlePermissionsForm() {
       return getPermissionsForm(true) . nl2br($errorMessage);
     }
 
-    if(empty($id)) {
+    if(empty($pId)) {
       Database::submitPermissions($groupId, htmlUnSafe($setting), htmlUnSafe($value), $description);
     } else {
-      Database::updatePermission($id, $groupId, htmlUnSafe($setting), htmlUnSafe($value), $description);
+      Database::updatePermission($pId, $groupId, htmlUnSafe($setting), htmlUnSafe($value), $description);
     }
   }
 

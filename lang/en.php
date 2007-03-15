@@ -253,6 +253,7 @@ $lang = array(
 
 'permissions'		=> 'Permissions',//'Permissions',
 'permission_add'	=> 'Add Permission',//'Permission toevoegen',
+'permission_edit'	=> 'Edit Permission',
 'permission_not_enough'	=> 'Insufficient rights.',//'Onvoldoende rechten.',
 'group'			=> 'Group',//'Groep',
 'keyword'		=> 'Keyword',//'Sleutelwoord',
