@@ -63,7 +63,7 @@ class MySQL {
    * Returns the only instance of the MySQL object. If the object does not yet exists, a new one will
    * be created
    */
-  function instance() {
+  static function instance() {
     global $MySQLInstance;
     if ($MySQLInstance == null) {
       $MySQLInstance = new MySQL();
@@ -79,7 +79,7 @@ class MySQL {
    * Executes a query and returns an Array with the result. If there was an error while executing the
    * query, the value 'null' is returned
    */
-  function query($queryString) {
+  static function query($queryString) {
 //DEBUG
 //echo '<pre>';
 //echo 'query=', htmlspecialchars($queryString), "\n";
